@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Modo oscuro: colores base y fondo */
+body {
+  @apply bg-gradient-to-br from-blue-50 to-cyan-100 text-gray-900 transition-colors duration-300;
+}
+body.dark {
+  @apply bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-gray-100;
+}
+
+/* Card central */
+.card-main {
+  @apply bg-white/80 dark:bg-gray-900/80 shadow-2xl rounded-3xl p-10 max-w-2xl mx-auto w-full border border-blue-100 dark:border-gray-700 transition-colors duration-300;
+}
+
+/* Tabs */
+.tab-btn {
+  @apply flex items-center gap-2 px-5 py-2 rounded-full font-semibold shadow transition-all duration-200 border-2;
+}
+.tab-btn-active {
+  @apply bg-white dark:bg-gray-800 border-blue-500 text-blue-700 dark:text-cyan-300 scale-105 shadow-lg;
+}
+.tab-btn-inactive {
+  @apply bg-gray-50 dark:bg-gray-800 border-transparent text-gray-500 dark:text-gray-300 hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-gray-700 dark:hover:text-cyan-200;
+}
+
+/* Botón principal */
+.btn-main {
+  @apply w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-blue-500 to-cyan-400 hover:from-blue-600 hover:to-cyan-500 text-white text-lg font-bold rounded-xl shadow-lg transition-all duration-200 transform hover:-translate-y-1 hover:scale-105 flex items-center gap-2 mt-4 mb-2 dark:from-cyan-700 dark:to-blue-900 dark:hover:from-cyan-800 dark:hover:to-blue-950;
+}
+
+/* Accesibilidad: focus visible */
+:focus-visible {
+  outline: 2px solid #38bdf8;
+  outline-offset: 2px;
+}
+
+/* Mejor contraste para inputs en dark */
+input, select, textarea {
+  @apply dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600;
+}
+
+/* ...más estilos si es necesario... */ 
