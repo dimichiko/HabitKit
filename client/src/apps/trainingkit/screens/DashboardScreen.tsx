@@ -1,7 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { FaPlus, FaCalendarAlt, FaChartBar } from 'react-icons/fa';
 import apiClient, { statsClient } from '../utils/api';
+
+interface Stats {
+  byWeek: Record<string, number>;
+  currentStreak: number;
+}
+
+interface Training {
+  type: string;
+  duration: number;
+}
+
+interface DashboardScreenProps {
+  onNavigate: (path: string) => void;
+}
 
 const frases = [
   '¡Vamos por otra racha!',
@@ -10,10 +23,10 @@ const frases = [
   'Cada día cuenta, ¡sigue así!',
 ];
 
-const DashboardScreen = ({ onNavigate }) => {
-  const [stats, setStats] = useState(null);
-  const [lastTraining, setLastTraining] = useState(null);
-  const [frase, setFrase] = useState(frases[0]);
+const DashboardScreen: React.FC<DashboardScreenProps> = ({ onNavigate }) => {
+  const [stats, setStats] = useState<Stats | null>(null);
+  const [lastTraining, setLastTraining] = useState<Training | null>(null);
+  const [frase, setFrase] = useState<string>(frases[0]);
 
   useEffect(() => {
     statsClient.get('/summary').then(res => setStats(res.data));
@@ -35,17 +48,17 @@ const DashboardScreen = ({ onNavigate }) => {
       </motion.div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.98 }} className="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center">
-          <span className="text-5xl mb-2 text-purple-500"><FaPlus /></span>
+          <span className="text-5xl mb-2 text-purple-500">➕</span>
           <p className="font-bold text-lg mb-2">Registrar Entrenamiento</p>
           <button className="mt-2 border border-purple-500 text-purple-700 px-4 py-2 rounded-full w-full hover:bg-purple-50 transition" onClick={() => onNavigate('add')}>➕ Agregar</button>
         </motion.div>
         <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.98 }} className="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center">
-          <span className="text-5xl mb-2 text-blue-500"><FaCalendarAlt /></span>
+          <span className="text-5xl mb-2 text-blue-500">📅</span>
           <p className="font-bold text-lg mb-2">Calendario</p>
           <button className="mt-2 border border-blue-500 text-blue-700 px-4 py-2 rounded-full w-full hover:bg-blue-50 transition" onClick={() => onNavigate('calendar')}>Ver calendario</button>
         </motion.div>
         <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.98 }} className="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center">
-          <span className="text-5xl mb-2 text-green-500"><FaChartBar /></span>
+          <span className="text-5xl mb-2 text-green-500">📊</span>
           <p className="font-bold text-lg mb-2">Estadísticas</p>
           <button className="mt-2 border border-green-500 text-green-700 px-4 py-2 rounded-full w-full hover:bg-green-50 transition" onClick={() => onNavigate('stats')}>Ver estadísticas</button>
         </motion.div>

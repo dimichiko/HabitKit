@@ -1,56 +1,68 @@
-import React, { useState, useEffect } from 'react';
-import { useUser } from '../shared/context/UserContext';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useUserContext } from '../shared/context/UserContext';
 import PlanStatusBadge from '../components/PlanStatusBadge';
 import Header from '../shared/components/Header';
 
-const AppSelectorPage = () => {
-  const { user, hasAppAccess, canUpgradePlan, getAvailableApps } = useUser();
+interface App {
+  id: string;
+  name: string;
+  description: string;
+  icon: string;
+  color: string;
+  path: string;
+  available: boolean;
+}
+
+const AppSelectorPage: React.FC = () => {
+  const navigate = useNavigate();
+  const { user, hasAppAccess, canUpgradePlan, getAvailableApps } = useUserContext();
   const [loading, setLoading] = useState(true);
+  const [selectedApp, setSelectedApp] = useState<string | null>(null);
 
-  useEffect(() => {
-    const loadApps = async () => {
-      setLoading(true);
-      try {
-        await getAvailableApps();
-      } catch (error) {
-        console.error('Error cargando apps:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadApps();
-  }, [getAvailableApps]);
-
-  // Configuración de apps
-  const appConfigs = {
-    habitkit: {
+  const apps: App[] = [
+    {
+      id: 'habitkit',
       name: 'HabitKit',
-      description: 'Gestiona tus hábitos y rutinas diarias',
-      icon: '📊',
+      description: 'Construye hábitos positivos y rastrea tu progreso diario',
+      icon: '✅',
       color: 'bg-blue-500',
-      features: ['Seguimiento de hábitos', 'Estadísticas', 'Recordatorios']
+      path: '/apps/habitkit',
+      available: true
     },
-    invoicekit: {
+    {
+      id: 'invoicekit',
       name: 'InvoiceKit',
-      description: 'Crea y gestiona facturas profesionales',
+      description: 'Gestiona facturas y clientes de forma profesional',
       icon: '📄',
-      color: 'bg-green-500',
-      features: ['Facturas personalizadas', 'Gestión de clientes', 'Reportes']
+      color: 'bg-yellow-500',
+      path: '/apps/invoicekit',
+      available: true
     },
-    trainingkit: {
+    {
+      id: 'trainingkit',
       name: 'TrainingKit',
-      description: 'Planifica y registra tus entrenamientos',
+      description: 'Planifica y registra tus entrenamientos físicos',
       icon: '💪',
-      color: 'bg-purple-500',
-      features: ['Rutinas de ejercicio', 'Seguimiento de progreso', 'Calendario']
+      color: 'bg-green-500',
+      path: '/apps/trainingkit',
+      available: true
     },
-    caloriekit: {
+    {
+      id: 'caloriekit',
+      description: 'Controla tu nutrición y alcanza tus objetivos de peso',
       name: 'CalorieKit',
-      description: 'Controla tu nutrición y calorías',
       icon: '🍎',
-      color: 'bg-orange-500',
-      features: ['Registro de comidas', 'Análisis nutricional', 'Objetivos']
+      color: 'bg-red-500',
+      path: '/apps/caloriekit',
+      available: true
+    }
+  ];
+
+  const handleAppSelect = (app: App): void => {
+    if (app.available && hasAppAccess(app.id)) {
+      setSelectedApp(app.id);
+      navigate(app.path);
     }
   };
 
@@ -68,7 +80,7 @@ const AppSelectorPage = () => {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Cargando aplicaciones...</p>
+          <p className="mt-4 text-gray-600">Cargando...</p>
         </div>
       </div>
     );
@@ -104,7 +116,7 @@ const AppSelectorPage = () => {
                   key={app}
                   className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium"
                 >
-                  {appConfigs[app as keyof typeof appConfigs]?.name || app}
+                  {app}
                 </span>
               ))}
             </div>
@@ -113,74 +125,33 @@ const AppSelectorPage = () => {
 
         {/* Apps Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {Object.entries(appConfigs).map(([appKey, config]) => {
-            const hasAccess = hasAppAccess(appKey);
-            const isActive = user?.activeApps?.includes(appKey);
-            
-            return (
-              <div
-                key={appKey}
-                className={`bg-white rounded-lg shadow-sm border-2 transition-all duration-200 cursor-pointer hover:shadow-md ${
-                  hasAccess 
-                    ? 'border-green-200 hover:border-green-300' 
-                    : 'border-gray-200 hover:border-gray-300'
-                } ${isActive ? 'ring-2 ring-green-500' : ''}`}
-                onClick={() => handleAppClick(appKey)}
-              >
-                <div className="p-6">
-                  {/* Icon */}
-                  <div className={`w-12 h-12 rounded-lg flex items-center justify-center text-2xl mb-4 ${config.color} text-white`}>
-                    {config.icon}
-                  </div>
-                  
-                  {/* Title */}
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                    {config.name}
-                  </h3>
-                  
-                  {/* Description */}
-                  <p className="text-gray-600 text-sm mb-4">
-                    {config.description}
-                  </p>
-                  
-                  {/* Features */}
-                  <ul className="space-y-1 mb-4">
-                    {config.features.map((feature, index) => (
-                      <li key={index} className="text-xs text-gray-500 flex items-center">
-                        <span className="w-1 h-1 bg-gray-400 rounded-full mr-2"></span>
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                  
-                  {/* Status */}
-                  <div className="flex items-center justify-between">
-                    {hasAccess ? (
-                      <span className="text-green-600 text-sm font-medium flex items-center">
-                        <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
-                        Disponible
-                      </span>
-                    ) : (
-                      <span className="text-gray-500 text-sm font-medium flex items-center">
-                        <span className="w-2 h-2 bg-gray-400 rounded-full mr-2"></span>
-                        Requiere upgrade
-                      </span>
-                    )}
-                    
-                    <button
-                      className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
-                        hasAccess
-                          ? 'bg-green-600 hover:bg-green-700 text-white'
-                          : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
-                      }`}
-                    >
-                      {hasAccess ? 'Abrir' : 'Upgrade'}
-                    </button>
-                  </div>
-                </div>
+          {apps.map((app) => (
+            <div
+              key={app.id}
+              onClick={() => handleAppSelect(app)}
+              className={`bg-white rounded-lg shadow-sm p-6 cursor-pointer transition-all duration-200 hover:shadow-md hover:scale-105 ${
+                !app.available || !hasAppAccess(app.id) ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
+            >
+              <div className={`w-16 h-16 ${app.color} rounded-lg flex items-center justify-center text-2xl text-white mb-4 mx-auto`}>
+                {app.icon}
               </div>
-            );
-          })}
+              <h3 className="text-xl font-semibold text-gray-900 mb-2 text-center">{app.name}</h3>
+              <p className="text-gray-600 text-center text-sm">{app.description}</p>
+              
+              {!app.available && (
+                <div className="mt-4 text-center">
+                  <span className="text-sm text-gray-500">Próximamente</span>
+                </div>
+              )}
+              
+              {app.available && !hasAppAccess(app.id) && (
+                <div className="mt-4 text-center">
+                  <span className="text-sm text-red-500">Actualiza tu plan</span>
+                </div>
+              )}
+            </div>
+          ))}
         </div>
 
         {/* Upgrade CTA */}

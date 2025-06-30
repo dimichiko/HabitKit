@@ -1,7 +1,33 @@
 import React from 'react';
-import { FaCheckCircle, FaEdit, FaTrash, FaPlus } from 'react-icons/fa';
 
-const HabitCard = ({
+interface Habit {
+  _id: string;
+  name: string;
+  color: string;
+  timesPerDay: number;
+}
+
+interface Status {
+  count: number;
+  status: 'completed' | 'partial' | 'pending';
+}
+
+interface HabitCardProps {
+  habit: Habit;
+  status: Status;
+  checkinSuccess: string | null;
+  onCheckin: (habitId: string) => void;
+  onEdit: (habit: Habit) => void;
+  onDelete: (habitId: string) => void;
+}
+
+const statusIcons: Record<Status['status'], string> = {
+  completed: '🟢',
+  partial: '🟡',
+  pending: '🔴',
+};
+
+const HabitCard: React.FC<HabitCardProps> = ({
   habit,
   status,
   checkinSuccess,
@@ -9,12 +35,6 @@ const HabitCard = ({
   onEdit,
   onDelete,
 }) => {
-  const statusIcons = {
-    completed: '🟢',
-    partial: '🟡',
-    pending: '🔴',
-  };
-
   return (
     <div
       key={habit._id}
@@ -28,7 +48,7 @@ const HabitCard = ({
       <div className="flex justify-between items-center mb-2">
         <h3 className="text-xl font-bold text-gray-900 flex items-center gap-2">
           <span style={{ color: habit.color }}>
-            <FaCheckCircle />
+            ✅
           </span>
           {habit.name}
         </h3>
@@ -55,7 +75,7 @@ const HabitCard = ({
           disabled={status.count >= habit.timesPerDay}
           title="Haz clic cuando termines este hábito"
         >
-          <FaCheckCircle className="mr-1" /> Completar
+          <span className="mr-1">✅</span> Completar
         </button>
 
         {status.status === 'completed' && (
@@ -69,13 +89,13 @@ const HabitCard = ({
             className="p-2 text-gray-400 hover:text-green-500 transition-colors"
             onClick={() => onEdit(habit)}
           >
-            <FaEdit />
+            ✏️
           </button>
           <button
             className="p-2 text-gray-400 hover:text-red-500 transition-colors"
             onClick={() => onDelete(habit._id)}
           >
-            <FaTrash />
+            🗑️
           </button>
         </div>
       </div>
@@ -84,7 +104,7 @@ const HabitCard = ({
       {checkinSuccess === habit._id && (
         <div className="absolute inset-0 flex items-center justify-center bg-green-50 bg-opacity-95 rounded-xl animate-pulse z-10">
           <div className="text-center">
-            <FaCheckCircle className="text-green-600 text-5xl mx-auto mb-3 animate-bounce" />
+            <span className="text-green-600 text-5xl mx-auto mb-3 animate-bounce">✅</span>
             <span className="text-green-700 text-xl font-bold">
               ¡Completado!
             </span>

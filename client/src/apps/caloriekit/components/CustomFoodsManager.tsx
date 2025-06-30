@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getUserFoods, deleteFood } from '../utils/api';
+import { getFoods, deleteFood } from '../utils/api';
 
 // Tipos
 interface Food {
@@ -34,7 +34,7 @@ const CustomFoodsManager: React.FC<CustomFoodsManagerProps> = ({ userProfile, is
   const loadCustomFoods = async () => {
     setLoading(true);
     try {
-      const foods = await getUserFoods();
+      const foods = await getFoods();
       setCustomFoods(foods as Food[]);
     } catch (error) {
       console.error('Error loading custom foods:', error);

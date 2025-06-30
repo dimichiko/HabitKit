@@ -1,8 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { createEmpresa, updateEmpresa } from '../utils/api';
 
-const EmpresaForm = ({ onSave, onBack, empresaToEdit }) => {
-  const [empresa, setEmpresa] = useState({
+interface Empresa {
+  _id?: string;
+  name: string;
+  ruc: string;
+  address: string;
+  phone: string;
+  email: string;
+  notes: string;
+}
+
+interface EmpresaFormProps {
+  onSave: (empresa: Empresa) => void;
+  onBack: () => void;
+  empresaToEdit: Empresa | null;
+}
+
+const EmpresaForm: React.FC<EmpresaFormProps> = ({ onSave, onBack, empresaToEdit }) => {
+  const [empresa, setEmpresa] = useState<Empresa>({
     name: '',
     ruc: '',
     address: '',
@@ -10,7 +26,7 @@ const EmpresaForm = ({ onSave, onBack, empresaToEdit }) => {
     email: '',
     notes: ''
   });
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     if (empresaToEdit) {
@@ -25,24 +41,25 @@ const EmpresaForm = ({ onSave, onBack, empresaToEdit }) => {
     }
   }, [empresaToEdit]);
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setEmpresa(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     try {
-      let savedEmpresa;
+      let savedEmpresa: Empresa;
       if (empresaToEdit && empresaToEdit._id) {
-        savedEmpresa = await updateEmpresa(empresaToEdit._id, empresa);
+        savedEmpresa = await updateEmpresa(empresaToEdit._id, empresa as any);
       } else {
-        savedEmpresa = await createEmpresa(empresa);
+        savedEmpresa = await createEmpresa(empresa as any);
       }
       onSave(savedEmpresa);
-    } catch (err) {
-      console.error(err.message || 'Error al guardar la empresa');
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : 'Error al guardar la empresa';
+      console.error(errorMessage);
     } finally {
       setLoading(false);
     }

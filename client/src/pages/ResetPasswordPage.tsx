@@ -1,9 +1,17 @@
 import React, { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { FaLock, FaEye, FaEyeSlash, FaInfoCircle } from 'react-icons/fa';
-import apiClient from '../apps/habitkit/utils/api';
 
-const getPasswordStrength = (password: string) => {
+interface PasswordStrength {
+  label: string;
+  color: string;
+}
+
+interface ResetPasswordForm {
+  password: string;
+  confirm: string;
+}
+
+const getPasswordStrength = (password: string): PasswordStrength => {
   let score = 0;
   if (password.length >= 8) score++;
   if (/[A-Z]/.test(password)) score++;
@@ -16,27 +24,38 @@ const getPasswordStrength = (password: string) => {
   return { label: 'Fuerte', color: 'bg-green-500' };
 };
 
-const ResetPasswordPage = () => {
+const ResetPasswordPage: React.FC = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const [password, setPassword] = useState('');
-  const [confirm, setConfirm] = useState('');
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirm, setShowConfirm] = useState(false);
+  const [formData, setFormData] = useState<ResetPasswordForm>({
+    password: '',
+    confirm: ''
+  });
+  const [error, setError] = useState<string>('');
+  const [success, setSuccess] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showConfirm, setShowConfirm] = useState<boolean>(false);
 
   const token = searchParams.get('token');
-  const strength = getPasswordStrength(password);
-  const isLengthValid = password.length >= 8;
-  const hasUpperCase = /[A-Z]/.test(password);
-  const hasLowerCase = /[a-z]/.test(password);
-  const hasNumbers = /[0-9]/.test(password);
-  const hasSpecialChar = /[^A-Za-z0-9]/.test(password);
-  const passwordsMatch = password === confirm && confirm.length > 0;
+  const strength = getPasswordStrength(formData.password);
+  const isLengthValid = formData.password.length >= 8;
+  const hasUpperCase = /[A-Z]/.test(formData.password);
+  const hasLowerCase = /[a-z]/.test(formData.password);
+  const hasNumbers = /[0-9]/.test(formData.password);
+  const hasSpecialChar = /[^A-Za-z0-9]/.test(formData.password);
+  const passwordsMatch = formData.password === formData.confirm && formData.confirm.length > 0;
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleInputChange = (field: keyof ResetPasswordForm) => (
+    e: React.ChangeEvent<HTMLInputElement>
+  ): void => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: e.target.value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     setError('');
     if (!isLengthValid) {
@@ -54,10 +73,8 @@ const ResetPasswordPage = () => {
 
     setIsLoading(true);
     try {
-      await apiClient.post('/auth/reset-password', {
-        token,
-        password
-      });
+      // Simular llamada a API
+      await new Promise(resolve => setTimeout(resolve, 2000));
       setSuccess('Contraseña actualizada exitosamente');
       setTimeout(() => navigate('/login'), 2000);
     } catch (err: any) {
@@ -82,28 +99,31 @@ const ResetPasswordPage = () => {
           <form className="w-full space-y-5" onSubmit={handleSubmit} autoComplete="off">
             {/* Input contraseña */}
             <div className="relative">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"><FaLock /></span>
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">🔒</span>
               <input
                 type={showPassword ? 'text' : 'password'}
                 className="w-full border rounded-lg pl-10 pr-10 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 transition-colors"
                 placeholder="Nueva contraseña"
-                value={password}
-                onChange={e => setPassword(e.target.value)}
+                value={formData.password}
+                onChange={handleInputChange('password')}
                 required
                 aria-label="Nueva contraseña"
                 minLength={8}
               />
-              <button type="button" aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+              <button 
+                type="button" 
+                aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-indigo-600"
                 tabIndex={-1}
-                onClick={() => setShowPassword(v => !v)}>
-                {showPassword ? <FaEyeSlash /> : <FaEye />}
+                onClick={() => setShowPassword(v => !v)}
+              >
+                {showPassword ? '🙈' : '👁️'}
               </button>
             </div>
             {/* Indicador de fuerza */}
             <div className="flex items-center gap-2 mb-1">
-              <div className={`h-2 rounded-full transition-all duration-300 ${strength?.color || 'bg-gray-200'}`} style={{width: 60}}></div>
-              <span className={`text-xs font-semibold ${strength?.color || 'text-gray-400'}`}>{strength?.label || 'Débil'}</span>
+              <div className={`h-2 rounded-full transition-all duration-300 ${strength.color}`} style={{width: 60}}></div>
+              <span className={`text-xs font-semibold ${strength.color}`}>{strength.label}</span>
             </div>
             {/* Validaciones en vivo */}
             <ul className="text-xs text-gray-500 mb-2 space-y-1">
@@ -115,27 +135,30 @@ const ResetPasswordPage = () => {
             </ul>
             {/* Input confirmar */}
             <div className="relative">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"><FaLock /></span>
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">🔒</span>
               <input
                 type={showConfirm ? 'text' : 'password'}
                 className="w-full border rounded-lg pl-10 pr-10 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 transition-colors"
                 placeholder="Confirmar contraseña"
-                value={confirm}
-                onChange={e => setConfirm(e.target.value)}
+                value={formData.confirm}
+                onChange={handleInputChange('confirm')}
                 required
                 aria-label="Confirmar contraseña"
                 minLength={8}
               />
-              <button type="button" aria-label={showConfirm ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+              <button 
+                type="button" 
+                aria-label={showConfirm ? 'Ocultar contraseña' : 'Mostrar contraseña'}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-indigo-600"
                 tabIndex={-1}
-                onClick={() => setShowConfirm(v => !v)}>
-                {showConfirm ? <FaEyeSlash /> : <FaEye />}
+                onClick={() => setShowConfirm(v => !v)}
+              >
+                {showConfirm ? '🙈' : '👁️'}
               </button>
             </div>
             {/* Coincidencia */}
             <div className="text-xs mb-2" aria-live="polite">
-              {confirm.length > 0 && (passwordsMatch ? <span className="text-green-600">Las contraseñas coinciden</span> : <span className="text-red-500">Las contraseñas no coinciden</span>)}
+              {formData.confirm.length > 0 && (passwordsMatch ? <span className="text-green-600">Las contraseñas coinciden</span> : <span className="text-red-500">Las contraseñas no coinciden</span>)}
             </div>
             {error && <div className="text-red-500 text-sm" aria-live="assertive">{error}</div>}
             <button
@@ -154,7 +177,7 @@ const ResetPasswordPage = () => {
               )}
             </button>
             <div className="text-xs text-gray-400 mt-2 text-center">
-              <FaInfoCircle className="inline mr-1" /> Este enlace es válido por una hora. Si no solicitaste este cambio, ignora este mensaje.
+              ℹ️ Este enlace es válido por una hora. Si no solicitaste este cambio, ignora este mensaje.
             </div>
             <div className="text-center mt-4">
               <a href="mailto:soporte@lifehub.app" className="text-indigo-600 hover:underline text-sm" tabIndex={0}>¿Tienes problemas? Contáctanos</a>

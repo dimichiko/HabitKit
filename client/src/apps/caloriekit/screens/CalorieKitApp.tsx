@@ -13,19 +13,54 @@ import { ThemeProvider } from '../context/ThemeContext';
 import { MealProvider } from '../context/MealContext';
 import { getProfile, saveProfile } from '../utils/api';
 
-const themeConfig = {
+interface UserProfile {
+  _id: string;
+  name: string;
+  weight: number;
+  height: number;
+  gender: string;
+  goal: string;
+  age: number;
+  calorieTarget?: number;
+}
+
+interface ProfileData {
+  name: string;
+  weight: string | number;
+  height: string | number;
+  gender: string;
+  goal: string;
+  age: string | number;
+  calorieTarget?: number;
+  email?: string;
+  activityLevel?: string;
+}
+
+interface ThemeConfig {
+  appNameText: string;
+  activeNav: string;
+  inactiveNav: string;
+}
+
+interface NavigationItem {
+  id: string;
+  label: string;
+  icon: string;
+}
+
+const themeConfig: ThemeConfig = {
   appNameText: 'text-orange-700',
   activeNav: 'bg-orange-500 text-white shadow',
   inactiveNav: 'text-gray-600 hover:bg-orange-100',
 };
 
-const CalorieKitApp = () => {
-  const [currentPage, setCurrentPage] = useState('dashboard');
-  const [showOnboarding, setShowOnboarding] = useState(false);
-  const [userProfile, setUserProfile] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
-  const profileLoadedRef = useRef(false);
+const CalorieKitApp: React.FC = () => {
+  const [currentPage, setCurrentPage] = useState<string>('dashboard');
+  const [showOnboarding, setShowOnboarding] = useState<boolean>(false);
+  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [isEditProfileOpen, setIsEditProfileOpen] = useState<boolean>(false);
+  const profileLoadedRef = useRef<boolean>(false);
   const { logout } = useUser();
 
   useEffect(() => {
@@ -42,7 +77,7 @@ const CalorieKitApp = () => {
         if (missing) {
           setShowOnboarding(true);
         } else {
-          setUserProfile(profile);
+          setUserProfile(profile as UserProfile);
           setShowOnboarding(false);
         }
       } catch {
@@ -59,17 +94,17 @@ const CalorieKitApp = () => {
     console.log('Current page changed to:', currentPage);
   }, [currentPage]);
 
-  const handleOnboardingComplete = async (profileData) => {
+  const handleOnboardingComplete = async (profileData: ProfileData) => {
     try {
       // Validar datos del perfil
       if (!profileData || !profileData.name || typeof profileData.name !== 'string') {
         throw new Error('Datos de perfil inválidos');
       }
       
-      const savedProfile = await saveProfile(profileData);
+      const savedProfile = await saveProfile(profileData as any);
       
       if (savedProfile && savedProfile._id) {
-        setUserProfile(savedProfile);
+        setUserProfile(savedProfile as UserProfile);
         setShowOnboarding(false);
         setCurrentPage('dashboard');
       } else {
@@ -80,13 +115,13 @@ const CalorieKitApp = () => {
     }
   };
 
-  const handleNavigate = (page) => {
+  const handleNavigate = (page: string) => {
     if (page && typeof page === 'string') {
       setCurrentPage(page);
     }
   };
 
-  const handleProfileUpdated = (updatedProfile) => {
+  const handleProfileUpdated = (updatedProfile: UserProfile) => {
     if (updatedProfile && typeof updatedProfile === 'object' && updatedProfile._id) {
       setUserProfile(updatedProfile);
     }
@@ -109,7 +144,7 @@ const CalorieKitApp = () => {
     window.location.href = '/apps';
   };
 
-  const navigationItems = [
+  const navigationItems: NavigationItem[] = [
     { id: 'dashboard', label: 'Dashboard', icon: '🏠' },
     { id: 'foodlog', label: 'Registro', icon: '🍽️' },
     { id: 'analytics', label: 'Analytics', icon: '📊' },
@@ -147,7 +182,7 @@ const CalorieKitApp = () => {
             navigationItems={navigationItems}
             currentPage={currentPage}
             onNavigate={handleNavigate}
-            userProfile={userProfile}
+            userProfile={userProfile as any}
             onLogout={handleLogout}
             onViewProfile={handleViewProfile}
             onEditProfile={handleEditProfile}
@@ -156,8 +191,8 @@ const CalorieKitApp = () => {
 
           {/* Contenido principal */}
           <main>
-            {currentPage === 'dashboard' && <DashboardScreen onNavigate={handleNavigate} userProfile={userProfile} />}
-            {currentPage === 'foodlog' && <FoodLogPage userProfile={userProfile} />}
+            {currentPage === 'dashboard' && <DashboardScreen />}
+            {currentPage === 'foodlog' && <FoodLogPage userProfile={userProfile as any} />}
             {currentPage === 'analytics' && <AnalyticsPage />}
             {currentPage === 'customfoods' && <CustomFoodsPage />}
             {currentPage === 'profile' && <ProfilePage />}
@@ -180,7 +215,7 @@ const CalorieKitApp = () => {
           <EditProfileModal
             isOpen={isEditProfileOpen}
             onClose={() => setIsEditProfileOpen(false)}
-            userProfile={userProfile}
+            userProfile={userProfile as any}
             onProfileUpdated={handleProfileUpdated}
           />
         </div>

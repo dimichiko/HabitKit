@@ -18,7 +18,7 @@ const HabitKitApp = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleNavigate = (path) => {
+  const handleNavigate = (path: string) => {
     // El path ya vendrá completo (ej: '/habitkit/stats')
     navigate(path);
   };
@@ -46,7 +46,7 @@ const HabitKitApp = () => {
         onBack={handleBackToAppSelector}
         navigationItems={navigationItems}
         currentPage={currentPage}
-        onNavigate={(id) => {
+        onNavigate={(id: string) => {
             const item = navigationItems.find(i => i.id === id);
             if(item) handleNavigate(item.path);
         }}
@@ -58,7 +58,7 @@ const HabitKitApp = () => {
       
       <main className="p-4 md:p-6">
         <Routes>
-          <Route path="/" element={<DashboardScreen onNavigate={(path) => navigate(`/habitkit/${path}`)} />} />
+          <Route path="/" element={<DashboardScreen onNavigate={(path: string) => navigate(`/habitkit/${path}`)} />} />
           <Route path="/habits" element={<HomePage showAddModal={showAddModal} setShowAddModal={setShowAddModal} />} />
           <Route path="/calendar" element={<CalendarPage />} />
           <Route path="/stats" element={<StatsPage />} />

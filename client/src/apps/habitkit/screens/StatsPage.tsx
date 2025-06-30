@@ -200,22 +200,28 @@ const StatsPage = () => {
               onClick={() => setDateRange('7')}
               className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold shadow-sm transition-all ${dateRange === '7' ? 'bg-green-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'}`}
             >
-              <FaCalendarAlt />
-              Últimos 7 días
+              <div className="flex items-center space-x-2">
+                <span>📅</span>
+                <span className="text-sm font-medium text-gray-600">Últimos 7 días</span>
+              </div>
             </button>
             <button
               onClick={() => setDateRange('30')}
               className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold shadow-sm transition-all ${dateRange === '30' ? 'bg-green-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'}`}
             >
-              <FaCalendarAlt />
-              Últimos 30 días
+              <div className="flex items-center space-x-2">
+                <span>📅</span>
+                <span className="text-sm font-medium text-gray-600">Últimos 30 días</span>
+              </div>
             </button>
             <button
               onClick={() => setDateRange('current')}
               className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold shadow-sm transition-all ${dateRange === 'current' ? 'bg-green-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'}`}
             >
-              <FaCalendarAlt />
-              Mes actual
+              <div className="flex items-center space-x-2">
+                <span>📅</span>
+                <span className="text-sm font-medium text-gray-600">Mes actual</span>
+              </div>
             </button>
           </div>
         </div>
@@ -247,12 +253,17 @@ const StatsPage = () => {
             {/* Rachas */}
             <div className="bg-white rounded-xl shadow-sm p-5">
               <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                <FaChartBar className="text-gray-400" /> Rachas
+                <div className="flex items-center space-x-2">
+                  <span>📊</span>
+                  <span className="text-sm font-medium text-gray-600">Racha</span>
+                </div>
               </h3>
               <div className="space-y-4">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-orange-100 text-orange-600 rounded-lg flex items-center justify-center">
-                    <FaFire className="text-2xl" />
+                    <div className="flex items-center space-x-2">
+                      <span>🔥</span>
+                    </div>
                   </div>
                   <div>
                     <p className="text-sm font-medium text-gray-600">Racha actual</p>
@@ -261,7 +272,9 @@ const StatsPage = () => {
                 </div>
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-yellow-100 text-yellow-600 rounded-lg flex items-center justify-center">
-                    <FaTrophy className="text-2xl" />
+                    <div className="flex items-center space-x-2">
+                      <span>🏆</span>
+                    </div>
                   </div>
                   <div>
                     <p className="text-sm font-medium text-gray-600">Racha más larga</p>
@@ -273,12 +286,18 @@ const StatsPage = () => {
             {/* Mejores días */}
             <div className="bg-white rounded-xl shadow-sm p-5">
               <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                <FaStar className="text-gray-400" /> Mejores Días
+                <div className="flex items-center space-x-2">
+                  <span>⭐</span>
+                  <span className="text-sm font-medium text-gray-600">Mejores Días</span>
+                </div>
               </h3>
               <div className="space-y-3">
                 {stats.topDias.map(([fecha, total]) => (
                   <div key={fecha} className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50">
-                    <FaCheckCircle className="text-green-500 text-lg" />
+                    <div className="flex items-center space-x-2">
+                      <span>✅</span>
+                      <span className="text-sm font-medium text-gray-600">Completado</span>
+                    </div>
                     <div className="flex-grow">
                       <p className="font-semibold text-sm text-gray-700">{new Date(fecha).toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric' })}</p>
                       <p className="text-xs text-gray-500">{total} hábitos completados</p>

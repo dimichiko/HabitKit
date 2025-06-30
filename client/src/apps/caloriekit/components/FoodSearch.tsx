@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { searchFood, getUserFoods, createFood } from '../utils/api';
+import { searchFood, getFoods, createFood } from '../utils/api';
 
 interface Food {
   _id?: string;
@@ -49,7 +49,7 @@ const FoodSearch = ({ onFoodSelect }: FoodSearchProps) => {
 
   const loadCustomFoods = async () => {
     try {
-      const foods = await getUserFoods();
+      const foods = await getFoods();
       setCustomFoods(foods);
     } catch (error) {
       console.error('Error loading custom foods:', error);

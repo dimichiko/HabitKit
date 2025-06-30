@@ -344,7 +344,7 @@ const HomePage = ({ showAddModal, setShowAddModal }: HomePageProps) => {
   const renderEmptyState = () => (
     <div className="lg:col-span-2 flex flex-col items-center justify-center py-16 px-6 bg-white rounded-xl shadow-md">
       <div className="w-24 h-24 bg-gradient-to-br from-green-100 to-blue-100 rounded-full flex items-center justify-center mb-6">
-        <FaPlus className="w-12 h-12 text-green-500" />
+        <span>➕</span>
       </div>
       <h3 className="text-2xl font-bold text-gray-800 mb-3 text-center">
         ¡Comienza tu viaje hacia mejores hábitos!
@@ -354,9 +354,9 @@ const HomePage = ({ showAddModal, setShowAddModal }: HomePageProps) => {
       </p>
       <button
         onClick={() => setShowAddModal(true)}
-        className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200 flex items-center gap-2 shadow-lg hover:shadow-xl transform hover:scale-105"
+        className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors flex items-center gap-2"
       >
-        <FaPlus /> Crear mi primer hábito
+        <span>➕</span> Agregar Hábito
       </button>
     </div>
   );
@@ -368,10 +368,9 @@ const HomePage = ({ showAddModal, setShowAddModal }: HomePageProps) => {
         <div className="flex items-center gap-4">
           <button
             onClick={() => setShowAddFolderModal(true)}
-            className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-blue-100 text-blue-700 hover:bg-blue-200 transition-colors"
+            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
           >
-            <FaFolderPlus className="text-sm" />
-            Nueva Carpeta
+            <span>📁➕</span> Crear Carpeta
           </button>
         </div>
         
@@ -388,15 +387,15 @@ const HomePage = ({ showAddModal, setShowAddModal }: HomePageProps) => {
           <div className="lg:col-span-1">
             <div className="bg-white rounded-xl shadow-md p-6">
               <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                <FaFolder className="text-green-500" />
-                Carpetas ({folders.length})
+                <span>📁</span>
+                <span className="font-medium">Carpetas ({folders.length})</span>
                 <button
                   onClick={() => setShowAddFolderModal(true)}
                   className="ml-2 px-2 py-1 rounded bg-blue-100 text-blue-700 hover:bg-blue-200 text-xs font-semibold flex items-center gap-1"
                   title="Crear carpeta"
                   aria-label="Crear carpeta"
                 >
-                  <FaFolderPlus className="text-sm" /> Nueva
+                  <span>📁➕</span> Nueva
                 </button>
               </h3>
               
@@ -457,15 +456,15 @@ const HomePage = ({ showAddModal, setShowAddModal }: HomePageProps) => {
           <div className="lg:col-span-1">
             <div className="bg-white rounded-xl shadow-md p-6">
               <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                <FaFolder className="text-green-500" />
-                Carpetas ({folders.length})
+                <span>📁</span>
+                <span className="font-medium">Carpetas ({folders.length})</span>
                 <button
                   onClick={() => setShowAddFolderModal(true)}
                   className="ml-2 px-2 py-1 rounded bg-blue-100 text-blue-700 hover:bg-blue-200 text-xs font-semibold flex items-center gap-1"
                   title="Crear carpeta"
                   aria-label="Crear carpeta"
                 >
-                  <FaFolderPlus className="text-sm" /> Nueva
+                  <span>📁➕</span> Nueva
                 </button>
               </h3>
               
@@ -522,7 +521,7 @@ const HomePage = ({ showAddModal, setShowAddModal }: HomePageProps) => {
               // Estado vacío para carpeta seleccionada
               <div className="bg-white rounded-xl shadow-md p-8 text-center">
                 <div className="w-16 h-16 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center">
-                  <FaFolder className="w-8 h-8 text-gray-400" />
+                  <span>📁</span>
                 </div>
                 <h3 className="text-lg font-medium text-gray-800 mb-2">
                   No hay hábitos aquí todavía
@@ -532,9 +531,9 @@ const HomePage = ({ showAddModal, setShowAddModal }: HomePageProps) => {
                 </p>
                 <button
                   onClick={() => setShowAddModal(true)}
-                  className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg font-medium transition-colors flex items-center gap-2 mx-auto"
+                  className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors flex items-center gap-2"
                 >
-                  <FaPlus /> Agregar hábito
+                  <span>➕</span> Agregar Hábito
                 </button>
               </div>
             ) : (
@@ -547,8 +546,8 @@ const HomePage = ({ showAddModal, setShowAddModal }: HomePageProps) => {
                         onClick={() => toggleFolderCollapse(folderName)}
                         className="flex items-center gap-2 text-lg font-semibold text-gray-800 hover:text-green-600 transition-colors"
                       >
-                        {collapsedFolders[folderName] ? <FaChevronRight /> : <FaChevronDown />}
-                        <FaFolder style={{ color: getFolderIcon(folderName) }} />
+                        {collapsedFolders[folderName] ? <span>▶️</span> : <span>🔽</span>}
+                        <span style={{ color: getFolderIcon(folderName) }}>📁</span>
                         {folderName} ({folderHabits.length})
                       </button>
                     </div>
@@ -562,7 +561,7 @@ const HomePage = ({ showAddModal, setShowAddModal }: HomePageProps) => {
                             status={getHabitStatus(habit._id)}
                             checkinSuccess={checkinSuccess}
                             onCheckin={handleCheckin}
-                            onEdit={setEditHabit}
+                            onEdit={(habit) => setEditHabit(habit as any)}
                             onDelete={setDeleteHabitId}
                           />
                         ))}

@@ -1,7 +1,34 @@
 import React from 'react';
-import { FaFolder, FaPlus, FaPen, FaTrash } from 'react-icons/fa';
 
-const FolderCard = ({
+interface Folder {
+  _id: string;
+  name: string;
+}
+
+interface Progress {
+  completed: number;
+  total: number;
+}
+
+interface FolderCardProps {
+  folder: Folder;
+  habitsInFolder: number;
+  isSelected: boolean;
+  progress: Progress;
+  color: string;
+  onSelect: (folderId: string) => void;
+  onAddHabit: (folderName: string) => void;
+  onRename: (folderId: string, folderName: string) => void;
+  onDelete: (folderId: string) => void;
+  renamingFolderId: string | null;
+  renameValue: string;
+  onRenameValueChange: (value: string) => void;
+  onSaveRename: (folderId: string) => void;
+  onCancelRename: () => void;
+  folderError?: string;
+}
+
+const FolderCard: React.FC<FolderCardProps> = ({
   folder,
   habitsInFolder,
   isSelected,
@@ -28,7 +55,7 @@ const FolderCard = ({
       onClick={() => onSelect(folder._id)}
       role="button"
       tabIndex={0}
-      onKeyDown={(e) => {
+      onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) => {
         if (e.key === 'Enter' || e.key === ' ') {
           onSelect(folder._id);
         }
@@ -36,10 +63,12 @@ const FolderCard = ({
     >
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-2">
-          <FaFolder
+          <span
             className={`text-lg ${isSelected ? 'text-green-500' : ''}`}
             style={{ color: isSelected ? undefined : color }}
-          />
+          >
+            📁
+          </span>
           <span
             className={`font-medium ${
               isSelected ? 'text-green-700' : 'text-gray-700'
@@ -53,34 +82,34 @@ const FolderCard = ({
           {folder._id !== 'all-habits' && (
             <>
               <button
-                onClick={(e) => {
+                onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                   e.stopPropagation();
                   onAddHabit(folder.name);
                 }}
                 className="p-1 text-gray-400 hover:text-green-500 transition-colors"
                 title="Agregar hábito a esta carpeta"
               >
-                <FaPlus className="text-xs" />
+                ➕
               </button>
               <button
-                onClick={(e) => {
+                onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                   e.stopPropagation();
                   onRename(folder._id, folder.name);
                 }}
                 className="p-1 text-gray-400 hover:text-blue-500 transition-colors"
                 title="Renombrar"
               >
-                <FaPen className="text-xs" />
+                ✏️
               </button>
               <button
-                onClick={(e) => {
+                onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                   e.stopPropagation();
                   onDelete(folder._id);
                 }}
                 className="p-1 text-gray-400 hover:text-red-500 transition-colors"
                 title="Eliminar"
               >
-                <FaTrash className="text-xs" />
+                🗑️
               </button>
             </>
           )}
@@ -104,7 +133,7 @@ const FolderCard = ({
           <input
             type="text"
             value={renameValue}
-            onChange={(e) => onRenameValueChange(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => onRenameValueChange(e.target.value)}
             className="w-full px-2 py-1 text-sm border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Nuevo nombre"
           />

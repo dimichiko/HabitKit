@@ -1,8 +1,39 @@
 import React, { useEffect, useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend } from 'recharts';
-import { FaFire, FaClock, FaMedal } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import { statsClient } from '../utils/api';
+
+interface Summary {
+  byType: Record<string, number>;
+  byWeek: Record<string, number>;
+  byMonth: Record<string, number>;
+  totalDuration: number;
+}
+
+interface Streaks {
+  currentStreak: number;
+  maxStreak: number;
+}
+
+interface StatsScreenProps {
+  onNavigate: (path: string) => void;
+}
+
+interface PieDataItem {
+  name: string;
+  value: number;
+  color: string;
+}
+
+interface BarDataItem {
+  name: string;
+  value: number;
+}
+
+interface FilterOption {
+  label: string;
+  value: string;
+}
 
 const colores = ['#6366f1', '#4ade80', '#fbbf24', '#f472b6', '#60a5fa', '#a78bfa'];
 const frases = [
@@ -12,13 +43,13 @@ const frases = [
   '¡Increíble progreso, no pares!',
 ];
 
-const filtros = [
+const filtros: FilterOption[] = [
   { label: 'Mes actual', value: 'mes' },
   { label: 'Últimos 30 días', value: '30d' },
   { label: 'Todo el año', value: 'año' },
 ];
 
-function filtrarDatos(summary, filtro) {
+function filtrarDatos(summary: Summary | null, filtro: string): Summary | null {
   if (!summary) return summary;
   if (filtro === 'mes') {
     const mes = new Date().getMonth() + 1;
@@ -34,11 +65,11 @@ function filtrarDatos(summary, filtro) {
   return summary;
 }
 
-const StatsScreen = ({ onNavigate }) => {
-  const [summary, setSummary] = useState(null);
-  const [streaks, setStreaks] = useState(null);
-  const [filtro, setFiltro] = useState('mes');
-  const [frase, setFrase] = useState(frases[0]);
+const StatsScreen: React.FC<StatsScreenProps> = ({ onNavigate }) => {
+  const [summary, setSummary] = useState<Summary | null>(null);
+  const [streaks, setStreaks] = useState<Streaks | null>(null);
+  const [filtro, setFiltro] = useState<string>('mes');
+  const [frase, setFrase] = useState<string>(frases[0]);
 
   useEffect(() => {
     statsClient.get('/summary').then(res => setSummary(res.data));
@@ -50,8 +81,15 @@ const StatsScreen = ({ onNavigate }) => {
 
   if (!summary || !streaks) return <div className="p-6">Cargando estadísticas...</div>;
 
-  const pieData = Object.keys(datos.byType).map((k, i) => ({ name: k, value: datos.byType[k], color: colores[i % colores.length] }));
-  const barData = Object.keys(datos.byWeek).map((k, i) => ({ name: k, value: datos.byWeek[k] }));
+  const pieData: PieDataItem[] = Object.keys(datos?.byType || {}).map((k, i) => ({ 
+    name: k, 
+    value: datos!.byType[k], 
+    color: colores[i % colores.length] 
+  }));
+  const barData: BarDataItem[] = Object.keys(datos?.byWeek || {}).map((k, i) => ({ 
+    name: k, 
+    value: datos!.byWeek[k] 
+  }));
 
   const emptyStats = streaks.currentStreak === 0 && streaks.maxStreak === 0 && summary.totalDuration === 0;
 
@@ -61,17 +99,17 @@ const StatsScreen = ({ onNavigate }) => {
         <div className="text-xl font-bold mb-2">{frase}</div>
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-6">
           <motion.div whileHover={{ scale: 1.04 }} className="bg-white rounded-xl shadow-md p-6 flex flex-col items-center">
-            <FaFire className="text-3xl text-orange-500 mb-2" />
+            <span className="text-3xl text-orange-500 mb-2">🔥</span>
             <p className="text-sm text-gray-500">Racha actual</p>
             <p className="text-xl font-bold">{streaks.currentStreak > 0 ? `${streaks.currentStreak} días` : '—'}</p>
           </motion.div>
           <motion.div whileHover={{ scale: 1.04 }} className="bg-white rounded-xl shadow-md p-6 flex flex-col items-center">
-            <FaClock className="text-3xl text-indigo-500 mb-2" />
+            <span className="text-3xl text-indigo-500 mb-2">⏰</span>
             <p className="text-sm text-gray-500">Tiempo total entrenado</p>
             <p className="text-xl font-bold">{summary.totalDuration > 0 ? `${summary.totalDuration} min` : '—'}</p>
           </motion.div>
           <motion.div whileHover={{ scale: 1.04 }} className="bg-white rounded-xl shadow-md p-6 flex flex-col items-center">
-            <FaMedal className="text-3xl text-yellow-500 mb-2" />
+            <span className="text-3xl text-yellow-500 mb-2">🏆</span>
             <p className="text-sm text-gray-500">Racha máxima</p>
             <p className="text-xl font-bold">{streaks.maxStreak > 0 ? `${streaks.maxStreak} días` : '—'}</p>
           </motion.div>
@@ -84,7 +122,7 @@ const StatsScreen = ({ onNavigate }) => {
       </div>
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
         <h2 className="text-2xl font-bold">Estadísticas</h2>
-        <select className="border rounded-lg px-3 py-2" value={filtro} onChange={e => setFiltro(e.target.value)}>
+        <select className="border rounded-lg px-3 py-2" value={filtro} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setFiltro(e.target.value)}>
           {filtros.map(f => <option key={f.value} value={f.value}>{f.label}</option>)}
         </select>
       </div>

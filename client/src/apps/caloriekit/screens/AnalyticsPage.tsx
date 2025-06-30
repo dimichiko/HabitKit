@@ -99,7 +99,7 @@ const AnalyticsPage: React.FC = () => {
     try {
       const days = period === 'week' ? 7 : 30;
       const data = await getMealStats(days);
-      setStats(data);
+      setStats(data as Stats);
     } catch (error) {
       console.error('Error loading analytics data:', error);
     } finally {

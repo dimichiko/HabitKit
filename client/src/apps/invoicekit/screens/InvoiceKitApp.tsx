@@ -12,6 +12,11 @@ interface Empresa {
   _id: string;
   name: string;
   logoUrl?: string;
+  ruc?: string;
+  address?: string;
+  phone?: string;
+  email?: string;
+  notes?: string;
 }
 
 interface Cliente {

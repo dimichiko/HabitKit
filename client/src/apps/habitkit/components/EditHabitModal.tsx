@@ -1,13 +1,33 @@
 import React, { useState } from 'react';
 import apiClient from '../utils/api';
 
-const EditHabitModal = ({ habit, onClose, onHabitUpdated, folders }) => {
-  const [name, setName] = useState(habit.name);
-  const [color, setColor] = useState(habit.color);
-  const [timesPerDay, setTimesPerDay] = useState(habit.timesPerDay);
-  const [folder, setFolder] = useState(habit.folder || (folders && folders[0]?.name) || '');
+interface Habit {
+  _id: string;
+  name: string;
+  color: string;
+  timesPerDay: number;
+  folder?: string;
+}
 
-  const handleSubmit = async (e) => {
+interface Folder {
+  _id: string;
+  name: string;
+}
+
+interface EditHabitModalProps {
+  habit: Habit;
+  onClose: () => void;
+  onHabitUpdated: () => void;
+  folders: Folder[];
+}
+
+const EditHabitModal: React.FC<EditHabitModalProps> = ({ habit, onClose, onHabitUpdated, folders }) => {
+  const [name, setName] = useState<string>(habit.name);
+  const [color, setColor] = useState<string>(habit.color);
+  const [timesPerDay, setTimesPerDay] = useState<number>(habit.timesPerDay);
+  const [folder, setFolder] = useState<string>(habit.folder || (folders && folders[0]?.name) || '');
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       await apiClient.put(`/habits/${habit._id}`, { name, color, timesPerDay, folder });
@@ -28,7 +48,7 @@ const EditHabitModal = ({ habit, onClose, onHabitUpdated, folders }) => {
             id="habit-name"
             type="text"
             value={name}
-            onChange={e => setName(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500"
             required
           />
@@ -36,7 +56,7 @@ const EditHabitModal = ({ habit, onClose, onHabitUpdated, folders }) => {
         <div>
           <label htmlFor="habit-times" className="block text-sm font-medium text-gray-700">Veces por día</label>
           <div className="flex gap-2 mt-2" id="habit-times">
-            {[1,2,3,4,5].map(n => (
+            {[1,2,3,4,5].map((n: number) => (
               <button
                 type="button"
                 key={n}
@@ -56,7 +76,7 @@ const EditHabitModal = ({ habit, onClose, onHabitUpdated, folders }) => {
             id="habit-color"
             type="color"
             value={color}
-            onChange={e => setColor(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setColor(e.target.value)}
             className="mt-1 block w-full h-10 rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500"
           />
         </div>
@@ -65,10 +85,10 @@ const EditHabitModal = ({ habit, onClose, onHabitUpdated, folders }) => {
           <select
             id="habit-folder"
             value={folder}
-            onChange={e => setFolder(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setFolder(e.target.value)}
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500"
           >
-            {folders && folders.map(f => (
+            {folders && folders.map((f: Folder) => (
               <option key={f._id} value={f.name}>{f.name}</option>
             ))}
           </select>

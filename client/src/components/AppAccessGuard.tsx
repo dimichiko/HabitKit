@@ -1,12 +1,23 @@
 import React from 'react';
 import { useUser } from '../shared/context/UserContext';
 
+interface AppAccessGuardProps {
+  appName: string;
+  children: React.ReactNode;
+  fallback?: React.ReactNode;
+  showUpgradePrompt?: boolean;
+}
+
+interface AppNames {
+  [key: string]: string;
+}
+
 const AppAccessGuard = ({ 
   appName, 
   children, 
   fallback = null,
   showUpgradePrompt = true 
-}) => {
+}: AppAccessGuardProps): React.ReactNode => {
   const { user, hasAppAccess, getPlanFeatures, canUpgradePlan } = useUser();
 
   // Si no hay usuario, mostrar fallback
@@ -29,7 +40,7 @@ const AppAccessGuard = ({
 
     const planFeatures = getPlanFeatures();
     const currentPlan = user.plan;
-    const appNames = {
+    const appNames: AppNames = {
       habitkit: 'HabitKit',
       invoicekit: 'InvoiceKit', 
       trainingkit: 'TrainingKit',
@@ -51,7 +62,7 @@ const AppAccessGuard = ({
 
           {/* Título */}
           <h1 className="text-2xl font-bold text-gray-800 mb-2">
-            {appNames[appName]}
+            {appNames[appName] || appName}
           </h1>
           
           <p className="text-gray-600 mb-6">
@@ -73,7 +84,7 @@ const AppAccessGuard = ({
           <div className="mb-6">
             <div className="text-sm text-gray-500 mb-3">Apps disponibles en tu plan:</div>
             <div className="flex flex-wrap gap-2 justify-center">
-              {user.activeApps?.map(app => (
+              {user.activeApps?.map((app: string) => (
                 <span 
                   key={app}
                   className={`px-3 py-1 rounded-full text-xs font-medium ${
@@ -82,7 +93,7 @@ const AppAccessGuard = ({
                       : 'bg-green-100 text-green-800'
                   }`}
                 >
-                  {appNames[app]}
+                  {appNames[app] || app}
                 </span>
               ))}
             </div>
@@ -127,7 +138,7 @@ const AppAccessGuard = ({
   }
 
   // Si tiene acceso, mostrar el contenido
-  return children;
+  return <>{children}</>;
 };
 
 export default AppAccessGuard; 

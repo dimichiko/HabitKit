@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaShieldAlt, FaEye, FaEyeSlash, FaSpinner, FaCheckCircle } from 'react-icons/fa';
 import Header from '../shared/components/Header';
 import apiClient from '../apps/habitkit/utils/api';
 
-const TwoFactorAuthPage = () => {
+const TwoFactorAuthPage: React.FC = () => {
   const navigate = useNavigate();
   const [step, setStep] = useState('setup'); // setup, verify, success
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [qrCodeUrl, setQrCodeUrl] = useState('');
   const [secret, setSecret] = useState('');
-  const [backupCodes, setBackupCodes] = useState([]);
+  const [backupCodes, setBackupCodes] = useState<string[]>([]);
   const [token, setToken] = useState('');
   const [showBackupCodes, setShowBackupCodes] = useState(false);
   const [showSecret, setShowSecret] = useState(false);
@@ -97,7 +96,7 @@ const TwoFactorAuthPage = () => {
             />
           ) : (
             <div className="w-48 h-48 bg-gray-100 flex items-center justify-center">
-              <FaSpinner className="animate-spin text-gray-400" />
+              <span className="animate-spin text-2xl">🔄</span>
             </div>
           )}
         </div>
@@ -121,7 +120,7 @@ const TwoFactorAuthPage = () => {
             onClick={() => setShowSecret(!showSecret)}
             className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
           >
-            {showSecret ? <FaEyeSlash /> : <FaEye />}
+            {showSecret ? <span className="text-lg">🙈</span> : <span className="text-lg">👁️</span>}
           </button>
         </div>
         <button
@@ -188,7 +187,7 @@ const TwoFactorAuthPage = () => {
       >
         {isLoading ? (
           <div className="flex items-center justify-center gap-2">
-            <FaSpinner className="animate-spin" />
+            <span className="animate-spin">🔄</span>
             Verificando...
           </div>
         ) : (
@@ -198,7 +197,7 @@ const TwoFactorAuthPage = () => {
 
       {/* Aplicaciones recomendadas */}
       <div className="bg-blue-50 p-4 rounded-lg">
-        <h4 className="font-medium text-blue-800 mb-2">Aplicaciones recomendadas:</h4>
+        <h3 className="font-semibold text-blue-800 mb-2">Aplicaciones recomendadas:</h3>
         <ul className="text-sm text-blue-700 space-y-1">
           <li>• Google Authenticator</li>
           <li>• Authy</li>
@@ -206,66 +205,52 @@ const TwoFactorAuthPage = () => {
           <li>• 1Password</li>
         </ul>
       </div>
+
+      {/* Error */}
+      {error && (
+        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+          {error}
+        </div>
+      )}
     </div>
   );
 
   const renderSuccessStep = () => (
     <div className="text-center space-y-4">
       <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto">
-        <FaCheckCircle className="w-8 h-8 text-green-600" />
+        <span className="text-3xl">✅</span>
       </div>
-      
       <h2 className="text-xl font-semibold text-gray-800">
         ¡Autenticación de dos factores habilitada!
       </h2>
-      
       <p className="text-gray-600">
         Tu cuenta ahora está protegida con autenticación de dos factores.
-        Serás redirigido automáticamente.
+        Serás redirigido en unos segundos...
       </p>
-      
-      <div className="text-sm text-gray-500">
-        Redirigiendo en 3 segundos...
-      </div>
     </div>
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#f9fafb] to-indigo-50 font-sans">
-      <Header
-        appName="Lifehub"
-        appLogo="🌐"
-        navigationItems={[]}
-        currentPage="account"
-        onNavigate={() => {}}
-        showAppsMenu={false}
-      />
-      
-      <main className="pt-28 max-w-md mx-auto px-4 flex flex-col items-center">
-        <div className="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center w-full">
-          {/* Icono */}
-          <div className="w-20 h-20 bg-indigo-100 rounded-full flex items-center justify-center mb-6">
-            <FaShieldAlt className="w-10 h-10 text-indigo-600" />
+    <div className="min-h-screen bg-gray-50">
+      <Header appName="Lifehub" appLogo="🛡️" />
+      <div className="pt-20 pb-8 px-4">
+        <div className="max-w-md mx-auto bg-white rounded-lg shadow-md p-8">
+          <div className="text-center mb-6">
+            <div className="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span className="text-3xl">🛡️</span>
+            </div>
+            <h1 className="text-2xl font-bold text-gray-800">
+              Autenticación de Dos Factores
+            </h1>
+            <p className="text-gray-600 mt-2">
+              Protege tu cuenta con una capa adicional de seguridad
+            </p>
           </div>
-          
-          {/* Contenido dinámico */}
+
           {step === 'setup' && renderSetupStep()}
           {step === 'success' && renderSuccessStep()}
-          
-          {/* Mensaje de error */}
-          {error && (
-            <div className="mt-4 w-full bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-center">
-              {error}
-            </div>
-          )}
         </div>
-        
-        {/* Footer */}
-        <footer className="mt-12 text-zinc-400 text-xs text-center flex flex-col items-center gap-1">
-          <span className="flex items-center gap-2 font-bold text-indigo-700">🌐 Lifehub</span>
-          <span>© 2025 Lifehub. Todos los derechos reservados.</span>
-        </footer>
-      </main>
+      </div>
     </div>
   );
 };

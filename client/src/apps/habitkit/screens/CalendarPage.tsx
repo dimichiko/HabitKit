@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import apiClient from '../utils/api';
-import { FaChevronLeft, FaChevronRight, FaCheck, FaTimes } from 'react-icons/fa';
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 interface Habit {
   _id: string;
@@ -104,7 +104,7 @@ const CalendarPage = () => {
     return (
       <div className="tile-content">
         <div className="tile-count">{totalCompleted} ✓</div>
-        {totalCompleted >= totalGoal && <FaCheck className="tile-check" />}
+        {totalCompleted >= totalGoal && <span className="tile-check">✅</span>}
       </div>
     );
   };
@@ -318,8 +318,8 @@ const CalendarPage = () => {
                   <li key={d.habitId} style={{marginBottom:18,textAlign:'left',display:'flex',alignItems:'center',gap:10}}>
                     <span style={{fontWeight:800,color:'#16a34a',fontSize:19}}>{d.name}</span>
                     <span style={{marginLeft:10,color:'#555',fontSize:16}}>{d.count}/{d.goal}</span>
-                    {d.count >= d.goal && <FaCheck style={{color:'#22c55e',fontSize:22,marginLeft:8}} />}
-                    {d.count < d.goal && <FaTimes style={{color:'#ef4444',fontSize:22,marginLeft:8}} />}
+                            {d.count >= d.goal && <span style={{color:'#22c55e',fontSize:22,marginLeft:8}}>✅</span>}
+        {d.count < d.goal && <span style={{color:'#ef4444',fontSize:22,marginLeft:8}}>❌</span>}
                   </li>
                 ))}
               </ul>

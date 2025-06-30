@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import apiClient from '../utils/api';
-import { FaLightbulb, FaHeart, FaBullseye, FaCheckCircle } from 'react-icons/fa';
+import { FaCheckCircle } from 'react-icons/fa';
 
 interface Habit {
   _id: string;
@@ -332,14 +332,14 @@ const DashboardScreen = ({ onNavigate }: DashboardScreenProps) => {
         {/* Featured Habits - Moved here */}
         <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
           <h3 className="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
-            <FaBullseye className="text-green-500" />
+                            <span className="text-green-500">🎯</span>
             Hábitos Destacados
           </h3>
           
           {habits.length === 0 ? (
             <div className="text-center py-8">
               <div className="w-16 h-16 mx-auto mb-4 bg-green-100 rounded-full flex items-center justify-center">
-                <FaLightbulb className="w-8 h-8 text-green-500" />
+                <span className="w-8 h-8 text-green-500 text-2xl">💡</span>
               </div>
               <h4 className="text-lg font-medium text-gray-800 mb-2">No tienes hábitos activos hoy</h4>
               <p className="text-gray-600 mb-4">¡Crea tu primer hábito y comienza tu transformación!</p>
@@ -421,14 +421,14 @@ const DashboardScreen = ({ onNavigate }: DashboardScreenProps) => {
         {/* Inspiration Box - Combined and Compact */}
         <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl shadow-lg p-6 border border-green-100">
           <h3 className="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
-            <FaHeart className="text-green-500" />
+                            <span className="text-green-500">❤️</span>
             Inspiración
           </h3>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="bg-white/60 p-4 rounded-lg border border-green-200/50">
               <div className="flex items-center gap-2 mb-2">
-                <FaBullseye className="text-green-500 text-sm" />
+                <span>🎯</span>
                 <h4 className="font-semibold text-gray-800 text-sm">Tu Objetivo</h4>
               </div>
               <p className="text-gray-600 text-sm">
@@ -438,7 +438,7 @@ const DashboardScreen = ({ onNavigate }: DashboardScreenProps) => {
 
             <div className="bg-white/60 p-4 rounded-lg border border-green-200/50">
               <div className="flex items-center gap-2 mb-2">
-                <FaHeart className="text-green-500 text-sm" />
+                <span>❤️</span>
                 <h4 className="font-semibold text-gray-800 text-sm">Recordatorio</h4>
               </div>
               <p className="text-gray-600 text-sm">
@@ -448,7 +448,7 @@ const DashboardScreen = ({ onNavigate }: DashboardScreenProps) => {
 
             <div className="bg-white/60 p-4 rounded-lg border border-green-200/50">
               <div className="flex items-center gap-2 mb-2">
-                <FaLightbulb className="text-green-500 text-sm" />
+                <span>💡</span>
                 <h4 className="font-semibold text-gray-800 text-sm">Consejo del Día</h4>
               </div>
               <p className="text-gray-600 text-sm">

@@ -68,26 +68,23 @@ const ProfilePage = () => {
           {!isEditing ? (
             <button
               onClick={() => setIsEditing(true)}
-              className="flex items-center gap-2 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors"
+              className="text-blue-600 hover:text-blue-800 transition-colors"
             >
-              <FaEdit />
-              Editar
+              <span>✏️</span> Editar
             </button>
           ) : (
             <div className="flex gap-2">
               <button
                 onClick={handleSave}
-                className="flex items-center gap-2 bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors"
+                className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors flex items-center gap-2"
               >
-                <FaSave />
-                Guardar
+                <span>💾</span> Guardar
               </button>
               <button
-                onClick={handleCancel}
-                className="flex items-center gap-2 bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors"
+                onClick={() => setIsEditing(false)}
+                className="text-gray-500 hover:text-gray-700 transition-colors"
               >
-                <FaTimes />
-                Cancelar
+                <span>✕</span>
               </button>
             </div>
           )}

@@ -163,17 +163,18 @@ const CustomFoodsPage = () => {
           <h1 className="text-3xl font-bold text-gray-800">Alimentos Personalizados</h1>
           <button
             onClick={() => setShowAddForm(true)}
-            className="flex items-center gap-2 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors"
+            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
           >
-            <FaPlus />
-            Agregar Alimento
+            <span>➕</span> Agregar Comida
           </button>
         </div>
 
         {/* Barra de búsqueda */}
         <div className="mb-6">
           <div className="relative">
-            <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+            <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+              🔍
+            </span>
             <input
               type="text"
               placeholder="Buscar alimentos..."
@@ -361,15 +362,15 @@ const CustomFoodsPage = () => {
                 <div className="flex gap-2">
                   <button
                     onClick={() => setEditingFood(food)}
-                    className="text-blue-500 hover:text-blue-700"
+                    className="text-blue-600 hover:text-blue-800 transition-colors"
                   >
-                    <FaEdit />
+                    <span>✏️</span>
                   </button>
                   <button
                     onClick={() => handleDeleteFood(food.id)}
-                    className="text-red-500 hover:text-red-700"
+                    className="text-red-600 hover:text-red-800 transition-colors"
                   >
-                    <FaTrash />
+                    <span>🗑️</span>
                   </button>
                 </div>
               </div>

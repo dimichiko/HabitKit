@@ -1,7 +1,24 @@
 import React, { useState, useEffect } from 'react';
 
-const NutritionTips = () => {
-  const tips = [
+interface Tip {
+  id: number;
+  title: string;
+  content: string;
+  icon: string;
+  category: string;
+  color: string;
+}
+
+interface ColorMap {
+  [key: string]: string;
+}
+
+interface CategoryMap {
+  [key: string]: string;
+}
+
+const NutritionTips: React.FC = () => {
+  const tips: Tip[] = [
     {
       id: 1,
       title: "Hidratación es clave",
@@ -68,8 +85,8 @@ const NutritionTips = () => {
     }
   ];
 
-  const [currentTipIndex, setCurrentTipIndex] = useState(0);
-  const [animationKey, setAnimationKey] = useState(0);
+  const [currentTipIndex, setCurrentTipIndex] = useState<number>(0);
+  const [animationKey, setAnimationKey] = useState<number>(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -82,8 +99,8 @@ const NutritionTips = () => {
 
   const currentTip = tips[currentTipIndex];
 
-  const getColorClasses = (color) => {
-    const colorMap = {
+  const getColorClasses = (color: string): string => {
+    const colorMap: ColorMap = {
       blue: 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800 text-blue-800 dark:text-blue-200',
       red: 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800 text-red-800 dark:text-red-200',
       green: 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800 text-green-800 dark:text-green-200',
@@ -96,8 +113,8 @@ const NutritionTips = () => {
     return colorMap[color] || colorMap.blue;
   };
 
-  const getCategoryName = (category) => {
-    const categories = {
+  const getCategoryName = (category: string): string => {
+    const categories: CategoryMap = {
       hidratacion: 'Hidratación',
       proteinas: 'Proteínas',
       fibra: 'Fibra',

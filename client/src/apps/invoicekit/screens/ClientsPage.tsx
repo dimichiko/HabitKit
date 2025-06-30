@@ -1,15 +1,42 @@
 import React, { useState } from 'react';
 import { createCliente, updateCliente, deleteCliente } from '../utils/api';
 
-const ClientesPage = ({ clientes, setClientes, currentCompany }) => {
-  const [showForm, setShowForm] = useState(false);
-  const [editingCliente, setEditingCliente] = useState(null);
-  const [form, setForm] = useState({ nombre: '', email: '', telefono: '', direccion: '' });
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [search, setSearch] = useState('');
+interface Cliente {
+  _id: string;
+  nombre: string;
+  email: string;
+  telefono: string;
+  direccion: string;
+  empresa?: string;
+}
 
-  const handleShowForm = (cliente = null) => {
+interface Company {
+  _id: string;
+  name: string;
+}
+
+interface ClienteForm {
+  nombre: string;
+  email: string;
+  telefono: string;
+  direccion: string;
+}
+
+interface ClientsPageProps {
+  clientes: Cliente[];
+  setClientes: React.Dispatch<React.SetStateAction<Cliente[]>>;
+  currentCompany: Company;
+}
+
+const ClientesPage: React.FC<ClientsPageProps> = ({ clientes, setClientes, currentCompany }) => {
+  const [showForm, setShowForm] = useState<boolean>(false);
+  const [editingCliente, setEditingCliente] = useState<Cliente | null>(null);
+  const [form, setForm] = useState<ClienteForm>({ nombre: '', email: '', telefono: '', direccion: '' });
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>('');
+  const [search, setSearch] = useState<string>('');
+
+  const handleShowForm = (cliente: Cliente | null = null) => {
     if (cliente) {
       setEditingCliente(cliente);
       setForm(cliente);
@@ -27,7 +54,7 @@ const ClientesPage = ({ clientes, setClientes, currentCompany }) => {
     setError('');
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!form.nombre) {
       setError('El nombre es obligatorio.');
@@ -37,33 +64,34 @@ const ClientesPage = ({ clientes, setClientes, currentCompany }) => {
     setError('');
     try {
       if (editingCliente) {
-        const updatedCliente = await updateCliente(editingCliente._id, form);
-        setClientes(clientes.map(c => c._id === editingCliente._id ? updatedCliente : c));
+        const updatedCliente = await updateCliente(editingCliente._id, form as any);
+        setClientes(clientes.map((c: Cliente) => c._id === editingCliente._id ? updatedCliente : c));
       } else {
-        const newCliente = await createCliente({ ...form, companyId: currentCompany._id });
+        const newCliente = await createCliente({ ...form, companyId: currentCompany._id } as any);
         setClientes([...clientes, newCliente]);
       }
       handleCloseForm();
-    } catch (err) {
-      setError(err.message || 'Error al guardar el cliente.');
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : 'Error al guardar el cliente.';
+      setError(errorMessage);
       console.error("Error guardando cliente:", err);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleDelete = async (clienteId) => {
+  const handleDelete = async (clienteId: string) => {
     if (!window.confirm('¿Estás seguro de que quieres eliminar este cliente?')) return;
     try {
       await deleteCliente(clienteId);
-      setClientes(clientes.filter((c) => c._id !== clienteId));
-    } catch (err) {
+      setClientes(clientes.filter((c: Cliente) => c._id !== clienteId));
+    } catch (err: unknown) {
       console.error("Error eliminando cliente:", err);
     }
   };
 
   // Filtros y búsqueda
-  const filteredClientes = clientes.filter(c => {
+  const filteredClientes = clientes.filter((c: Cliente) => {
     if (search && !c.nombre.toLowerCase().includes(search.toLowerCase()) && !(c.email || '').toLowerCase().includes(search.toLowerCase())) return false;
     return true;
   });
@@ -80,7 +108,7 @@ const ClientesPage = ({ clientes, setClientes, currentCompany }) => {
       </div>
       {/* Filtros y buscador */}
       <div className="flex flex-col md:flex-row md:items-center gap-2 mb-6">
-        <input type="text" placeholder="Buscar por nombre o email" value={search} onChange={e=>setSearch(e.target.value)} className="border rounded px-3 py-1 text-sm w-full md:w-64" />
+        <input type="text" placeholder="Buscar por nombre o email" value={search} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearch(e.target.value)} className="border rounded px-3 py-1 text-sm w-full md:w-64" />
         <div className="flex-1"></div>
         <button onClick={() => handleShowForm()} className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold ml-auto">+ Nuevo Cliente</button>
       </div>
@@ -90,7 +118,7 @@ const ClientesPage = ({ clientes, setClientes, currentCompany }) => {
           <div className="text-6xl mb-4">👤</div>
           <h3 className="text-xl font-bold mb-2 text-gray-800">Aún no has agregado ningún cliente. Empieza ahora para emitir tus facturas correctamente.</h3>
           <button
-            onClick={()=>handleShowForm()}
+            onClick={() => handleShowForm()}
             className="mt-6 bg-blue-500 hover:bg-blue-600 hover:scale-105 hover:shadow-md transition px-6 py-3 rounded-lg text-white text-lg font-semibold flex items-center gap-2"
           >
             <span className="text-2xl">➕</span> Agregar Cliente
@@ -109,7 +137,7 @@ const ClientesPage = ({ clientes, setClientes, currentCompany }) => {
               </tr>
             </thead>
             <tbody>
-              {filteredClientes.map((c) => (
+              {filteredClientes.map((c: Cliente) => (
                 <tr key={c._id} className="hover:bg-gray-50">
                   <td className="py-2 px-2 font-medium">{c.nombre}</td>
                   <td className="py-2 px-2">{c.email}</td>
@@ -132,10 +160,10 @@ const ClientesPage = ({ clientes, setClientes, currentCompany }) => {
           <div className="bg-white rounded-lg p-6 w-full max-w-md mx-4">
             <h3 className="text-xl font-semibold mb-4">{editingCliente ? 'Editar Cliente' : 'Nuevo Cliente'}</h3>
             <form onSubmit={handleSubmit} className="space-y-4">
-              <input className="border rounded p-2 w-full" placeholder="Nombre *" value={form.nombre} onChange={e => setForm({ ...form, nombre: e.target.value })} />
-              <input className="border rounded p-2 w-full" type="email" placeholder="Email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} />
-              <input className="border rounded p-2 w-full" placeholder="Teléfono" value={form.telefono} onChange={e => setForm({ ...form, telefono: e.target.value })} />
-              <input className="border rounded p-2 w-full" placeholder="Dirección" value={form.direccion} onChange={e => setForm({ ...form, direccion: e.target.value })} />
+              <input className="border rounded p-2 w-full" placeholder="Nombre *" value={form.nombre} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setForm({ ...form, nombre: e.target.value })} />
+              <input className="border rounded p-2 w-full" type="email" placeholder="Email" value={form.email} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setForm({ ...form, email: e.target.value })} />
+              <input className="border rounded p-2 w-full" placeholder="Teléfono" value={form.telefono} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setForm({ ...form, telefono: e.target.value })} />
+              <input className="border rounded p-2 w-full" placeholder="Dirección" value={form.direccion} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setForm({ ...form, direccion: e.target.value })} />
               {error && <p className="text-red-500 text-sm">{error}</p>}
               <div className="flex justify-end gap-3">
                 <button type="button" onClick={handleCloseForm} className="bg-gray-200 px-4 py-2 rounded">Cancelar</button>

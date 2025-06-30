@@ -94,35 +94,22 @@ const FacturasPage = ({ invoices, setInvoices, clientes, productos, currentCompa
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.clienteId || form.items.length === 0) {
-      alert('Por favor selecciona un cliente y agrega al menos un producto');
-      return;
-    }
     
     try {
-      // Preparar datos de la factura
-      const facturaData = {
-        ...form,
-        empresaId: currentCompany._id,
-        numero: editingFactura ? editingFactura.numero : Date.now(), // Número temporal
-        subtotal: form.items.reduce((sum: number, item: InvoiceItem) => sum + (item.cantidad * item.precio), 0),
-        total: form.items.reduce((sum: number, item: InvoiceItem) => sum + (item.cantidad * item.precio), 0),
-        fechaEmision: new Date().toISOString(),
-        tipo: 'factura'
-      };
-
       if (editingFactura) {
-        const updatedFactura = await updateFactura(editingFactura._id, facturaData);
-        setInvoices(invoices.map((inv: Invoice) => inv._id === editingFactura._id ? updatedFactura : inv));
+        // Actualizar factura existente
+        await updateFactura(editingFactura._id, form as any);
       } else {
-        const newFactura = await createFactura(facturaData);
-        setInvoices([newFactura, ...invoices]);
+        // Crear nueva factura
+        await createFactura(form as any);
       }
+      
       setShowForm(false);
-      setForm({ clienteId: '', items: [], fechaVencimiento: '', subtotal: 0, total: 0 });
-    } catch (error: any) {
-      console.error("Error guardando factura:", error);
-      alert('Error al guardar la factura: ' + error.message);
+      setEditingFactura(null);
+      // Recargar facturas
+      window.location.reload();
+    } catch (error) {
+      console.error('Error saving factura:', error);
     }
   };
 

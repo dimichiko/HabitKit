@@ -1,9 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import apiClient from '../utils/api';
 
-const WeekSummaryScreen = ({ onNavigate }) => {
-  const [trainings, setTrainings] = useState([]);
-  const [loading, setLoading] = useState(true);
+interface Training {
+  date: string;
+  type: string;
+  duration: number;
+  location: string;
+  withFriends: boolean;
+  friends?: string;
+}
+
+interface WeekSummaryScreenProps {
+  onNavigate: (path: string) => void;
+}
+
+const WeekSummaryScreen: React.FC<WeekSummaryScreenProps> = ({ onNavigate }) => {
+  const [trainings, setTrainings] = useState<Training[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchData = async () => {

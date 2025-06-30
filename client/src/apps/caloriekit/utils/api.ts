@@ -1,157 +1,194 @@
 const API_URL = '/api';
 
-const request = async (endpoint, method = 'GET', body = null) => {
+// Interfaces para los tipos de datos
+interface ProfileData {
+  name: string;
+  email: string;
+  age: number;
+  gender: string;
+  weight: number;
+  height: number;
+  activityLevel: string;
+  goal: string;
+  targetWeight?: number;
+}
+
+interface UserProfile extends ProfileData {
+  _id: string;
+  dailyCalories?: number;
+  dailyProtein?: number;
+  dailyCarbs?: number;
+  dailyFat?: number;
+}
+
+interface FoodData {
+  name: string;
+  calories: number;
+  protein: number;
+  carbs: number;
+  fat: number;
+  fiber?: number;
+  sugar?: number;
+  sodium?: number;
+}
+
+interface Food extends FoodData {
+  _id: string;
+}
+
+interface MealData {
+  type: string;
+  foods: Array<{
+    foodId: string;
+    quantity: number;
+  }>;
+  date: string;
+  totalCalories: number;
+}
+
+interface Meal extends MealData {
+  _id: string;
+  calories?: number;
+  protein?: number;
+  carbs?: number;
+  fat?: number;
+}
+
+interface WeightEntry {
+  weight: number;
+  date: string;
+  notes?: string;
+}
+
+interface WeightUpdateData {
+  weight: number;
+  notes?: string;
+}
+
+interface WeightStats {
+  entries: Array<{
+    weight: number;
+    date: string;
+  }>;
+}
+
+interface AuthResponse {
+  token: string;
+  user: UserProfile;
+}
+
+interface ApiResponse<T> {
+  data: T;
+  message?: string;
+}
+
+// Función request tipada
+const request = async <T>(endpoint: string, method: string = 'GET', body: any = null): Promise<T> => {
   const token = localStorage.getItem('token');
-  const config = {
+  const config: RequestInit = {
     method,
     headers: {
       'Content-Type': 'application/json',
-      ...(token && { 'Authorization': `Bearer ${token}` })
-    }
+      ...(token && { Authorization: `Bearer ${token}` }),
+    },
   };
 
-  if (body) {
+  if (body && method !== 'GET') {
     config.body = JSON.stringify(body);
   }
 
   try {
-    const response = await fetch(`${API_URL}${endpoint}`, config);
-
+    const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:3001'}${endpoint}`, config);
+    
     if (!response.ok) {
-      const errorText = await response.text();
-      console.error('CalorieKit API Error:', errorText);
-      try {
-        const errorJson = JSON.parse(errorText);
-        throw new Error(errorJson.message || 'API request failed');
-      } catch (e) {
-        throw new Error(errorText || 'API request failed with non-JSON response');
-      }
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Error en la petición');
     }
 
-    if (response.status === 204) {
-      return null;
-    }
-    
-    const data = await response.json();
-    
-    // Permitir respuestas vacías válidas (arrays vacíos, null, etc.)
-    return data;
+    return await response.json();
   } catch (error) {
-    console.error('CalorieKit API Request Error:', error);
+    console.error('API Error:', error);
     throw error;
   }
 };
 
-// --- API de Autenticación y Perfil ---
-export const getProfile = () => request('/auth/profile');
-export const getUserProfile = () => request('/auth/profile');
-export const updateProfile = (profileData) => request('/auth/profile', 'PUT', profileData);
-export const saveProfile = (profileData) => request('/auth/profile', 'POST', profileData);
+// Funciones de autenticación
+export const login = (credentials: { email: string; password: string }): Promise<AuthResponse> => 
+  request<AuthResponse>('/auth/login', 'POST', credentials);
 
-export const calculateMacros = (profileData) => request('/calories/calculate-macros', 'POST', profileData);
+export const register = (userData: { name: string; email: string; password: string }): Promise<AuthResponse> => 
+  request<AuthResponse>('/auth/register', 'POST', userData);
 
-// --- API de Alimentos ---
-export const searchFood = (query) => {
-  if (!query || typeof query !== 'string' || query.trim().length === 0) {
-    throw new Error('Query de búsqueda inválida');
-  }
-  return request(`/calories/food/search?q=${encodeURIComponent(query.trim())}`);
+export const getProfile = (): Promise<UserProfile> => request<UserProfile>('/auth/profile');
+
+export const updateProfile = (profileData: ProfileData): Promise<UserProfile> => request<UserProfile>('/auth/profile', 'PUT', profileData);
+export const saveProfile = (profileData: ProfileData): Promise<UserProfile> => request<UserProfile>('/auth/profile', 'POST', profileData);
+
+// Funciones de cálculo de macros
+export const calculateMacros = (profileData: ProfileData): Promise<{ dailyCalories: number; dailyProtein: number; dailyCarbs: number; dailyFat: number }> => 
+  request<{ dailyCalories: number; dailyProtein: number; dailyCarbs: number; dailyFat: number }>('/calories/calculate-macros', 'POST', profileData);
+
+// Funciones de búsqueda y gestión de alimentos
+export const searchFood = (query: string): Promise<Food[]> => {
+  const params = new URLSearchParams({ q: query });
+  return request<Food[]>(`/calories/foods/search?${params}`);
 };
 
-export const createFood = (foodData) => {
-  if (!foodData || !foodData.name || typeof foodData.name !== 'string') {
-    throw new Error('Datos de alimento inválidos');
-  }
-  return request('/calories/food', 'POST', foodData);
+export const createFood = (foodData: FoodData): Promise<Food> => {
+  return request<Food>('/calories/foods', 'POST', foodData);
 };
 
-export const updateFood = (foodId, foodData) => {
-  if (!foodId) {
-    throw new Error('ID de alimento requerido');
-  }
-  if (!foodData || !foodData.name || typeof foodData.name !== 'string') {
-    throw new Error('Datos de alimento inválidos');
-  }
-  return request(`/calories/food/${foodId}`, 'PUT', foodData);
+export const getFoods = (): Promise<Food[]> => request<Food[]>('/calories/foods');
+
+export const updateFood = (foodId: string, foodData: FoodData): Promise<Food> => {
+  return request<Food>(`/calories/foods/${foodId}`, 'PUT', foodData);
 };
 
-export const getUserFoods = () => request('/calories/food/user');
-export const deleteFood = (foodId) => {
-  if (!foodId) {
-    throw new Error('ID de alimento requerido');
-  }
-  return request(`/calories/food/${foodId}`, 'DELETE');
+export const deleteFood = (foodId: string): Promise<{ message: string }> => {
+  return request<{ message: string }>(`/calories/foods/${foodId}`, 'DELETE');
 };
 
-// --- API de Comidas ---
+// Funciones de gestión de comidas
+export const getMealsByDate = (date: string): Promise<Meal[]> => {
+  const params = new URLSearchParams({ date });
+  return request<Meal[]>(`/calories/meals?${params}`);
+};
+
+export const addMeal = (mealData: MealData): Promise<Meal> => {
+  return request<Meal>('/calories/meals', 'POST', mealData);
+};
+
+export const getMeals = (): Promise<Meal[]> => request<Meal[]>('/calories/meals');
+
+export const deleteMeal = (mealId: string): Promise<{ message: string }> => {
+  return request<{ message: string }>(`/calories/meals/${mealId}`, 'DELETE');
+};
+
+// Funciones de seguimiento de peso
+export const addWeightEntry = (entry: WeightEntry): Promise<WeightEntry & { _id: string }> => {
+  return request<WeightEntry & { _id: string }>('/calories/weight', 'POST', entry);
+};
+
+export const getWeightEntries = (): Promise<WeightEntry[]> => request<WeightEntry[]>('/calories/weight');
+
+export const getWeightStats = (days: number): Promise<WeightStats> => {
+  const params = new URLSearchParams({ days: days.toString() });
+  return request<WeightStats>(`/calories/weight/stats?${params}`);
+};
+
+export const updateWeightEntry = (id: string, data: WeightUpdateData): Promise<WeightEntry & { _id: string }> => {
+  return request<WeightEntry & { _id: string }>(`/calories/weight/${id}`, 'PUT', data);
+};
+
+export const deleteWeightEntry = (id: string): Promise<{ message: string }> => {
+  return request<{ message: string }>(`/calories/weight/${id}`, 'DELETE');
+};
+
+export const getLatestWeight = () => request('/calories/weight/latest');
+
 export const getTodayMeals = () => {
     const today = new Date().toISOString().split('T')[0];
     return getMealsByDate(today);
-};
-
-export const getMealsByDate = (date) => {
-  if (!date || typeof date !== 'string') {
-    throw new Error('Fecha inválida');
-  }
-  return request(`/calories/meals/date/${date}`);
-};
-
-export const addMeal = (mealData) => {
-  if (!mealData || !mealData.foodName || typeof mealData.foodName !== 'string') {
-    throw new Error('Datos de comida inválidos');
-  }
-  
-  // Validar valores nutricionales
-  const validatedMeal = {
-    ...mealData,
-    calories: parseFloat(mealData.calories) || 0,
-    protein: parseFloat(mealData.protein) || 0,
-    carbs: parseFloat(mealData.carbs) || 0,
-    fat: parseFloat(mealData.fat) || 0
-  };
-  
-  return request('/calories/meals', 'POST', validatedMeal);
-};
-
-export const deleteMeal = (mealId) => {
-  if (!mealId) {
-    throw new Error('ID de comida requerido');
-  }
-  return request(`/calories/meals/${mealId}`, 'DELETE');
-};
-
-// --- API de Peso ---
-export const getLatestWeight = () => request('/calories/weight/latest');
-export const addWeightEntry = (entry) => {
-  if (!entry || typeof entry.weight !== 'number' || entry.weight <= 0) {
-    throw new Error('Peso inválido');
-  }
-  return request('/calories/weight', 'POST', entry);
-};
-
-export const getWeightEntries = () => request('/calories/weight');
-export const updateWeightEntry = (id, data) => {
-  if (!id) {
-    throw new Error('ID de entrada requerido');
-  }
-  if (!data || typeof data.weight !== 'number' || data.weight <= 0) {
-    throw new Error('Datos de peso inválidos');
-  }
-  return request(`/calories/weight/${id}`, 'PUT', data);
-};
-
-export const deleteWeightEntry = (id) => {
-  if (!id) {
-    throw new Error('ID de entrada requerido');
-  }
-  return request(`/calories/weight/${id}`, 'DELETE');
-};
-
-export const getWeightStats = (days = 30) => {
-  if (typeof days !== 'number' || days <= 0) {
-    throw new Error('Número de días inválido');
-  }
-  return request(`/calories/weight/stats?days=${days}`);
 };
 
 export const getMealStats = (days = 7) => {

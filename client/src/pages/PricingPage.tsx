@@ -7,6 +7,15 @@ import { FaCheckCircle, FaCrown, FaAppleAlt, FaDumbbell, FaFileInvoice } from 'r
 import apiClient from '../apps/habitkit/utils/api';
 import { Helmet } from 'react-helmet-async';
 
+interface Plan {
+  id: string;
+  name: string;
+  price: number;
+  interval: string;
+  features: string[];
+  popular?: boolean;
+}
+
 const APPS = [
   { id: 'habitkit', name: 'HabitKit', icon: <FaCheckCircle className="text-blue-500" />, desc: 'Hábitos diarios', badge: '✅ Hábitos' },
   { id: 'invoicekit', name: 'InvoiceKit', icon: <FaFileInvoice className="text-yellow-500" />, desc: 'Facturación simple', badge: '💰 Facturación' },
@@ -30,21 +39,48 @@ const FLEX_PRICING_ANNUAL = [
 
 const KITFULL_PRICE = { monthly: 15, annual: 150 };
 
-const PricingPage = () => {
+const PricingPage: React.FC = () => {
   const { user, updateUser } = useUser();
   const navigate = useNavigate();
   const [profile, setProfile] = useState({ name: '', email: '', photo: '' });
-  const [plan, setPlan] = useState('Free');
+  const [selectedPlan, setSelectedPlan] = useState<string>('premium');
   const [flexApps, setFlexApps] = useState<string[]>([]);
   const [billing, setBilling] = useState('monthly');
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState('');
   const [error, setError] = useState('');
 
+  const plans: Plan[] = [
+    {
+      id: 'premium',
+      name: 'Plan Premium',
+      price: 9.99,
+      interval: 'mes',
+      features: [
+        'Acceso a todas las apps',
+        'Sin anuncios',
+        'Soporte prioritario',
+        'Backups automáticos'
+      ],
+      popular: true
+    },
+    {
+      id: 'enterprise',
+      name: 'Plan Enterprise',
+      price: 29.99,
+      interval: 'mes',
+      features: [
+        'Todo del plan Premium',
+        'Integraciones avanzadas',
+        'Soporte 24/7',
+        'Personalización completa'
+      ]
+    }
+  ];
+
   useEffect(() => {
     if (user) {
       setProfile({ name: user.name, email: user.email, photo: user.avatar || '' });
-      setPlan(user.plan || 'Free');
       setFlexApps([]);
     }
   }, [user]);
@@ -61,6 +97,10 @@ const PricingPage = () => {
   const flexPrice = billing === 'monthly'
     ? FLEX_PRICING.find(f => f.apps === flexApps.length) || FLEX_PRICING[0]
     : FLEX_PRICING_ANNUAL.find(f => f.apps === flexApps.length) || FLEX_PRICING_ANNUAL[0];
+
+  const handlePlanSelect = (planId: string): void => {
+    setSelectedPlan(planId);
+  };
 
   const handlePlanChange = async (plan: string, activeApps?: string[]) => {
     setLoading(true); setSuccess(''); setError('');
@@ -118,7 +158,7 @@ const PricingPage = () => {
             <div>
               <div className="font-bold text-lg text-indigo-700">{profile.name || 'Sin nombre'}</div>
               <div className="text-gray-500 text-sm">{profile.email || 'Sin email'}</div>
-              <div className="mt-1 text-xs text-indigo-500 font-semibold">Plan actual: {plan}</div>
+              <div className="mt-1 text-xs text-indigo-500 font-semibold">Plan actual: {selectedPlan}</div>
             </div>
           </div>
         )}
@@ -132,85 +172,48 @@ const PricingPage = () => {
           <span className={`font-bold ${billing==='annual'?'text-green-700':'text-gray-400'}`}>Anual <span className="text-xs">(ahorra 2 meses)</span></span>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
-          {/* Plan Free */}
-          <div className={`${blockBase} border-blue-200 bg-blue-50`}>
-            <div className="flex flex-col items-center w-full">
-              <div className="text-2xl font-bold text-blue-700 mb-2">Plan Free</div>
-              <div className="text-3xl font-extrabold mb-2">Gratis para siempre</div>
-              <ul className="text-gray-600 mb-4 list-disc list-inside text-left w-full max-w-xs mx-auto">
-                <li>📱 1 app básica</li>
-                <li>📉 Funciones limitadas</li>
-                <li>📢 Con anuncios</li>
-                <li>❌ Sin backups</li>
-              </ul>
-            </div>
-            <button className="mt-4 px-4 py-2 rounded-lg font-semibold w-full bg-blue-600 text-white hover:bg-blue-700 transition" onClick={() => handlePlanChange('Free', [APPS[0].id])} disabled={loading}>Seguir con plan Free</button>
-          </div>
-          {/* Personaliza tu Kit */}
-          <div className={`${blockBase} border-yellow-200 bg-yellow-50`}>
-            <div className="flex flex-col items-center w-full">
-              <div className="text-2xl font-bold text-yellow-700 mb-2">Personaliza tu Kit</div>
-              <div className="mb-2 text-lg font-semibold text-yellow-700">Elige 1, 2, 3 o 4 apps</div>
-              {/* Grid compacto de apps */}
-              <div className="grid grid-cols-2 gap-2 mb-2">
-                {APPS.map(app => (
-                  <button
-                    key={app.id}
-                    title={app.name}
-                    className={`flex flex-col items-center px-2 py-1 rounded-lg border-2 transition-all duration-200 font-semibold text-xs ${flexApps.includes(app.id) ? 'border-yellow-600 bg-white scale-105 shadow-lg' : 'border-gray-200 bg-gray-50 opacity-60'}`}
-                    onClick={e => { e.stopPropagation(); handleToggleApp(app.id); }}
-                  >
-                    <span className="text-lg mb-0.5">{app.icon}</span>
-                    <span className="font-bold text-gray-800">{app.name}</span>
-                  </button>
-                ))}
-              </div>
-              <div className="text-2xl font-extrabold text-yellow-700 mb-1">${flexPrice.price}<span className="text-base font-normal">/{billing==='monthly'?'mes':'año'}</span></div>
-              <div className="text-sm text-yellow-700 mb-1">Estás pagando ${flexPrice.price}/{billing==='monthly'?'mes':'año'} por {flexApps.length||1} app{flexApps.length===1?'':'s'}</div>
-              {flexPrice.ahorro > 0 && (
-                <div className="text-green-700 font-semibold mb-2 text-xs">Ahorro de ${flexPrice.ahorro} comparado al pago individual</div>
-              )}
-              <ul className="text-gray-600 mb-4 list-disc list-inside text-left w-full max-w-xs mx-auto">
-                <li>🧩 Apps completas seleccionadas</li>
-                <li>🚫 Sin anuncios</li>
-                <li>☁️ Backups</li>
-                <li>📧 Soporte por email</li>
-              </ul>
-            </div>
-            <button
-              className="mt-4 px-4 py-2 rounded-lg font-semibold w-full bg-yellow-500 text-white hover:bg-yellow-600 transition"
-              onClick={() => navigate(`/checkout?plan=flexible&apps=${flexApps.length?flexApps.join(','):[APPS[0].id]}&billing=${billing}&email=${encodeURIComponent(profile.email)}`)}
-              disabled={loading || flexApps.length===0}
+          {plans.map((plan) => (
+            <div
+              key={plan.id}
+              onClick={() => handlePlanSelect(plan.id)}
+              className={`${blockBase} border-gray-200 bg-gray-50 cursor-pointer transition-all duration-200 hover:shadow-md hover:scale-105 ${
+                selectedPlan === plan.id ? 'ring-2 ring-indigo-500' : ''
+              }`}
             >
-              Ir a Checkout
-            </button>
-          </div>
-          {/* Kit Full */}
-          <div className={`${blockBase} border-green-300 bg-green-50`}>
-            <div className="flex flex-col items-center w-full">
-              <div className="flex items-center gap-2 mb-2">
-                <FaCrown className="text-green-600 text-2xl" />
-                <span className="text-2xl font-bold text-green-700">Kit Full</span>
+              <div className="flex flex-col items-center w-full">
+                <div className="flex items-center justify-between mb-2">
+                  <h2 className="text-2xl font-semibold text-gray-900">{plan.name}</h2>
+                  {plan.popular && (
+                    <span className="bg-indigo-100 text-indigo-800 px-2 py-1 rounded-full text-xs font-medium">
+                      Popular
+                    </span>
+                  )}
+                </div>
+                <div className="text-4xl font-bold text-gray-900 mb-2">
+                  ${plan.price}
+                  <span className="text-base font-normal text-gray-500">/{plan.interval}</span>
+                </div>
+                <ul className="space-y-1 mb-4">
+                  {plan.features.map((feature, index) => (
+                    <li key={index} className="text-gray-600 flex items-center">
+                      <span className="text-green-500 mr-2">✓</span>
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+                <button
+                  className="mt-4 px-4 py-2 rounded-lg font-semibold w-full bg-indigo-600 text-white hover:bg-indigo-700 transition"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handlePlanChange(plan.id, [APPS[0].id]);
+                  }}
+                  disabled={loading}
+                >
+                  Elegir este plan
+                </button>
               </div>
-              <div className="mb-2 text-lg font-semibold text-green-700">Acceso total a todas las apps</div>
-              <div className="text-2xl font-extrabold text-green-700 mb-1">${billing==='monthly'?KITFULL_PRICE.monthly:KITFULL_PRICE.annual}<span className="text-base font-normal">/{billing==='monthly'?'mes':'año'}</span></div>
-              <ul className="text-gray-600 mb-4 list-disc list-inside text-left w-full max-w-xs mx-auto">
-                <li>🔓 Todas las apps actuales y futuras</li>
-                <li>🧠 Funciones exclusivas</li>
-                <li>🚫 Sin anuncios</li>
-                <li>☁️ Backups automáticos</li>
-                <li>⭐ Soporte prioritario</li>
-                <li>🔄 Integraciones cruzadas</li>
-              </ul>
             </div>
-            <button
-              className="mt-4 px-4 py-2 rounded-lg font-semibold w-full bg-green-600 text-white hover:bg-green-700 transition"
-              onClick={() => navigate(`/checkout?plan=full&apps=all&billing=${billing}&email=${encodeURIComponent(profile.email)}`)}
-              disabled={loading}
-            >
-              Ir a Checkout
-            </button>
-          </div>
+          ))}
         </div>
         <div className="mt-10 text-center text-lg font-bold text-indigo-700">¿No estás seguro? Puedes probar gratis y actualizar más tarde.</div>
         {success && <div className="text-green-600 font-semibold mt-2">{success}</div>}

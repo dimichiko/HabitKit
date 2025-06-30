@@ -1,17 +1,103 @@
 import React, { useState, useEffect } from 'react';
 import { getWeightStats } from '../utils/api';
 
-const GoalComparison = ({ userProfile, todayMeals }) => {
-  const [weightStats, setWeightStats] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [selectedGoal, setSelectedGoal] = useState('calories');
+interface UserProfile {
+  _id: string;
+  name: string;
+  email: string;
+  age: number;
+  gender: string;
+  weight: number;
+  height: number;
+  activityLevel: string;
+  goal: string;
+  targetWeight?: number;
+  dailyCalories?: number;
+  dailyProtein?: number;
+  dailyCarbs?: number;
+  dailyFat?: number;
+  calorieTarget?: number;
+  proteinTarget?: number;
+  carbTarget?: number;
+  fatTarget?: number;
+  weightGoal?: 'lose' | 'gain' | 'maintain';
+}
+
+interface Meal {
+  _id: string;
+  type: string;
+  foods: Array<{
+    foodId: string;
+    quantity: number;
+  }>;
+  date: string;
+  totalCalories: number;
+  calories?: number;
+  protein?: number;
+  carbs?: number;
+  fat?: number;
+}
+
+interface WeightStats {
+  entries: Array<{
+    weight: number;
+    date: string;
+  }>;
+}
+
+interface GoalComparisonProps {
+  userProfile: UserProfile;
+  todayMeals: Meal[];
+}
+
+interface WeightGoalStatus {
+  currentWeight: number;
+  targetWeight: number;
+  difference: number;
+  isOnTrack: boolean;
+  goal: string;
+}
+
+interface TodayStats {
+  totalCalories: number;
+  totalProtein: number;
+  totalCarbs: number;
+  totalFat: number;
+}
+
+interface GoalTargets {
+  calorieTarget: number;
+  proteinTarget: number;
+  carbTarget: number;
+  fatTarget: number;
+}
+
+interface Macro {
+  name: string;
+  current: number;
+  target: number;
+  color: string;
+  textColor: string;
+  icon: string;
+}
+
+interface GoalTab {
+  id: string;
+  label: string;
+  icon: string;
+}
+
+const GoalComparison: React.FC<GoalComparisonProps> = ({ userProfile, todayMeals }) => {
+  const [weightStats, setWeightStats] = useState<WeightStats | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+  const [selectedGoal, setSelectedGoal] = useState<string>('calories');
 
   useEffect(() => {
     loadWeightData();
   }, []);
 
-  const loadWeightData = async () => {
+  const loadWeightData = async (): Promise<void> => {
     setLoading(true);
     setError(null);
     try {
@@ -32,19 +118,19 @@ const GoalComparison = ({ userProfile, todayMeals }) => {
     }
   };
 
-  const calculateTodayStats = () => {
+  const calculateTodayStats = (): TodayStats => {
     if (!todayMeals || !Array.isArray(todayMeals)) {
       return { totalCalories: 0, totalProtein: 0, totalCarbs: 0, totalFat: 0 };
     }
-    const totalCalories = todayMeals.reduce((sum, meal) => sum + (meal.calories || 0), 0);
-    const totalProtein = todayMeals.reduce((sum, meal) => sum + (meal.protein || 0), 0);
-    const totalCarbs = todayMeals.reduce((sum, meal) => sum + (meal.carbs || 0), 0);
-    const totalFat = todayMeals.reduce((sum, meal) => sum + (meal.fat || 0), 0);
+    const totalCalories = todayMeals.reduce((sum: number, meal: Meal) => sum + (meal.calories || 0), 0);
+    const totalProtein = todayMeals.reduce((sum: number, meal: Meal) => sum + (meal.protein || 0), 0);
+    const totalCarbs = todayMeals.reduce((sum: number, meal: Meal) => sum + (meal.carbs || 0), 0);
+    const totalFat = todayMeals.reduce((sum: number, meal: Meal) => sum + (meal.fat || 0), 0);
 
     return { totalCalories, totalProtein, totalCarbs, totalFat };
   };
 
-  const getGoalTargets = () => {
+  const getGoalTargets = (): GoalTargets => {
     const calorieTarget = userProfile?.calorieTarget || 2000;
     const proteinTarget = userProfile?.proteinTarget || Math.round((calorieTarget * 0.3) / 4);
     const carbTarget = userProfile?.carbTarget || Math.round((calorieTarget * 0.4) / 4);
@@ -53,33 +139,33 @@ const GoalComparison = ({ userProfile, todayMeals }) => {
     return { calorieTarget, proteinTarget, carbTarget, fatTarget };
   };
 
-  const getProgressPercentage = (current, target) => {
+  const getProgressPercentage = (current: number, target: number): number => {
     if (target === 0) return 0;
     return Math.min((current / target) * 100, 100);
   };
 
-  const getProgressColor = (percentage) => {
+  const getProgressColor = (percentage: number): string => {
     if (percentage < 50) return 'bg-red-500';
     if (percentage < 80) return 'bg-yellow-500';
     if (percentage < 100) return 'bg-orange-500';
     return 'bg-green-500';
   };
 
-  const getProgressTextColor = (percentage) => {
+  const getProgressTextColor = (percentage: number): string => {
     if (percentage < 50) return 'text-red-600 dark:text-red-400';
     if (percentage < 80) return 'text-yellow-600 dark:text-yellow-400';
     if (percentage < 100) return 'text-orange-600 dark:text-orange-400';
     return 'text-green-600 dark:text-green-400';
   };
 
-  const getTrafficLightIcon = (percentage) => {
+  const getTrafficLightIcon = (percentage: number): string => {
     if (percentage < 50) return '🔴';
     if (percentage < 80) return '🟡';
     if (percentage < 100) return '🟠';
     return '🟢';
   };
 
-  const getWeightGoalStatus = () => {
+  const getWeightGoalStatus = (): WeightGoalStatus | null => {
     if (!weightStats || !weightStats.entries || !Array.isArray(weightStats.entries) || weightStats.entries.length === 0) {
       return null;
     }
@@ -115,7 +201,7 @@ const GoalComparison = ({ userProfile, todayMeals }) => {
       targetWeight,
       difference: Math.abs(difference),
       isOnTrack,
-      goal
+      goal: goal || 'maintain'
     };
   };
 
@@ -274,7 +360,7 @@ const GoalComparison = ({ userProfile, todayMeals }) => {
     }
 
     const { currentWeight, targetWeight, difference, isOnTrack, goal } = weightStatus;
-    const goalText = {
+    const goalText: Record<string, string> = {
       lose: 'Perder peso',
       gain: 'Ganar peso',
       maintain: 'Mantener peso'

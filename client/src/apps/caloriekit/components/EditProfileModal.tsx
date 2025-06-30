@@ -1,51 +1,97 @@
 import React, { useState, useEffect } from 'react';
 import { updateProfile } from '../utils/api';
 
-const EditProfileModal = ({ isOpen, onClose, userProfile, onProfileUpdated }) => {
-  const [formData, setFormData] = useState({
+interface UserProfile {
+  _id: string;
+  name: string;
+  email: string;
+  age: number;
+  gender: string;
+  weight: number;
+  height: number;
+  activityLevel: string;
+  goal: string;
+  targetWeight?: number;
+  dailyCalories?: number;
+  dailyProtein?: number;
+  dailyCarbs?: number;
+  dailyFat?: number;
+}
+
+interface EditProfileForm {
+  name: string;
+  email: string;
+  age: number;
+  gender: string;
+  weight: number;
+  height: number;
+  activityLevel: string;
+  goal: string;
+  targetWeight?: number;
+}
+
+interface EditProfileModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  userProfile: UserProfile;
+  onProfileUpdated: (profile: UserProfile) => void;
+}
+
+const EditProfileModal: React.FC<EditProfileModalProps> = ({
+  isOpen,
+  onClose,
+  userProfile,
+  onProfileUpdated,
+}) => {
+  const [form, setForm] = useState<EditProfileForm>({
     name: '',
-    age: '',
+    email: '',
+    age: 0,
     gender: '',
-    weight: '',
-    height: '',
+    weight: 0,
+    height: 0,
     activityLevel: '',
-    goal: ''
+    goal: '',
+    targetWeight: 0,
   });
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (userProfile) {
-      setFormData({
+      setForm({
         name: userProfile.name || '',
-        age: userProfile.age || '',
+        email: userProfile.email || '',
+        age: userProfile.age || 0,
         gender: userProfile.gender || '',
-        weight: userProfile.weight || '',
-        height: userProfile.height || '',
+        weight: userProfile.weight || 0,
+        height: userProfile.height || 0,
         activityLevel: userProfile.activityLevel || '',
-        goal: userProfile.goal || ''
+        goal: userProfile.goal || '',
+        targetWeight: userProfile.targetWeight || 0,
       });
     }
   }, [userProfile]);
 
-  const handleInputChange = (field, value) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+  const handleChange = (field: keyof EditProfileForm, value: string | number) => {
+    setForm(prev => ({ ...prev, [field]: value }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsLoading(true);
-    setError('');
+    setLoading(true);
+    setError(null);
 
     try {
-      const updatedProfile = await updateProfile(formData);
+      const updatedProfile = await updateProfile(form);
       onProfileUpdated(updatedProfile);
       onClose();
-    } catch (error) {
-      setError('Error al actualizar el perfil. Inténtalo de nuevo.');
-      console.error('Error updating profile:', error);
+    } catch (err) {
+      setError('Error al actualizar el perfil');
+      console.error('Error updating profile:', err);
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
   };
 
@@ -99,8 +145,8 @@ const EditProfileModal = ({ isOpen, onClose, userProfile, onProfileUpdated }) =>
                   <input
                     id="editprofile-name"
                     type="text"
-                    value={formData.name}
-                    onChange={(e) => handleInputChange('name', e.target.value)}
+                    value={form.name}
+                    onChange={(e) => handleChange('name', e.target.value)}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                     placeholder="Tu nombre"
                     required
@@ -112,8 +158,8 @@ const EditProfileModal = ({ isOpen, onClose, userProfile, onProfileUpdated }) =>
                   <input
                     id="editprofile-age"
                     type="number"
-                    value={formData.age}
-                    onChange={(e) => handleInputChange('age', e.target.value)}
+                    value={form.age}
+                    onChange={(e) => handleChange('age', e.target.value)}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                     placeholder="25"
                     min="13"
@@ -126,8 +172,8 @@ const EditProfileModal = ({ isOpen, onClose, userProfile, onProfileUpdated }) =>
                   <label htmlFor="editprofile-gender" className="block text-sm font-medium text-gray-700 mb-2">Género</label>
                   <select
                     id="editprofile-gender"
-                    value={formData.gender}
-                    onChange={(e) => handleInputChange('gender', e.target.value)}
+                    value={form.gender}
+                    onChange={(e) => handleChange('gender', e.target.value)}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                     required
                   >
@@ -142,8 +188,8 @@ const EditProfileModal = ({ isOpen, onClose, userProfile, onProfileUpdated }) =>
                   <input
                     id="editprofile-weight"
                     type="number"
-                    value={formData.weight}
-                    onChange={(e) => handleInputChange('weight', e.target.value)}
+                    value={form.weight}
+                    onChange={(e) => handleChange('weight', e.target.value)}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                     placeholder="70"
                     min="30"
@@ -158,8 +204,8 @@ const EditProfileModal = ({ isOpen, onClose, userProfile, onProfileUpdated }) =>
                   <input
                     id="editprofile-height"
                     type="number"
-                    value={formData.height}
-                    onChange={(e) => handleInputChange('height', e.target.value)}
+                    value={form.height}
+                    onChange={(e) => handleChange('height', e.target.value)}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                     placeholder="170"
                     min="100"
@@ -179,11 +225,11 @@ const EditProfileModal = ({ isOpen, onClose, userProfile, onProfileUpdated }) =>
                     key={goal.id}
                     type="button"
                     role="radio"
-                    aria-checked={formData.goal === goal.id}
-                    tabIndex={formData.goal === goal.id ? 0 : -1}
-                    onClick={() => handleInputChange('goal', goal.id)}
+                    aria-checked={form.goal === goal.id}
+                    tabIndex={form.goal === goal.id ? 0 : -1}
+                    onClick={() => handleChange('goal', goal.id)}
                     className={`p-4 rounded-lg border-2 transition-all duration-300 text-left ${
-                      formData.goal === goal.id
+                      form.goal === goal.id
                         ? 'border-orange-500 bg-orange-50 shadow-lg'
                         : 'border-gray-200 bg-white hover:border-orange-300 hover:shadow-md'
                     }`}
@@ -211,11 +257,11 @@ const EditProfileModal = ({ isOpen, onClose, userProfile, onProfileUpdated }) =>
                     key={level.id}
                     type="button"
                     role="radio"
-                    aria-checked={formData.activityLevel === level.id}
-                    tabIndex={formData.activityLevel === level.id ? 0 : -1}
-                    onClick={() => handleInputChange('activityLevel', level.id)}
+                    aria-checked={form.activityLevel === level.id}
+                    tabIndex={form.activityLevel === level.id ? 0 : -1}
+                    onClick={() => handleChange('activityLevel', level.id)}
                     className={`w-full p-4 rounded-lg border-2 transition-all duration-300 text-left ${
-                      formData.activityLevel === level.id
+                      form.activityLevel === level.id
                         ? 'border-orange-500 bg-orange-50 shadow-lg'
                         : 'border-gray-200 bg-white hover:border-orange-300 hover:shadow-md'
                     }`}
@@ -248,10 +294,10 @@ const EditProfileModal = ({ isOpen, onClose, userProfile, onProfileUpdated }) =>
             </button>
             <button
               type="submit"
-              disabled={isLoading || !formData.name || !formData.age || !formData.gender || !formData.weight || !formData.height || !formData.goal || !formData.activityLevel}
+              disabled={loading || !form.name || !form.age || !form.gender || !form.weight || !form.height || !form.goal || !form.activityLevel}
               className="px-8 py-3 bg-orange-500 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 disabled:bg-gray-300 disabled:cursor-not-allowed"
             >
-              {isLoading ? 'Guardando...' : 'Guardar Cambios'}
+              {loading ? 'Guardando...' : 'Guardar Cambios'}
             </button>
           </div>
         </form>

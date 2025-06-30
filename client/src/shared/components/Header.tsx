@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../../shared/context/UserContext';
-import { FaTh, FaCrown } from 'react-icons/fa';
 
 // --- Subcomponentes ---
 
@@ -51,7 +50,7 @@ const AppsMenu: React.FC<{ user: UserProfile }> = ({ user }) => {
       className="flex items-center space-x-2 px-3 py-2 rounded-lg font-medium text-sm md:text-base transition-colors bg-indigo-50 text-indigo-700 hover:bg-indigo-100"
       title="Ir a aplicaciones"
     >
-      <FaTh className="w-4 h-4" />
+      <span className="text-lg">📱</span>
       <span className="hidden sm:inline">Apps</span>
     </button>
   );
@@ -104,7 +103,7 @@ const ProfileMenu: React.FC<{
         <div className="text-sm font-medium text-gray-800 dark:text-gray-200">{userProfile.name || 'Usuario'}</div>
         <div className="text-xs text-gray-500 dark:text-gray-400">{userProfile.email}</div>
         <div className="text-xs text-purple-600 dark:text-purple-400 font-medium mt-1 flex items-center gap-1">
-          <FaCrown className="w-3 h-3" />
+          <span className="text-sm">👑</span>
           Plan {userProfile.plan}
         </div>
       </div>

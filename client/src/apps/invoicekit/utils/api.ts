@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { InternalAxiosRequestConfig } from 'axios';
 import { config } from '../../../config';
 
 const API_URL = config.API_URL || 'http://localhost:5051/api';
@@ -10,18 +10,18 @@ const apiClient = axios.create({
   }
 });
 
-apiClient.interceptors.request.use(config => {
+apiClient.interceptors.request.use((config: InternalAxiosRequestConfig) => {
   const token = localStorage.getItem('token');
-  if (token) {
+  if (token && config.headers) {
     config.headers.Authorization = `Bearer ${token}`;
   }
   return config;
-}, error => {
+}, (error: unknown) => {
   return Promise.reject(error);
 });
 
 // Helper para adaptar las llamadas existentes
-const request = async (url, method = 'GET', body = null) => {
+const request = async (url: string, method: string = 'GET', body: any = null) => {
   try {
     const response = await apiClient.request({
       url,
@@ -29,9 +29,10 @@ const request = async (url, method = 'GET', body = null) => {
       data: body
     });
     return response.data;
-  } catch (error) {
-    console.error('API Error:', error.response ? error.response.data : error.message);
-    throw new Error(error.response?.data?.error || 'Ocurrió un error en la petición');
+  } catch (error: unknown) {
+    const axiosError = error as any;
+    console.error('API Error:', axiosError.response ? axiosError.response.data : axiosError.message);
+    throw new Error(axiosError.response?.data?.error || 'Ocurrió un error en la petición');
   }
 };
 
@@ -58,7 +59,7 @@ export {
 } from '../api/invoices';
 
 // Función adicional para toggle de pago
-export const toggleFacturaPayment = async (id) => {
+export const toggleFacturaPayment = async (id: string) => {
   const token = localStorage.getItem('token');
   if (!token) {
     throw new Error('No hay token de autenticación');

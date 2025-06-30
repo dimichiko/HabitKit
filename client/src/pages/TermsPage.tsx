@@ -4,7 +4,7 @@ import Footer from '../shared/components/Footer';
 import { useUser } from '../shared/context/UserContext';
 import { Helmet } from 'react-helmet-async';
 
-const TermsPage = () => {
+const TermsPage: React.FC = () => {
   const { user } = useUser();
   
   const publicNav = [
@@ -15,54 +15,31 @@ const TermsPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-white flex flex-col items-center px-4 py-12">
+    <div className="min-h-screen bg-gray-50 py-12">
       <Helmet>
         <title>Términos de Uso - Lifehub</title>
         <meta name="description" content="Lee los términos y condiciones de uso de Lifehub. Transparencia y confianza para todos los usuarios." />
       </Helmet>
-      <Header
-        appName="Lifehub"
-        appLogo="🟣"
-        navigationItems={publicNav}
-        currentPage="terms"
-        centerNav={true}
-        onNavigate={id => {
-          const nav = publicNav.find(n => n.id === id);
-          if (nav) window.location.href = nav.path;
-        }}
-      />
-      <main className="max-w-2xl w-full text-center mt-12">
-        <h1 className="text-3xl md:text-4xl font-extrabold text-indigo-700 mb-4">Términos de Uso</h1>
-        <div className="bg-white rounded-xl shadow-md p-6 text-left">
-          <div className="mb-6">
-            <h2 className="text-lg font-bold mb-2">🔒 Uso aceptable</h2>
-            <ul className="list-disc list-inside text-gray-700 mb-2">
-              <li>Usarás las apps de forma legal y respetuosa.</li>
-              <li>No revenderás ni replicarás sus funcionalidades.</li>
-              <li>No uses Lifehub para actividades ilegales.</li>
-            </ul>
-          </div>
-          <div className="mb-6">
-            <h2 className="text-lg font-bold mb-2">💳 Pago y acceso</h2>
-            <ul className="list-disc list-inside text-gray-700 mb-2">
-              <li>Acceso a todas las apps con una suscripción activa.</li>
-              <li>Puedes cancelar en cualquier momento, pero no hay reembolsos por ciclos activos.</li>
-              <li>Las suscripciones no son reembolsables una vez iniciado el período.</li>
-            </ul>
-          </div>
-          <div className="mb-6">
-            <h2 className="text-lg font-bold mb-2">⚙️ Modificaciones del servicio</h2>
-            <ul className="list-disc list-inside text-gray-700 mb-2">
-              <li>Lifehub es un conjunto de herramientas digitales en constante evolución.</li>
-              <li>Lifehub puede actualizar, eliminar o modificar apps sin previo aviso.</li>
-              <li>No hay garantía de uptime ni de continuidad de funciones específicas.</li>
-            </ul>
-          </div>
-          <div className="text-gray-600 mb-2">Consulta también nuestra <a href="/privacy" className="text-indigo-600 underline">Política de Privacidad</a>.</div>
-          <div className="text-gray-400 text-sm mb-2">Última actualización: 2024-06-24</div>
-          <p className="text-gray-500">Para dudas legales, contáctanos a <a href="mailto:hola@kitapp.com" className="underline">hola@kitapp.com</a></p>
+      <div className="max-w-3xl mx-auto px-4">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">Términos y Condiciones</h1>
+          <p className="text-xl text-gray-600">Lee atentamente antes de usar Lifehub</p>
         </div>
-      </main>
+        <div className="bg-white rounded-lg shadow-sm p-8">
+          <h2 className="text-2xl font-semibold text-gray-900 mb-4">Uso de la Plataforma</h2>
+          <p className="text-gray-600 mb-4">
+            Al utilizar Lifehub, aceptas cumplir con todas las normas y políticas establecidas. El uso indebido puede resultar en la suspensión de la cuenta.
+          </p>
+          <h2 className="text-2xl font-semibold text-gray-900 mb-4">Privacidad</h2>
+          <p className="text-gray-600 mb-4">
+            Nos comprometemos a proteger tu información personal. Consulta nuestra política de privacidad para más detalles.
+          </p>
+          <h2 className="text-2xl font-semibold text-gray-900 mb-4">Modificaciones</h2>
+          <p className="text-gray-600">
+            Lifehub se reserva el derecho de modificar estos términos en cualquier momento. Te notificaremos sobre cambios importantes.
+          </p>
+        </div>
+      </div>
       <Footer />
     </div>
   );
