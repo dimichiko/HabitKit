@@ -1,0 +1,1041 @@
+src/apps/caloriekit/components/CustomFoodsManager.tsx(4,31): error TS7031: Binding element 'userProfile' implicitly has an 'any' type.
+src/apps/caloriekit/components/CustomFoodsManager.tsx(28,35): error TS7006: Parameter 'foodId' implicitly has an 'any' type.
+src/apps/caloriekit/components/CustomFoodsManager.tsx(40,23): error TS7006: Parameter 'dateString' implicitly has an 'any' type.
+src/apps/caloriekit/components/CustomFoodsManager.tsx(88,82): error TS2339: Property 'click' does not exist on type 'EventTarget'.
+src/apps/caloriekit/components/CustomFoodsManager.tsx(97,32): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/caloriekit/components/CustomFoodsManager.tsx(101,102): error TS2339: Property 'name' does not exist on type 'never'.
+src/apps/caloriekit/components/CustomFoodsManager.tsx(111,52): error TS2339: Property 'name' does not exist on type 'never'.
+src/apps/caloriekit/components/CustomFoodsManager.tsx(113,90): error TS2339: Property 'click' does not exist on type 'EventTarget'.
+src/apps/caloriekit/components/CustomFoodsManager.tsx(119,62): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/caloriekit/components/CustomFoodsManager.tsx(122,54): error TS2339: Property 'name' does not exist on type 'never'.
+src/apps/caloriekit/components/CustomFoodsManager.tsx(124,90): error TS2339: Property 'click' does not exist on type 'EventTarget'.
+src/apps/caloriekit/components/CustomFoodsManager.tsx(132,82): error TS2339: Property 'calories' does not exist on type 'never'.
+src/apps/caloriekit/components/CustomFoodsManager.tsx(136,80): error TS2339: Property 'protein' does not exist on type 'never'.
+src/apps/caloriekit/components/CustomFoodsManager.tsx(140,81): error TS2339: Property 'carbs' does not exist on type 'never'.
+src/apps/caloriekit/components/CustomFoodsManager.tsx(144,79): error TS2339: Property 'fat' does not exist on type 'never'.
+src/apps/caloriekit/components/CustomFoodsManager.tsx(149,39): error TS2339: Property 'baseAmount' does not exist on type 'never'.
+src/apps/caloriekit/components/CustomFoodsManager.tsx(149,57): error TS2339: Property 'unit' does not exist on type 'never'.
+src/apps/caloriekit/components/CustomFoodsManager.tsx(150,27): error TS2339: Property 'createdAt' does not exist on type 'never'.
+src/apps/caloriekit/components/CustomFoodsManager.tsx(151,51): error TS2339: Property 'createdAt' does not exist on type 'never'.
+src/apps/caloriekit/components/CustomFoodsManager.tsx(153,27): error TS2339: Property 'updatedAt' does not exist on type 'never'.
+src/apps/caloriekit/components/CustomFoodsManager.tsx(153,45): error TS2339: Property 'updatedAt' does not exist on type 'never'.
+src/apps/caloriekit/components/CustomFoodsManager.tsx(153,64): error TS2339: Property 'createdAt' does not exist on type 'never'.
+src/apps/caloriekit/components/CustomFoodsManager.tsx(154,56): error TS2339: Property 'updatedAt' does not exist on type 'never'.
+src/apps/caloriekit/components/CustomFoodsManager.tsx(218,36): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/caloriekit/components/CustomFoodsManager.tsx(222,77): error TS2339: Property 'name' does not exist on type 'never'.
+src/apps/caloriekit/components/CustomFoodsManager.tsx(230,85): error TS2339: Property 'calories' does not exist on type 'never'.
+src/apps/caloriekit/components/CustomFoodsManager.tsx(234,83): error TS2339: Property 'protein' does not exist on type 'never'.
+src/apps/caloriekit/components/CustomFoodsManager.tsx(238,84): error TS2339: Property 'carbs' does not exist on type 'never'.
+src/apps/caloriekit/components/CustomFoodsManager.tsx(242,82): error TS2339: Property 'fat' does not exist on type 'never'.
+src/apps/caloriekit/components/CustomFoodsManager.tsx(248,47): error TS2339: Property 'baseAmount' does not exist on type 'never'.
+src/apps/caloriekit/components/CustomFoodsManager.tsx(248,65): error TS2339: Property 'unit' does not exist on type 'never'.
+src/apps/caloriekit/components/CustomFoodsManager.tsx(249,35): error TS2339: Property 'createdAt' does not exist on type 'never'.
+src/apps/caloriekit/components/CustomFoodsManager.tsx(250,59): error TS2339: Property 'createdAt' does not exist on type 'never'.
+src/apps/caloriekit/components/CustomFoodsManager.tsx(252,35): error TS2339: Property 'updatedAt' does not exist on type 'never'.
+src/apps/caloriekit/components/CustomFoodsManager.tsx(252,53): error TS2339: Property 'updatedAt' does not exist on type 'never'.
+src/apps/caloriekit/components/CustomFoodsManager.tsx(252,72): error TS2339: Property 'createdAt' does not exist on type 'never'.
+src/apps/caloriekit/components/CustomFoodsManager.tsx(253,64): error TS2339: Property 'updatedAt' does not exist on type 'never'.
+src/apps/caloriekit/components/CustomFoodsManager.tsx(259,64): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/caloriekit/components/DailySummary.tsx(3,25): error TS7031: Binding element 'meals' implicitly has an 'any' type.
+src/apps/caloriekit/components/DailySummary.tsx(3,32): error TS7031: Binding element 'waterIntake' implicitly has an 'any' type.
+src/apps/caloriekit/components/DailySummary.tsx(3,45): error TS7031: Binding element 'exercise' implicitly has an 'any' type.
+src/apps/caloriekit/components/DailySummary.tsx(7,39): error TS7006: Parameter 'sum' implicitly has an 'any' type.
+src/apps/caloriekit/components/DailySummary.tsx(7,44): error TS7006: Parameter 'meal' implicitly has an 'any' type.
+src/apps/caloriekit/components/DailySummary.tsx(8,38): error TS7006: Parameter 'sum' implicitly has an 'any' type.
+src/apps/caloriekit/components/DailySummary.tsx(8,43): error TS7006: Parameter 'meal' implicitly has an 'any' type.
+src/apps/caloriekit/components/DailySummary.tsx(9,36): error TS7006: Parameter 'sum' implicitly has an 'any' type.
+src/apps/caloriekit/components/DailySummary.tsx(9,41): error TS7006: Parameter 'meal' implicitly has an 'any' type.
+src/apps/caloriekit/components/DailySummary.tsx(10,34): error TS7006: Parameter 'sum' implicitly has an 'any' type.
+src/apps/caloriekit/components/DailySummary.tsx(10,39): error TS7006: Parameter 'meal' implicitly has an 'any' type.
+src/apps/caloriekit/components/DailySummary.tsx(27,27): error TS7006: Parameter 'amount' implicitly has an 'any' type.
+src/apps/caloriekit/components/DailySummary.tsx(28,20): error TS7006: Parameter 'prev' implicitly has an 'any' type.
+src/apps/caloriekit/components/DailySummary.tsx(31,30): error TS7006: Parameter 'amount' implicitly has an 'any' type.
+src/apps/caloriekit/components/DailySummary.tsx(32,23): error TS7006: Parameter 'prev' implicitly has an 'any' type.
+src/apps/caloriekit/components/DailySummary.tsx(138,25): error TS7006: Parameter 'meal' implicitly has an 'any' type.
+src/apps/caloriekit/components/EditProfileModal.tsx(4,29): error TS7031: Binding element 'isOpen' implicitly has an 'any' type.
+src/apps/caloriekit/components/EditProfileModal.tsx(4,37): error TS7031: Binding element 'onClose' implicitly has an 'any' type.
+src/apps/caloriekit/components/EditProfileModal.tsx(4,46): error TS7031: Binding element 'userProfile' implicitly has an 'any' type.
+src/apps/caloriekit/components/EditProfileModal.tsx(4,59): error TS7031: Binding element 'onProfileUpdated' implicitly has an 'any' type.
+src/apps/caloriekit/components/EditProfileModal.tsx(31,30): error TS7006: Parameter 'field' implicitly has an 'any' type.
+src/apps/caloriekit/components/EditProfileModal.tsx(31,37): error TS7006: Parameter 'value' implicitly has an 'any' type.
+src/apps/caloriekit/components/EditProfileModal.tsx(35,31): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/apps/caloriekit/components/FoodSearch.tsx(4,23): error TS7031: Binding element 'onFoodSelect' implicitly has an 'any' type.
+src/apps/caloriekit/components/FoodSearch.tsx(34,30): error TS7006: Parameter 'searchQuery' implicitly has an 'any' type.
+src/apps/caloriekit/components/FoodSearch.tsx(54,30): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/apps/caloriekit/components/FoodSearch.tsx(66,29): error TS7006: Parameter 'food' implicitly has an 'any' type.
+src/apps/caloriekit/components/FoodSearch.tsx(73,35): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/apps/caloriekit/components/FoodSearch.tsx(111,40): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/apps/caloriekit/components/FoodSearch.tsx(121,10): error TS2339: Property 'name' does not exist on type 'never'.
+src/apps/caloriekit/components/FoodSearch.tsx(178,38): error TS2339: Property 'name' does not exist on type 'never'.
+src/apps/caloriekit/components/FoodSearch.tsx(181,31): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/caloriekit/components/FoodSearch.tsx(188,33): error TS2339: Property 'name' does not exist on type 'never'.
+src/apps/caloriekit/components/FoodSearch.tsx(191,33): error TS2339: Property 'calories' does not exist on type 'never'.
+src/apps/caloriekit/components/FoodSearch.tsx(191,55): error TS2339: Property 'protein' does not exist on type 'never'.
+src/apps/caloriekit/components/FoodSearch.tsx(191,75): error TS2339: Property 'carbs' does not exist on type 'never'.
+src/apps/caloriekit/components/FoodSearch.tsx(191,93): error TS2339: Property 'fat' does not exist on type 'never'.
+src/apps/caloriekit/components/FoodSearch.tsx(211,29): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/caloriekit/components/FoodSearch.tsx(211,41): error TS2339: Property 'name' does not exist on type 'never'.
+src/apps/caloriekit/components/FoodSearch.tsx(216,27): error TS2339: Property 'name' does not exist on type 'never'.
+src/apps/caloriekit/components/FoodSearch.tsx(219,27): error TS2339: Property 'calories' does not exist on type 'never'.
+src/apps/caloriekit/components/FoodSearch.tsx(219,49): error TS2339: Property 'protein' does not exist on type 'never'.
+src/apps/caloriekit/components/FoodSearch.tsx(219,69): error TS2339: Property 'carbs' does not exist on type 'never'.
+src/apps/caloriekit/components/FoodSearch.tsx(219,87): error TS2339: Property 'fat' does not exist on type 'never'.
+src/apps/caloriekit/components/GoalComparison.tsx(4,27): error TS7031: Binding element 'userProfile' implicitly has an 'any' type.
+src/apps/caloriekit/components/GoalComparison.tsx(4,40): error TS7031: Binding element 'todayMeals' implicitly has an 'any' type.
+src/apps/caloriekit/components/GoalComparison.tsx(28,16): error TS2345: Argument of type '"Error al cargar datos de peso"' is not assignable to parameter of type 'SetStateAction<null>'.
+src/apps/caloriekit/components/GoalComparison.tsx(56,34): error TS7006: Parameter 'current' implicitly has an 'any' type.
+src/apps/caloriekit/components/GoalComparison.tsx(56,43): error TS7006: Parameter 'target' implicitly has an 'any' type.
+src/apps/caloriekit/components/GoalComparison.tsx(61,29): error TS7006: Parameter 'percentage' implicitly has an 'any' type.
+src/apps/caloriekit/components/GoalComparison.tsx(68,33): error TS7006: Parameter 'percentage' implicitly has an 'any' type.
+src/apps/caloriekit/components/GoalComparison.tsx(75,32): error TS7006: Parameter 'percentage' implicitly has an 'any' type.
+src/apps/caloriekit/components/GoalComparison.tsx(83,38): error TS2339: Property 'entries' does not exist on type 'never'.
+src/apps/caloriekit/components/GoalComparison.tsx(83,76): error TS2339: Property 'entries' does not exist on type 'never'.
+src/apps/caloriekit/components/GoalComparison.tsx(83,100): error TS2339: Property 'entries' does not exist on type 'never'.
+src/apps/caloriekit/components/GoalComparison.tsx(91,39): error TS2339: Property 'entries' does not exist on type 'never'.
+src/apps/caloriekit/components/GoalComparison.tsx(91,59): error TS2339: Property 'entries' does not exist on type 'never'.
+src/apps/caloriekit/components/GoalComparison.tsx(318,24): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ lose: string; gain: string; maintain: string; }'.
+src/apps/caloriekit/components/MealEntry.tsx(5,22): error TS7031: Binding element 'onMealAdded' implicitly has an 'any' type.
+src/apps/caloriekit/components/MealEntry.tsx(5,35): error TS7031: Binding element 'onClose' implicitly has an 'any' type.
+src/apps/caloriekit/components/MealEntry.tsx(5,44): error TS7031: Binding element 'mealType' implicitly has an 'any' type.
+src/apps/caloriekit/components/MealEntry.tsx(29,39): error TS7006: Parameter 'food' implicitly has an 'any' type.
+src/apps/caloriekit/components/MealEntry.tsx(29,45): error TS7006: Parameter 'quantity' implicitly has an 'any' type.
+src/apps/caloriekit/components/MealEntry.tsx(57,17): error TS2339: Property 'foodName' does not exist on type '{}'.
+src/apps/caloriekit/components/MealEntry.tsx(62,17): error TS2339: Property 'quantity' does not exist on type '{}'.
+src/apps/caloriekit/components/MealEntry.tsx(69,30): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/apps/caloriekit/components/MealEntry.tsx(77,9): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+src/apps/caloriekit/components/MealEntry.tsx(82,31): error TS7006: Parameter 'food' implicitly has an 'any' type.
+src/apps/caloriekit/components/MealEntry.tsx(95,31): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/apps/caloriekit/components/MealEntry.tsx(119,40): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/caloriekit/components/MealEntry.tsx(119,67): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/caloriekit/components/MealEntry.tsx(120,18): error TS2339: Property 'foodId' does not exist on type '{ foodName: string; calories: number; protein: number; carbs: number; fat: number; mealType: any; quantity: number; unit: string; servingSize: string; }'.
+src/apps/caloriekit/components/MealEntry.tsx(120,40): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/caloriekit/components/MealEntry.tsx(135,33): error TS7006: Parameter 'spanishType' implicitly has an 'any' type.
+src/apps/caloriekit/components/MealEntry.tsx(143,12): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ desayuno: string; almuerzo: string; cena: string; snack: string; }'.
+src/apps/caloriekit/components/MealEntry.tsx(174,17): error TS2339: Property 'submit' does not exist on type '{}'.
+src/apps/caloriekit/components/MealEntry.tsx(176,21): error TS2339: Property 'submit' does not exist on type '{}'.
+src/apps/caloriekit/components/MealEntry.tsx(201,24): error TS2339: Property 'foodName' does not exist on type '{}'.
+src/apps/caloriekit/components/MealEntry.tsx(206,21): error TS2339: Property 'foodName' does not exist on type '{}'.
+src/apps/caloriekit/components/MealEntry.tsx(207,64): error TS2339: Property 'foodName' does not exist on type '{}'.
+src/apps/caloriekit/components/MealEntry.tsx(226,26): error TS2339: Property 'quantity' does not exist on type '{}'.
+src/apps/caloriekit/components/MealEntry.tsx(231,23): error TS2339: Property 'quantity' does not exist on type '{}'.
+src/apps/caloriekit/components/MealEntry.tsx(232,66): error TS2339: Property 'quantity' does not exist on type '{}'.
+src/apps/caloriekit/components/MealEntry.tsx(260,98): error TS2339: Property 'name' does not exist on type 'never'.
+src/apps/caloriekit/components/NutritionChart.tsx(41,16): error TS2345: Argument of type 'any[]' is not assignable to parameter of type 'SetStateAction<never[]>'.
+  Type 'any[]' is not assignable to type 'never[]'.
+    Type 'any' is not assignable to type 'never'.
+src/apps/caloriekit/components/NutritionChart.tsx(50,67): error TS2339: Property 'calories' does not exist on type 'never'.
+src/apps/caloriekit/components/NutritionChart.tsx(51,66): error TS2339: Property 'protein' does not exist on type 'never'.
+src/apps/caloriekit/components/NutritionChart.tsx(52,64): error TS2339: Property 'carbs' does not exist on type 'never'.
+src/apps/caloriekit/components/NutritionChart.tsx(53,62): error TS2339: Property 'fat' does not exist on type 'never'.
+src/apps/caloriekit/components/NutritionChart.tsx(86,34): error TS2339: Property 'date' does not exist on type 'never'.
+src/apps/caloriekit/components/NutritionChart.tsx(87,12): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{}'.
+  No index signature with a parameter of type 'string' was found on type '{}'.
+src/apps/caloriekit/components/NutritionChart.tsx(88,9): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{}'.
+  No index signature with a parameter of type 'string' was found on type '{}'.
+src/apps/caloriekit/components/NutritionChart.tsx(90,7): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{}'.
+  No index signature with a parameter of type 'string' was found on type '{}'.
+src/apps/caloriekit/components/NutritionChart.tsx(95,27): error TS7006: Parameter 'label' implicitly has an 'any' type.
+src/apps/caloriekit/components/NutritionChart.tsx(95,34): error TS7006: Parameter 'value' implicitly has an 'any' type.
+src/apps/caloriekit/components/NutritionChart.tsx(95,41): error TS7006: Parameter 'color' implicitly has an 'any' type.
+src/apps/caloriekit/components/NutritionChart.tsx(95,48): error TS7006: Parameter 'percentage' implicitly has an 'any' type.
+src/apps/caloriekit/components/NutritionChart.tsx(125,28): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{}'.
+  No index signature with a parameter of type 'string' was found on type '{}'.
+src/apps/caloriekit/components/NutritionChart.tsx(126,48): error TS7006: Parameter 'sum' implicitly has an 'any' type.
+src/apps/caloriekit/components/NutritionChart.tsx(126,53): error TS7006: Parameter 'meal' implicitly has an 'any' type.
+src/apps/caloriekit/components/NutritionChart.tsx(127,47): error TS7006: Parameter 'sum' implicitly has an 'any' type.
+src/apps/caloriekit/components/NutritionChart.tsx(127,52): error TS7006: Parameter 'meal' implicitly has an 'any' type.
+src/apps/caloriekit/components/NutritionChart.tsx(128,45): error TS7006: Parameter 'sum' implicitly has an 'any' type.
+src/apps/caloriekit/components/NutritionChart.tsx(128,50): error TS7006: Parameter 'meal' implicitly has an 'any' type.
+src/apps/caloriekit/components/NutritionChart.tsx(129,43): error TS7006: Parameter 'sum' implicitly has an 'any' type.
+src/apps/caloriekit/components/NutritionChart.tsx(129,48): error TS7006: Parameter 'meal' implicitly has an 'any' type.
+src/apps/caloriekit/components/NutritionTips.tsx(85,28): error TS7006: Parameter 'color' implicitly has an 'any' type.
+src/apps/caloriekit/components/NutritionTips.tsx(96,12): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ blue: string; red: string; green: string; yellow: string; purple: string; orange: string; pink: string; indigo: string; }'.
+src/apps/caloriekit/components/NutritionTips.tsx(99,28): error TS7006: Parameter 'category' implicitly has an 'any' type.
+src/apps/caloriekit/components/NutritionTips.tsx(110,12): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ hidratacion: string; proteinas: string; fibra: string; grasas: string; planificacion: string; habitos: string; nutricion: string; porciones: string; }'.
+src/apps/caloriekit/components/WeeklyProgress.tsx(28,45): error TS7006: Parameter 'sum' implicitly has an 'any' type.
+src/apps/caloriekit/components/WeeklyProgress.tsx(28,50): error TS7006: Parameter 'meal' implicitly has an 'any' type.
+src/apps/caloriekit/components/WeeklyProgress.tsx(51,19): error TS2345: Argument of type '{ weekStart: string; days: { date: string; calories: any; goal: any; meals: any; isToday: boolean; }[]; totalCalories: number; avgCalories: number; goalMet: number; hasData: boolean; }[]' is not assignable to parameter of type 'SetStateAction<never[]>'.
+  Type '{ weekStart: string; days: { date: string; calories: any; goal: any; meals: any; isToday: boolean; }[]; totalCalories: number; avgCalories: number; goalMet: number; hasData: boolean; }[]' is not assignable to type 'never[]'.
+    Type '{ weekStart: string; days: { date: string; calories: any; goal: any; meals: any; isToday: boolean; }[]; totalCalories: number; avgCalories: number; goalMet: number; hasData: boolean; }' is not assignable to type 'never'.
+src/apps/caloriekit/components/WeeklyProgress.tsx(54,23): error TS7006: Parameter 'dateStr' implicitly has an 'any' type.
+src/apps/caloriekit/components/WeeklyProgress.tsx(59,29): error TS7006: Parameter 'calories' implicitly has an 'any' type.
+src/apps/caloriekit/components/WeeklyProgress.tsx(59,39): error TS7006: Parameter 'goal' implicitly has an 'any' type.
+src/apps/caloriekit/components/WeeklyProgress.tsx(67,25): error TS7006: Parameter 'weekStart' implicitly has an 'any' type.
+src/apps/caloriekit/components/WeeklyProgress.tsx(75,26): error TS7006: Parameter 'weekIndex' implicitly has an 'any' type.
+src/apps/caloriekit/components/WeeklyProgress.tsx(127,93): error TS2339: Property 'avgCalories' does not exist on type 'never'.
+src/apps/caloriekit/components/WeeklyProgress.tsx(131,95): error TS2339: Property 'goalMet' does not exist on type 'never'.
+src/apps/caloriekit/components/WeeklyProgress.tsx(135,97): error TS2339: Property 'totalCalories' does not exist on type 'never'.
+src/apps/caloriekit/components/WeeklyProgress.tsx(144,37): error TS2339: Property 'weekStart' does not exist on type 'never'.
+src/apps/caloriekit/components/WeeklyProgress.tsx(148,24): error TS2339: Property 'days' does not exist on type 'never'.
+src/apps/caloriekit/components/WeeklyProgress.tsx(148,34): error TS7006: Parameter 'day' implicitly has an 'any' type.
+src/apps/caloriekit/components/WeeklyProgress.tsx(148,39): error TS7006: Parameter 'index' implicitly has an 'any' type.
+src/apps/caloriekit/components/WeeklyProgress.tsx(217,21): error TS2339: Property 'hasData' does not exist on type 'never'.
+src/apps/caloriekit/components/WeightTracker.tsx(41,11): error TS2353: Object literal may only specify known properties, and 'totalEntries' does not exist in type '(prevState: null) => null'.
+src/apps/caloriekit/components/WeightTracker.tsx(51,11): error TS18046: 'error' is of type 'unknown'.
+src/apps/caloriekit/components/WeightTracker.tsx(51,56): error TS18046: 'error' is of type 'unknown'.
+src/apps/caloriekit/components/WeightTracker.tsx(54,11): error TS2353: Object literal may only specify known properties, and 'totalEntries' does not exist in type '(prevState: null) => null'.
+src/apps/caloriekit/components/WeightTracker.tsx(61,18): error TS2345: Argument of type '"Error al cargar datos de peso"' is not assignable to parameter of type 'SetStateAction<null>'.
+src/apps/caloriekit/components/WeightTracker.tsx(70,30): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/apps/caloriekit/components/WeightTracker.tsx(78,31): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/apps/caloriekit/components/WeightTracker.tsx(110,16): error TS2345: Argument of type '"Error al registrar el peso. Inténtalo de nuevo."' is not assignable to parameter of type 'SetStateAction<null>'.
+src/apps/caloriekit/components/WeightTracker.tsx(117,38): error TS2339: Property 'entries' does not exist on type 'never'.
+src/apps/caloriekit/components/WeightTracker.tsx(117,76): error TS2339: Property 'entries' does not exist on type 'never'.
+src/apps/caloriekit/components/WeightTracker.tsx(117,100): error TS2339: Property 'entries' does not exist on type 'never'.
+src/apps/caloriekit/components/WeightTracker.tsx(121,33): error TS2339: Property 'entries' does not exist on type 'never'.
+src/apps/caloriekit/components/WeightTracker.tsx(138,25): error TS7006: Parameter 'trend' implicitly has an 'any' type.
+src/apps/caloriekit/components/WeightTracker.tsx(143,26): error TS7006: Parameter 'trend' implicitly has an 'any' type.
+src/apps/caloriekit/components/WeightTracker.tsx(148,25): error TS7006: Parameter 'trend' implicitly has an 'any' type.
+src/apps/caloriekit/components/WeightTracker.tsx(154,38): error TS2339: Property 'entries' does not exist on type 'never'.
+src/apps/caloriekit/components/WeightTracker.tsx(154,61): error TS2339: Property 'entries' does not exist on type 'never'.
+src/apps/caloriekit/components/WeightTracker.tsx(158,33): error TS2339: Property 'entries' does not exist on type 'never'.
+src/apps/caloriekit/components/WeightTracker.tsx(171,38): error TS2339: Property 'entries' does not exist on type 'never'.
+src/apps/caloriekit/components/WeightTracker.tsx(171,61): error TS2339: Property 'entries' does not exist on type 'never'.
+src/apps/caloriekit/components/WeightTracker.tsx(175,33): error TS2339: Property 'entries' does not exist on type 'never'.
+src/apps/caloriekit/components/WeightTracker.tsx(176,33): error TS7006: Parameter 'entry' implicitly has an 'any' type.
+src/apps/caloriekit/components/WeightTracker.tsx(183,23): error TS7006: Parameter 'weight' implicitly has an 'any' type.
+src/apps/caloriekit/components/WeightTracker.tsx(183,31): error TS7006: Parameter 'index' implicitly has an 'any' type.
+src/apps/caloriekit/components/WeightTracker.tsx(257,29): error TS2339: Property 'weight' does not exist on type 'never'.
+src/apps/caloriekit/components/WeightTracker.tsx(260,55): error TS2339: Property 'date' does not exist on type 'never'.
+src/apps/caloriekit/components/WeightTracker.tsx(345,17): error TS2322: Type 'string' is not assignable to type 'number'.
+src/apps/caloriekit/components/WeightTracker.tsx(379,35): error TS2339: Property 'entries' does not exist on type 'never'.
+src/apps/caloriekit/components/WeightTracker.tsx(379,58): error TS2339: Property 'entries' does not exist on type 'never'.
+src/apps/caloriekit/components/WeightTracker.tsx(385,30): error TS2339: Property 'averageWeight' does not exist on type 'never'.
+src/apps/caloriekit/components/WeightTracker.tsx(390,64): error TS2339: Property 'weightChange' does not exist on type 'never'.
+src/apps/caloriekit/components/WeightTracker.tsx(390,112): error TS2339: Property 'weightChange' does not exist on type 'never'.
+src/apps/caloriekit/components/WeightTracker.tsx(391,30): error TS2339: Property 'weightChange' does not exist on type 'never'.
+src/apps/caloriekit/components/WeightTracker.tsx(391,58): error TS2339: Property 'weightChange' does not exist on type 'never'.
+src/apps/caloriekit/components/WeightTracker.tsx(391,101): error TS2339: Property 'weightChange' does not exist on type 'never'.
+src/apps/caloriekit/components/WeightTracker.tsx(397,30): error TS2339: Property 'totalEntries' does not exist on type 'never'.
+src/apps/caloriekit/screens/AnalyticsPage.tsx(30,25): error TS7006: Parameter 'num' implicitly has an 'any' type.
+src/apps/caloriekit/screens/AnalyticsPage.tsx(72,20): error TS2339: Property 'dailyStats' does not exist on type 'never'.
+src/apps/caloriekit/screens/AnalyticsPage.tsx(72,35): error TS7006: Parameter 'd' implicitly has an 'any' type.
+src/apps/caloriekit/screens/AnalyticsPage.tsx(76,22): error TS2339: Property 'dailyStats' does not exist on type 'never'.
+src/apps/caloriekit/screens/AnalyticsPage.tsx(76,37): error TS7006: Parameter 'd' implicitly has an 'any' type.
+src/apps/caloriekit/screens/AnalyticsPage.tsx(83,27): error TS7006: Parameter 'title' implicitly has an 'any' type.
+src/apps/caloriekit/screens/AnalyticsPage.tsx(83,34): error TS7006: Parameter 'value' implicitly has an 'any' type.
+src/apps/caloriekit/screens/AnalyticsPage.tsx(83,41): error TS7006: Parameter 'unit' implicitly has an 'any' type.
+src/apps/caloriekit/screens/AnalyticsPage.tsx(83,47): error TS7006: Parameter 'icon' implicitly has an 'any' type.
+src/apps/caloriekit/screens/AnalyticsPage.tsx(83,53): error TS7006: Parameter 'colorClass' implicitly has an 'any' type.
+src/apps/caloriekit/screens/AnalyticsPage.tsx(98,26): error TS18047: 'stats' is possibly 'null'.
+src/apps/caloriekit/screens/AnalyticsPage.tsx(98,54): error TS18047: 'stats' is possibly 'null'.
+src/apps/caloriekit/screens/AnalyticsPage.tsx(98,80): error TS18047: 'stats' is possibly 'null'.
+src/apps/caloriekit/screens/AnalyticsPage.tsx(107,44): error TS18047: 'stats' is possibly 'null'.
+src/apps/caloriekit/screens/AnalyticsPage.tsx(108,42): error TS18047: 'stats' is possibly 'null'.
+src/apps/caloriekit/screens/AnalyticsPage.tsx(109,40): error TS18047: 'stats' is possibly 'null'.
+src/apps/caloriekit/screens/AnalyticsPage.tsx(169,123): error TS2339: Property 'dailyStats' does not exist on type 'never'.
+src/apps/caloriekit/screens/AnalyticsPage.tsx(169,162): error TS2339: Property 'dailyStats' does not exist on type 'never'.
+src/apps/caloriekit/screens/AnalyticsPage.tsx(169,281): error TS2339: Property 'dailyStats' does not exist on type 'never'.
+src/apps/caloriekit/screens/AnalyticsPage.tsx(169,300): error TS2339: Property 'dailyStats' does not exist on type 'never'.
+src/apps/caloriekit/screens/AnalyticsPage.tsx(169,344): error TS2339: Property 'dailyStats' does not exist on type 'never'.
+src/apps/caloriekit/screens/AnalyticsPage.tsx(169,361): error TS2339: Property 'dailyStats' does not exist on type 'never'.
+src/apps/caloriekit/screens/AnalyticsPage.tsx(190,65): error TS2339: Property 'avgDailyCalories' does not exist on type 'never'.
+src/apps/caloriekit/screens/AnalyticsPage.tsx(190,116): error TS2554: Expected 5 arguments, but got 6.
+src/apps/caloriekit/screens/AnalyticsPage.tsx(191,54): error TS2339: Property 'daysWithEntries' does not exist on type 'never'.
+src/apps/caloriekit/screens/AnalyticsPage.tsx(191,81): error TS2339: Property 'totalDays' does not exist on type 'never'.
+src/apps/caloriekit/screens/AnalyticsPage.tsx(191,122): error TS2554: Expected 5 arguments, but got 6.
+src/apps/caloriekit/screens/AnalyticsPage.tsx(192,59): error TS2339: Property 'maxDayCalories' does not exist on type 'never'.
+src/apps/caloriekit/screens/AnalyticsPage.tsx(192,106): error TS2554: Expected 5 arguments, but got 6.
+src/apps/caloriekit/screens/AnalyticsPage.tsx(193,63): error TS2339: Property 'totalCalories' does not exist on type 'never'.
+src/apps/caloriekit/screens/AnalyticsPage.tsx(193,114): error TS2554: Expected 5 arguments, but got 6.
+src/apps/caloriekit/screens/AnalyticsPage.tsx(199,76): error TS2339: Property 'totalCalories' does not exist on type 'never'.
+src/apps/caloriekit/screens/AnalyticsPage.tsx(200,77): error TS2339: Property 'totalProtein' does not exist on type 'never'.
+src/apps/caloriekit/screens/AnalyticsPage.tsx(201,81): error TS2339: Property 'totalCarbs' does not exist on type 'never'.
+src/apps/caloriekit/screens/AnalyticsPage.tsx(202,74): error TS2339: Property 'totalFat' does not exist on type 'never'.
+src/apps/caloriekit/screens/AnalyticsPage.tsx(213,97): error TS2339: Property 'avgDailyCalories' does not exist on type 'never'.
+src/apps/caloriekit/screens/AnalyticsPage.tsx(217,97): error TS2339: Property 'avgDailyProtein' does not exist on type 'never'.
+src/apps/caloriekit/screens/AnalyticsPage.tsx(221,97): error TS2339: Property 'avgDailyCarbs' does not exist on type 'never'.
+src/apps/caloriekit/screens/AnalyticsPage.tsx(225,97): error TS2339: Property 'avgDailyFat' does not exist on type 'never'.
+src/apps/caloriekit/screens/AnalyticsPage.tsx(237,151): error TS2339: Property 'avgDailyCalories' does not exist on type 'never'.
+src/apps/caloriekit/screens/AnalyticsPage.tsx(271,19): error TS2353: Object literal may only specify known properties, and 'annotation' does not exist in type '_DeepPartialObject<PluginOptionsByType<"bar">>'.
+src/apps/caloriekit/screens/AnalyticsPage.tsx(306,23): error TS7031: Binding element 'label' implicitly has an 'any' type.
+src/apps/caloriekit/screens/AnalyticsPage.tsx(306,30): error TS7031: Binding element 'value' implicitly has an 'any' type.
+src/apps/caloriekit/screens/AnalyticsPage.tsx(306,37): error TS7031: Binding element 'unit' implicitly has an 'any' type.
+src/apps/caloriekit/screens/AnalyticsPage.tsx(306,43): error TS7031: Binding element 'icon' implicitly has an 'any' type.
+src/apps/caloriekit/screens/AnalyticsPage.tsx(306,49): error TS7031: Binding element 'color' implicitly has an 'any' type.
+src/apps/caloriekit/screens/CalorieKitApp.tsx(62,43): error TS7006: Parameter 'profileData' implicitly has an 'any' type.
+src/apps/caloriekit/screens/CalorieKitApp.tsx(83,27): error TS7006: Parameter 'page' implicitly has an 'any' type.
+src/apps/caloriekit/screens/CalorieKitApp.tsx(89,33): error TS7006: Parameter 'updatedProfile' implicitly has an 'any' type.
+src/apps/caloriekit/screens/CalorieKitApp.tsx(150,13): error TS2322: Type 'null' is not assignable to type 'UserProfile | undefined'.
+src/apps/caloriekit/screens/CustomFoodsPage.tsx(53,22): error TS2345: Argument of type '{ id: number; name: string; calories: number; protein: number; carbs: number; fat: number; fiber: number; servingSize: number; servingUnit: string; }[]' is not assignable to parameter of type 'SetStateAction<never[]>'.
+  Type '{ id: number; name: string; calories: number; protein: number; carbs: number; fat: number; fiber: number; servingSize: number; servingUnit: string; }[]' is not assignable to type 'never[]'.
+    Type '{ id: number; name: string; calories: number; protein: number; carbs: number; fat: number; fiber: number; servingSize: number; servingUnit: string; }' is not assignable to type 'never'.
+src/apps/caloriekit/screens/CustomFoodsPage.tsx(74,23): error TS2322: Type '{ calories: number; protein: number; carbs: number; fat: number; fiber: number; servingSize: number; name: string; servingUnit: string; id: number; }' is not assignable to type 'never'.
+src/apps/caloriekit/screens/CustomFoodsPage.tsx(74,39): error TS2322: Type '{ calories: number; protein: number; carbs: number; fat: number; fiber: number; servingSize: number; name: string; servingUnit: string; id: number; }' is not assignable to type 'never'.
+src/apps/caloriekit/screens/CustomFoodsPage.tsx(94,14): error TS2339: Property 'id' does not exist on type 'never'.
+src/apps/caloriekit/screens/CustomFoodsPage.tsx(94,21): error TS18047: 'editingFood' is possibly 'null'.
+src/apps/caloriekit/screens/CustomFoodsPage.tsx(96,15): error TS2698: Spread types may only be created from object types.
+src/apps/caloriekit/screens/CustomFoodsPage.tsx(97,34): error TS18047: 'editingFood' is possibly 'null'.
+src/apps/caloriekit/screens/CustomFoodsPage.tsx(98,35): error TS18047: 'editingFood' is possibly 'null'.
+src/apps/caloriekit/screens/CustomFoodsPage.tsx(99,33): error TS18047: 'editingFood' is possibly 'null'.
+src/apps/caloriekit/screens/CustomFoodsPage.tsx(100,31): error TS18047: 'editingFood' is possibly 'null'.
+src/apps/caloriekit/screens/CustomFoodsPage.tsx(101,33): error TS18047: 'editingFood' is possibly 'null'.
+src/apps/caloriekit/screens/CustomFoodsPage.tsx(102,39): error TS18047: 'editingFood' is possibly 'null'.
+src/apps/caloriekit/screens/CustomFoodsPage.tsx(106,22): error TS2345: Argument of type 'any[]' is not assignable to parameter of type 'SetStateAction<never[]>'.
+  Type 'any[]' is not assignable to type 'never[]'.
+    Type 'any' is not assignable to type 'never'.
+src/apps/caloriekit/screens/CustomFoodsPage.tsx(113,35): error TS7006: Parameter 'id' implicitly has an 'any' type.
+src/apps/caloriekit/screens/CustomFoodsPage.tsx(115,54): error TS2339: Property 'id' does not exist on type 'never'.
+src/apps/caloriekit/screens/CustomFoodsPage.tsx(122,10): error TS2339: Property 'name' does not exist on type 'never'.
+src/apps/caloriekit/screens/CustomFoodsPage.tsx(175,52): error TS2339: Property 'name' does not exist on type 'never'.
+src/apps/caloriekit/screens/CustomFoodsPage.tsx(177,39): error TS2698: Spread types may only be created from object types.
+src/apps/caloriekit/screens/CustomFoodsPage.tsx(190,52): error TS2339: Property 'calories' does not exist on type 'never'.
+src/apps/caloriekit/screens/CustomFoodsPage.tsx(192,39): error TS2698: Spread types may only be created from object types.
+src/apps/caloriekit/screens/CustomFoodsPage.tsx(206,52): error TS2339: Property 'protein' does not exist on type 'never'.
+src/apps/caloriekit/screens/CustomFoodsPage.tsx(208,39): error TS2698: Spread types may only be created from object types.
+src/apps/caloriekit/screens/CustomFoodsPage.tsx(222,52): error TS2339: Property 'carbs' does not exist on type 'never'.
+src/apps/caloriekit/screens/CustomFoodsPage.tsx(224,39): error TS2698: Spread types may only be created from object types.
+src/apps/caloriekit/screens/CustomFoodsPage.tsx(238,52): error TS2339: Property 'fat' does not exist on type 'never'.
+src/apps/caloriekit/screens/CustomFoodsPage.tsx(240,39): error TS2698: Spread types may only be created from object types.
+src/apps/caloriekit/screens/CustomFoodsPage.tsx(254,52): error TS2339: Property 'fiber' does not exist on type 'never'.
+src/apps/caloriekit/screens/CustomFoodsPage.tsx(256,39): error TS2698: Spread types may only be created from object types.
+src/apps/caloriekit/screens/CustomFoodsPage.tsx(270,52): error TS2339: Property 'servingSize' does not exist on type 'never'.
+src/apps/caloriekit/screens/CustomFoodsPage.tsx(272,39): error TS2698: Spread types may only be created from object types.
+src/apps/caloriekit/screens/CustomFoodsPage.tsx(284,52): error TS2339: Property 'servingUnit' does not exist on type 'never'.
+src/apps/caloriekit/screens/CustomFoodsPage.tsx(286,39): error TS2698: Spread types may only be created from object types.
+src/apps/caloriekit/screens/CustomFoodsPage.tsx(332,28): error TS2339: Property 'id' does not exist on type 'never'.
+src/apps/caloriekit/screens/CustomFoodsPage.tsx(334,67): error TS2339: Property 'name' does not exist on type 'never'.
+src/apps/caloriekit/screens/CustomFoodsPage.tsx(343,58): error TS2339: Property 'id' does not exist on type 'never'.
+src/apps/caloriekit/screens/CustomFoodsPage.tsx(353,55): error TS2339: Property 'calories' does not exist on type 'never'.
+src/apps/caloriekit/screens/CustomFoodsPage.tsx(357,55): error TS2339: Property 'protein' does not exist on type 'never'.
+src/apps/caloriekit/screens/CustomFoodsPage.tsx(361,55): error TS2339: Property 'carbs' does not exist on type 'never'.
+src/apps/caloriekit/screens/CustomFoodsPage.tsx(365,55): error TS2339: Property 'fat' does not exist on type 'never'.
+src/apps/caloriekit/screens/CustomFoodsPage.tsx(369,55): error TS2339: Property 'fiber' does not exist on type 'never'.
+src/apps/caloriekit/screens/CustomFoodsPage.tsx(373,55): error TS2339: Property 'servingSize' does not exist on type 'never'.
+src/apps/caloriekit/screens/CustomFoodsPage.tsx(373,74): error TS2339: Property 'servingUnit' does not exist on type 'never'.
+src/apps/caloriekit/screens/DashboardScreen.tsx(9,28): error TS7031: Binding element 'onNavigate' implicitly has an 'any' type.
+src/apps/caloriekit/screens/DashboardScreen.tsx(9,40): error TS7031: Binding element 'userProfile' implicitly has an 'any' type.
+src/apps/caloriekit/screens/DashboardScreen.tsx(29,81): error TS2339: Property 'calories' does not exist on type 'Meal'.
+src/apps/caloriekit/screens/DashboardScreen.tsx(30,80): error TS2339: Property 'protein' does not exist on type 'Meal'.
+src/apps/caloriekit/screens/DashboardScreen.tsx(31,78): error TS2339: Property 'carbs' does not exist on type 'Meal'.
+src/apps/caloriekit/screens/DashboardScreen.tsx(32,76): error TS2339: Property 'fat' does not exist on type 'Meal'.
+src/apps/caloriekit/screens/DashboardScreen.tsx(78,30): error TS7006: Parameter 'englishType' implicitly has an 'any' type.
+src/apps/caloriekit/screens/DashboardScreen.tsx(89,12): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ breakfast: string; lunch: string; dinner: string; snack: string; desayuno: string; almuerzo: string; cena: string; }'.
+src/apps/caloriekit/screens/DashboardScreen.tsx(113,24): error TS7006: Parameter 'mealType' implicitly has an 'any' type.
+src/apps/caloriekit/screens/DashboardScreen.tsx(123,24): error TS7006: Parameter 'meal' implicitly has an 'any' type.
+src/apps/caloriekit/screens/DashboardScreen.tsx(163,39): error TS2345: Argument of type 'null' is not assignable to parameter of type 'string'.
+src/apps/caloriekit/screens/DashboardScreen.tsx(370,31): error TS2339: Property '_id' does not exist on type 'Meal'.
+src/apps/caloriekit/screens/DashboardScreen.tsx(375,70): error TS2339: Property 'mealType' does not exist on type 'Meal'.
+src/apps/caloriekit/screens/DashboardScreen.tsx(381,88): error TS2339: Property 'foodName' does not exist on type 'Meal'.
+src/apps/caloriekit/screens/DashboardScreen.tsx(383,51): error TS2339: Property 'mealType' does not exist on type 'Meal'.
+src/apps/caloriekit/screens/DashboardScreen.tsx(387,49): error TS2339: Property 'protein' does not exist on type 'Meal'.
+src/apps/caloriekit/screens/DashboardScreen.tsx(388,53): error TS2339: Property 'carbs' does not exist on type 'Meal'.
+src/apps/caloriekit/screens/DashboardScreen.tsx(389,46): error TS2339: Property 'fat' does not exist on type 'Meal'.
+src/apps/caloriekit/screens/DashboardScreen.tsx(395,31): error TS2339: Property 'calories' does not exist on type 'Meal'.
+src/apps/caloriekit/screens/DashboardScreen.tsx(398,31): error TS2339: Property 'servingSize' does not exist on type 'Meal'.
+src/apps/caloriekit/screens/DashboardScreen.tsx(412,12): error TS2741: Property 'todayMeals' is missing in type '{ userProfile: any; }' but required in type '{ userProfile: any; todayMeals: any; }'.
+src/apps/caloriekit/screens/FoodLogPage.tsx(7,31): error TS7006: Parameter 'spanishType' implicitly has an 'any' type.
+src/apps/caloriekit/screens/FoodLogPage.tsx(15,10): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ desayuno: string; almuerzo: string; cena: string; snack: string; }'.
+src/apps/caloriekit/screens/FoodLogPage.tsx(18,24): error TS7031: Binding element 'userProfile' implicitly has an 'any' type.
+src/apps/caloriekit/screens/FoodLogPage.tsx(23,5): error TS2339: Property 'selectedDate' does not exist on type 'MealContextType'.
+src/apps/caloriekit/screens/FoodLogPage.tsx(24,5): error TS2339: Property 'changeDate' does not exist on type 'MealContextType'.
+src/apps/caloriekit/screens/FoodLogPage.tsx(35,32): error TS7006: Parameter 'mealData' implicitly has an 'any' type.
+src/apps/caloriekit/screens/FoodLogPage.tsx(48,35): error TS7006: Parameter 'mealId' implicitly has an 'any' type.
+src/apps/caloriekit/screens/FoodLogPage.tsx(57,29): error TS7006: Parameter 'date' implicitly has an 'any' type.
+src/apps/caloriekit/screens/FoodLogPage.tsx(61,23): error TS7006: Parameter 'dateString' implicitly has an 'any' type.
+src/apps/caloriekit/screens/FoodLogPage.tsx(79,27): error TS7006: Parameter 'type' implicitly has an 'any' type.
+src/apps/caloriekit/screens/FoodLogPage.tsx(81,38): error TS2339: Property 'mealType' does not exist on type 'Meal'.
+src/apps/caloriekit/screens/FoodLogPage.tsx(84,35): error TS7006: Parameter 'type' implicitly has an 'any' type.
+src/apps/caloriekit/screens/FoodLogPage.tsx(85,67): error TS2339: Property 'calories' does not exist on type 'Meal'.
+src/apps/caloriekit/screens/FoodLogPage.tsx(119,65): error TS2339: Property 'calories' does not exist on type 'Meal'.
+src/apps/caloriekit/screens/FoodLogPage.tsx(186,39): error TS2345: Argument of type 'null' is not assignable to parameter of type 'string'.
+src/apps/caloriekit/screens/FoodLogPage.tsx(275,33): error TS2339: Property '_id' does not exist on type 'Meal'.
+src/apps/caloriekit/screens/FoodLogPage.tsx(283,75): error TS2339: Property 'foodName' does not exist on type 'Meal'.
+src/apps/caloriekit/screens/FoodLogPage.tsx(285,35): error TS2339: Property 'amount' does not exist on type 'Meal'.
+src/apps/caloriekit/screens/FoodLogPage.tsx(285,50): error TS2339: Property 'unit' does not exist on type 'Meal'.
+src/apps/caloriekit/screens/FoodLogPage.tsx(285,65): error TS2339: Property 'amount' does not exist on type 'Meal'.
+src/apps/caloriekit/screens/FoodLogPage.tsx(285,79): error TS2339: Property 'unit' does not exist on type 'Meal'.
+src/apps/caloriekit/screens/FoodLogPage.tsx(285,109): error TS2339: Property 'calories' does not exist on type 'Meal'.
+src/apps/caloriekit/screens/FoodLogPage.tsx(285,136): error TS2339: Property 'protein' does not exist on type 'Meal'.
+src/apps/caloriekit/screens/FoodLogPage.tsx(285,168): error TS2339: Property 'carbs' does not exist on type 'Meal'.
+src/apps/caloriekit/screens/FoodLogPage.tsx(285,195): error TS2339: Property 'fat' does not exist on type 'Meal'.
+src/apps/caloriekit/screens/FoodLogPage.tsx(293,70): error TS2339: Property '_id' does not exist on type 'Meal'.
+src/apps/caloriekit/screens/FoodLogPage.tsx(313,17): error TS2322: Type '{ onMealAdded: (mealData: any) => Promise<void>; onClose: () => void; mealType: string; userProfile: any; }' is not assignable to type 'IntrinsicAttributes & { onMealAdded: any; onClose: any; mealType: any; }'.
+  Property 'userProfile' does not exist on type 'IntrinsicAttributes & { onMealAdded: any; onClose: any; mealType: any; }'.
+src/apps/caloriekit/screens/OnboardingScreen.tsx(4,29): error TS7031: Binding element 'onComplete' implicitly has an 'any' type.
+src/apps/caloriekit/screens/OnboardingScreen.tsx(60,27): error TS7006: Parameter 'updates' implicitly has an 'any' type.
+src/apps/caloriekit/screens/OnboardingScreen.tsx(79,49): error TS2698: Spread types may only be created from object types.
+src/apps/caloriekit/screens/OnboardingScreen.tsx(134,13): error TS2322: Type '{ userData: { name: string; goal: string; age: string; gender: string; weight: string; height: string; activityLevel: string; targetWeight: string; weightGoal: string; weeklyWeightGoal: number; }; ... 6 more ...; isSaving: boolean; }' is not assignable to type 'IntrinsicAttributes & { userData: any; updateUserData: any; onNext: any; onBack: any; }'.
+  Property 'currentStep' does not exist on type 'IntrinsicAttributes & { userData: any; updateUserData: any; onNext: any; onBack: any; }'.
+src/apps/caloriekit/screens/OnboardingScreen.tsx(146,24): error TS7031: Binding element 'onNext' implicitly has an 'any' type.
+src/apps/caloriekit/screens/OnboardingScreen.tsx(208,21): error TS7031: Binding element 'userData' implicitly has an 'any' type.
+src/apps/caloriekit/screens/OnboardingScreen.tsx(208,31): error TS7031: Binding element 'updateUserData' implicitly has an 'any' type.
+src/apps/caloriekit/screens/OnboardingScreen.tsx(208,47): error TS7031: Binding element 'onNext' implicitly has an 'any' type.
+src/apps/caloriekit/screens/OnboardingScreen.tsx(272,24): error TS7031: Binding element 'userData' implicitly has an 'any' type.
+src/apps/caloriekit/screens/OnboardingScreen.tsx(272,34): error TS7031: Binding element 'updateUserData' implicitly has an 'any' type.
+src/apps/caloriekit/screens/OnboardingScreen.tsx(272,50): error TS7031: Binding element 'onNext' implicitly has an 'any' type.
+src/apps/caloriekit/screens/OnboardingScreen.tsx(272,58): error TS7031: Binding element 'onBack' implicitly has an 'any' type.
+src/apps/caloriekit/screens/OnboardingScreen.tsx(371,25): error TS7031: Binding element 'userData' implicitly has an 'any' type.
+src/apps/caloriekit/screens/OnboardingScreen.tsx(371,35): error TS7031: Binding element 'updateUserData' implicitly has an 'any' type.
+src/apps/caloriekit/screens/OnboardingScreen.tsx(371,51): error TS7031: Binding element 'onNext' implicitly has an 'any' type.
+src/apps/caloriekit/screens/OnboardingScreen.tsx(371,59): error TS7031: Binding element 'onBack' implicitly has an 'any' type.
+src/apps/caloriekit/screens/OnboardingScreen.tsx(457,28): error TS7031: Binding element 'userData' implicitly has an 'any' type.
+src/apps/caloriekit/screens/OnboardingScreen.tsx(457,38): error TS7031: Binding element 'updateUserData' implicitly has an 'any' type.
+src/apps/caloriekit/screens/OnboardingScreen.tsx(457,54): error TS7031: Binding element 'onNext' implicitly has an 'any' type.
+src/apps/caloriekit/screens/OnboardingScreen.tsx(457,62): error TS7031: Binding element 'onBack' implicitly has an 'any' type.
+src/apps/caloriekit/screens/OnboardingScreen.tsx(517,24): error TS7031: Binding element 'userData' implicitly has an 'any' type.
+src/apps/caloriekit/screens/OnboardingScreen.tsx(517,34): error TS7031: Binding element 'onNext' implicitly has an 'any' type.
+src/apps/caloriekit/screens/OnboardingScreen.tsx(517,42): error TS7031: Binding element 'onBack' implicitly has an 'any' type.
+src/apps/caloriekit/screens/OnboardingScreen.tsx(518,24): error TS7006: Parameter 'goal' implicitly has an 'any' type.
+src/apps/caloriekit/screens/OnboardingScreen.tsx(524,12): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ lose: string; maintain: string; gain: string; }'.
+src/apps/caloriekit/screens/OnboardingScreen.tsx(527,28): error TS7006: Parameter 'activity' implicitly has an 'any' type.
+src/apps/caloriekit/screens/OnboardingScreen.tsx(535,12): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ sedentary: string; light: string; moderate: string; active: string; veryActive: string; }'.
+src/apps/caloriekit/utils/api.ts(3,24): error TS7006: Parameter 'endpoint' implicitly has an 'any' type.
+src/apps/caloriekit/utils/api.ts(14,12): error TS2339: Property 'body' does not exist on type '{ method: string; headers: { Authorization?: string | undefined; 'Content-Type': string; }; }'.
+src/apps/caloriekit/utils/api.ts(48,31): error TS7006: Parameter 'profileData' implicitly has an 'any' type.
+src/apps/caloriekit/utils/api.ts(49,29): error TS7006: Parameter 'profileData' implicitly has an 'any' type.
+src/apps/caloriekit/utils/api.ts(51,33): error TS7006: Parameter 'profileData' implicitly has an 'any' type.
+src/apps/caloriekit/utils/api.ts(54,28): error TS7006: Parameter 'query' implicitly has an 'any' type.
+src/apps/caloriekit/utils/api.ts(61,28): error TS7006: Parameter 'foodData' implicitly has an 'any' type.
+src/apps/caloriekit/utils/api.ts(68,28): error TS7006: Parameter 'foodId' implicitly has an 'any' type.
+src/apps/caloriekit/utils/api.ts(68,36): error TS7006: Parameter 'foodData' implicitly has an 'any' type.
+src/apps/caloriekit/utils/api.ts(79,28): error TS7006: Parameter 'foodId' implicitly has an 'any' type.
+src/apps/caloriekit/utils/api.ts(92,32): error TS7006: Parameter 'date' implicitly has an 'any' type.
+src/apps/caloriekit/utils/api.ts(99,25): error TS7006: Parameter 'mealData' implicitly has an 'any' type.
+src/apps/caloriekit/utils/api.ts(116,28): error TS7006: Parameter 'mealId' implicitly has an 'any' type.
+src/apps/caloriekit/utils/api.ts(125,32): error TS7006: Parameter 'entry' implicitly has an 'any' type.
+src/apps/caloriekit/utils/api.ts(133,35): error TS7006: Parameter 'id' implicitly has an 'any' type.
+src/apps/caloriekit/utils/api.ts(133,39): error TS7006: Parameter 'data' implicitly has an 'any' type.
+src/apps/caloriekit/utils/api.ts(143,35): error TS7006: Parameter 'id' implicitly has an 'any' type.
+src/apps/caloriekit/utils/nutritionCalculator.ts(4,45): error TS7006: Parameter 'protein' implicitly has an 'any' type.
+src/apps/caloriekit/utils/nutritionCalculator.ts(4,54): error TS7006: Parameter 'carbs' implicitly has an 'any' type.
+src/apps/caloriekit/utils/nutritionCalculator.ts(4,61): error TS7006: Parameter 'fat' implicitly has an 'any' type.
+src/apps/caloriekit/utils/nutritionCalculator.ts(9,43): error TS7006: Parameter 'protein' implicitly has an 'any' type.
+src/apps/caloriekit/utils/nutritionCalculator.ts(9,52): error TS7006: Parameter 'carbs' implicitly has an 'any' type.
+src/apps/caloriekit/utils/nutritionCalculator.ts(9,59): error TS7006: Parameter 'fat' implicitly has an 'any' type.
+src/apps/caloriekit/utils/nutritionCalculator.ts(24,30): error TS7006: Parameter 'weight' implicitly has an 'any' type.
+src/apps/caloriekit/utils/nutritionCalculator.ts(24,38): error TS7006: Parameter 'height' implicitly has an 'any' type.
+src/apps/caloriekit/utils/nutritionCalculator.ts(30,32): error TS7006: Parameter 'bmi' implicitly has an 'any' type.
+src/apps/caloriekit/utils/nutritionCalculator.ts(38,43): error TS7006: Parameter 'height' implicitly has an 'any' type.
+src/apps/caloriekit/utils/nutritionCalculator.ts(38,51): error TS7006: Parameter 'gender' implicitly has an 'any' type.
+src/apps/caloriekit/utils/nutritionCalculator.ts(53,37): error TS7006: Parameter 'weight' implicitly has an 'any' type.
+src/apps/caloriekit/utils/nutritionCalculator.ts(64,33): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{ sedentary: number; light: number; moderate: number; active: number; veryActive: number; }'.
+  No index signature with a parameter of type 'string' was found on type '{ sedentary: number; light: number; moderate: number; active: number; veryActive: number; }'.
+src/apps/caloriekit/utils/nutritionCalculator.ts(68,39): error TS7006: Parameter 'weight' implicitly has an 'any' type.
+src/apps/caloriekit/utils/nutritionCalculator.ts(77,30): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{ sedentary: number; light: number; moderate: number; active: number; veryActive: number; }'.
+  No index signature with a parameter of type 'string' was found on type '{ sedentary: number; light: number; moderate: number; active: number; veryActive: number; }'.
+src/apps/caloriekit/utils/nutritionCalculator.ts(81,44): error TS7006: Parameter 'currentWeight' implicitly has an 'any' type.
+src/apps/caloriekit/utils/nutritionCalculator.ts(81,59): error TS7006: Parameter 'targetWeight' implicitly has an 'any' type.
+src/apps/caloriekit/utils/nutritionCalculator.ts(81,73): error TS7006: Parameter 'timeframeWeeks' implicitly has an 'any' type.
+src/apps/caloriekit/utils/nutritionCalculator.ts(90,44): error TS7006: Parameter 'currentWeight' implicitly has an 'any' type.
+src/apps/caloriekit/utils/nutritionCalculator.ts(90,59): error TS7006: Parameter 'targetWeight' implicitly has an 'any' type.
+src/apps/caloriekit/utils/nutritionCalculator.ts(90,73): error TS7006: Parameter 'timeframeWeeks' implicitly has an 'any' type.
+src/apps/caloriekit/utils/nutritionCalculator.ts(99,37): error TS7006: Parameter 'dailyCalories' implicitly has an 'any' type.
+src/apps/caloriekit/utils/nutritionCalculator.ts(109,24): error TS7053: Element implicitly has an 'any' type because expression of type 'number' can't be used to index type '{ 3: { breakfast: number; lunch: number; dinner: number; }; 4: { breakfast: number; snack: number; lunch: number; dinner: number; }; 5: { breakfast: number; snack1: number; lunch: number; snack2: number; dinner: number; }; 6: { ...; }; }'.
+  No index signature with a parameter of type 'number' was found on type '{ 3: { breakfast: number; lunch: number; dinner: number; }; 4: { breakfast: number; snack: number; lunch: number; dinner: number; }; 5: { breakfast: number; snack1: number; lunch: number; snack2: number; dinner: number; }; 6: { ...; }; }'.
+src/apps/caloriekit/utils/nutritionCalculator.ts(113,5): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{}'.
+  No index signature with a parameter of type 'string' was found on type '{}'.
+src/apps/caloriekit/utils/nutritionCalculator.ts(120,41): error TS7006: Parameter 'meals' implicitly has an 'any' type.
+src/apps/caloriekit/utils/nutritionCalculator.ts(120,48): error TS7006: Parameter 'dailyGoal' implicitly has an 'any' type.
+src/apps/caloriekit/utils/nutritionCalculator.ts(123,39): error TS7006: Parameter 'sum' implicitly has an 'any' type.
+src/apps/caloriekit/utils/nutritionCalculator.ts(123,44): error TS7006: Parameter 'meal' implicitly has an 'any' type.
+src/apps/caloriekit/utils/nutritionCalculator.ts(124,38): error TS7006: Parameter 'sum' implicitly has an 'any' type.
+src/apps/caloriekit/utils/nutritionCalculator.ts(124,43): error TS7006: Parameter 'meal' implicitly has an 'any' type.
+src/apps/caloriekit/utils/nutritionCalculator.ts(125,36): error TS7006: Parameter 'sum' implicitly has an 'any' type.
+src/apps/caloriekit/utils/nutritionCalculator.ts(125,41): error TS7006: Parameter 'meal' implicitly has an 'any' type.
+src/apps/caloriekit/utils/nutritionCalculator.ts(126,34): error TS7006: Parameter 'sum' implicitly has an 'any' type.
+src/apps/caloriekit/utils/nutritionCalculator.ts(126,39): error TS7006: Parameter 'meal' implicitly has an 'any' type.
+src/apps/caloriekit/utils/nutritionCalculator.ts(147,43): error TS7006: Parameter 'score' implicitly has an 'any' type.
+src/apps/habitkit/components/AddHabitForm.tsx(5,25): error TS7031: Binding element 'onHabitAdded' implicitly has an 'any' type.
+src/apps/habitkit/components/AddHabitForm.tsx(5,39): error TS7031: Binding element 'habitError' implicitly has an 'any' type.
+src/apps/habitkit/components/AddHabitForm.tsx(12,31): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/apps/habitkit/components/AddHabitForm.tsx(54,44): error TS2345: Argument of type 'number' is not assignable to parameter of type 'never'.
+src/apps/habitkit/components/AddHabitForm.tsx(56,31): error TS2345: Argument of type '(prev: never[]) => number[]' is not assignable to parameter of type 'SetStateAction<never[]>'.
+  Type '(prev: never[]) => number[]' is not assignable to type '(prevState: never[]) => never[]'.
+    Type 'number[]' is not assignable to type 'never[]'.
+      Type 'number' is not assignable to type 'never'.
+src/apps/habitkit/components/AddHabitForm.tsx(57,33): error TS2345: Argument of type 'number' is not assignable to parameter of type 'never'.
+src/apps/habitkit/components/EditHabitModal.tsx(4,27): error TS7031: Binding element 'habit' implicitly has an 'any' type.
+src/apps/habitkit/components/EditHabitModal.tsx(4,34): error TS7031: Binding element 'onClose' implicitly has an 'any' type.
+src/apps/habitkit/components/EditHabitModal.tsx(4,43): error TS7031: Binding element 'onHabitUpdated' implicitly has an 'any' type.
+src/apps/habitkit/components/EditHabitModal.tsx(4,59): error TS7031: Binding element 'folders' implicitly has an 'any' type.
+src/apps/habitkit/components/EditHabitModal.tsx(10,31): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/apps/habitkit/components/EditHabitModal.tsx(71,37): error TS7006: Parameter 'f' implicitly has an 'any' type.
+src/apps/habitkit/components/FolderCard.tsx(5,3): error TS7031: Binding element 'folder' implicitly has an 'any' type.
+src/apps/habitkit/components/FolderCard.tsx(6,3): error TS7031: Binding element 'habitsInFolder' implicitly has an 'any' type.
+src/apps/habitkit/components/FolderCard.tsx(7,3): error TS7031: Binding element 'isSelected' implicitly has an 'any' type.
+src/apps/habitkit/components/FolderCard.tsx(8,3): error TS7031: Binding element 'progress' implicitly has an 'any' type.
+src/apps/habitkit/components/FolderCard.tsx(9,3): error TS7031: Binding element 'color' implicitly has an 'any' type.
+src/apps/habitkit/components/FolderCard.tsx(10,3): error TS7031: Binding element 'onSelect' implicitly has an 'any' type.
+src/apps/habitkit/components/FolderCard.tsx(11,3): error TS7031: Binding element 'onAddHabit' implicitly has an 'any' type.
+src/apps/habitkit/components/FolderCard.tsx(12,3): error TS7031: Binding element 'onRename' implicitly has an 'any' type.
+src/apps/habitkit/components/FolderCard.tsx(13,3): error TS7031: Binding element 'onDelete' implicitly has an 'any' type.
+src/apps/habitkit/components/FolderCard.tsx(14,3): error TS7031: Binding element 'renamingFolderId' implicitly has an 'any' type.
+src/apps/habitkit/components/FolderCard.tsx(15,3): error TS7031: Binding element 'renameValue' implicitly has an 'any' type.
+src/apps/habitkit/components/FolderCard.tsx(16,3): error TS7031: Binding element 'onRenameValueChange' implicitly has an 'any' type.
+src/apps/habitkit/components/FolderCard.tsx(17,3): error TS7031: Binding element 'onSaveRename' implicitly has an 'any' type.
+src/apps/habitkit/components/FolderCard.tsx(18,3): error TS7031: Binding element 'onCancelRename' implicitly has an 'any' type.
+src/apps/habitkit/components/FolderCard.tsx(19,3): error TS7031: Binding element 'folderError' implicitly has an 'any' type.
+src/apps/habitkit/components/HabitCard.tsx(5,3): error TS7031: Binding element 'habit' implicitly has an 'any' type.
+src/apps/habitkit/components/HabitCard.tsx(6,3): error TS7031: Binding element 'status' implicitly has an 'any' type.
+src/apps/habitkit/components/HabitCard.tsx(7,3): error TS7031: Binding element 'checkinSuccess' implicitly has an 'any' type.
+src/apps/habitkit/components/HabitCard.tsx(8,3): error TS7031: Binding element 'onCheckin' implicitly has an 'any' type.
+src/apps/habitkit/components/HabitCard.tsx(9,3): error TS7031: Binding element 'onEdit' implicitly has an 'any' type.
+src/apps/habitkit/components/HabitCard.tsx(10,3): error TS7031: Binding element 'onDelete' implicitly has an 'any' type.
+src/apps/habitkit/components/HabitCard.tsx(39,38): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ completed: string; partial: string; pending: string; }'.
+src/apps/habitkit/screens/CalendarPage.tsx(7,28): error TS7031: Binding element 'date' implicitly has an 'any' type.
+src/apps/habitkit/screens/CalendarPage.tsx(7,34): error TS7031: Binding element 'view' implicitly has an 'any' type.
+src/apps/habitkit/screens/CalendarPage.tsx(7,42): error TS7006: Parameter 'checkins' implicitly has an 'any' type.
+src/apps/habitkit/screens/CalendarPage.tsx(7,52): error TS7006: Parameter 'habits' implicitly has an 'any' type.
+src/apps/habitkit/screens/CalendarPage.tsx(10,39): error TS7006: Parameter 'c' implicitly has an 'any' type.
+src/apps/habitkit/screens/CalendarPage.tsx(15,36): error TS7006: Parameter 'sum' implicitly has an 'any' type.
+src/apps/habitkit/screens/CalendarPage.tsx(15,41): error TS7006: Parameter 'habit' implicitly has an 'any' type.
+src/apps/habitkit/screens/CalendarPage.tsx(48,11): error TS7034: Variable 'allCheckins' implicitly has type 'any[]' in some locations where its type cannot be determined.
+src/apps/habitkit/screens/CalendarPage.tsx(51,23): error TS7005: Variable 'allCheckins' implicitly has an 'any[]' type.
+src/apps/habitkit/screens/CalendarPage.tsx(51,50): error TS7006: Parameter 'c' implicitly has an 'any' type.
+src/apps/habitkit/screens/CalendarPage.tsx(59,29): error TS7031: Binding element 'date' implicitly has an 'any' type.
+src/apps/habitkit/screens/CalendarPage.tsx(59,35): error TS7031: Binding element 'view' implicitly has an 'any' type.
+src/apps/habitkit/screens/CalendarPage.tsx(62,34): error TS2339: Property 'filter' does not exist on type '{}'.
+src/apps/habitkit/screens/CalendarPage.tsx(62,41): error TS7006: Parameter 'c' implicitly has an 'any' type.
+src/apps/habitkit/screens/CalendarPage.tsx(66,65): error TS2339: Property 'timesPerDay' does not exist on type 'never'.
+src/apps/habitkit/screens/CalendarPage.tsx(77,29): error TS7031: Binding element 'date' implicitly has an 'any' type.
+src/apps/habitkit/screens/CalendarPage.tsx(77,35): error TS7031: Binding element 'view' implicitly has an 'any' type.
+src/apps/habitkit/screens/CalendarPage.tsx(80,34): error TS2339: Property 'filter' does not exist on type '{}'.
+src/apps/habitkit/screens/CalendarPage.tsx(80,41): error TS7006: Parameter 'c' implicitly has an 'any' type.
+src/apps/habitkit/screens/CalendarPage.tsx(87,25): error TS7006: Parameter 'c' implicitly has an 'any' type.
+src/apps/habitkit/screens/CalendarPage.tsx(88,12): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+src/apps/habitkit/screens/CalendarPage.tsx(88,32): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+src/apps/habitkit/screens/CalendarPage.tsx(89,7): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+src/apps/habitkit/screens/CalendarPage.tsx(92,58): error TS18046: 'h' is of type 'unknown'.
+src/apps/habitkit/screens/CalendarPage.tsx(92,69): error TS18046: 'h' is of type 'unknown'.
+src/apps/habitkit/screens/CalendarPage.tsx(93,65): error TS2339: Property 'timesPerDay' does not exist on type 'never'.
+src/apps/habitkit/screens/CalendarPage.tsx(99,27): error TS7006: Parameter 'date' implicitly has an 'any' type.
+src/apps/habitkit/screens/CalendarPage.tsx(102,34): error TS2339: Property 'filter' does not exist on type '{}'.
+src/apps/habitkit/screens/CalendarPage.tsx(102,41): error TS7006: Parameter 'c' implicitly has an 'any' type.
+src/apps/habitkit/screens/CalendarPage.tsx(104,25): error TS7006: Parameter 'c' implicitly has an 'any' type.
+src/apps/habitkit/screens/CalendarPage.tsx(105,12): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+src/apps/habitkit/screens/CalendarPage.tsx(105,32): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+src/apps/habitkit/screens/CalendarPage.tsx(106,7): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+src/apps/habitkit/screens/CalendarPage.tsx(109,40): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/habitkit/screens/CalendarPage.tsx(112,15): error TS18046: 'data' is of type 'unknown'.
+src/apps/habitkit/screens/CalendarPage.tsx(113,16): error TS18046: 'data' is of type 'unknown'.
+src/apps/habitkit/screens/CalendarPage.tsx(114,29): error TS2339: Property 'timesPerDay' does not exist on type 'never'.
+src/apps/habitkit/screens/CalendarPage.tsx(117,20): error TS2353: Object literal may only specify known properties, and 'date' does not exist in type '(prevState: null) => null'.
+src/apps/habitkit/screens/CalendarPage.tsx(120,30): error TS7006: Parameter 'newDate' implicitly has an 'any' type.
+src/apps/habitkit/screens/CalendarPage.tsx(263,13): error TS2322: Type '{ onClickDay: (date: any) => void; tileContent: ({ date, view }: { date: any; view: any; }) => Element | null; tileClassName: (args: TileArgs) => "" | "no-activity-day" | "all-goals-met" | "partial-activity"; ... 4 more ...; className: string; }' is not assignable to type 'IntrinsicAttributes & CalendarProps & RefAttributes<unknown>'.
+  Property 'tileTitle' does not exist on type 'IntrinsicAttributes & CalendarProps & RefAttributes<unknown>'.
+src/apps/habitkit/screens/CalendarPage.tsx(275,47): error TS2339: Property 'date' does not exist on type 'never'.
+src/apps/habitkit/screens/CalendarPage.tsx(277,24): error TS2339: Property 'details' does not exist on type 'never'.
+src/apps/habitkit/screens/CalendarPage.tsx(281,28): error TS2339: Property 'details' does not exist on type 'never'.
+src/apps/habitkit/screens/CalendarPage.tsx(281,41): error TS7006: Parameter 'd' implicitly has an 'any' type.
+src/apps/habitkit/screens/CalendarPage.tsx(281,43): error TS7006: Parameter 'i' implicitly has an 'any' type.
+src/apps/habitkit/screens/DashboardScreen.tsx(5,28): error TS7031: Binding element 'onNavigate' implicitly has an 'any' type.
+src/apps/habitkit/screens/DashboardScreen.tsx(41,36): error TS7006: Parameter 'habitsList' implicitly has an 'any' type.
+src/apps/habitkit/screens/DashboardScreen.tsx(47,40): error TS7006: Parameter 'c' implicitly has an 'any' type.
+src/apps/habitkit/screens/DashboardScreen.tsx(48,9): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+src/apps/habitkit/screens/DashboardScreen.tsx(59,67): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/habitkit/screens/DashboardScreen.tsx(68,78): error TS18046: 'sum' is of type 'unknown'.
+src/apps/habitkit/screens/DashboardScreen.tsx(68,84): error TS18046: 'count' is of type 'unknown'.
+src/apps/habitkit/screens/DashboardScreen.tsx(69,66): error TS2339: Property 'timesPerDay' does not exist on type 'never'.
+src/apps/habitkit/screens/DashboardScreen.tsx(70,57): error TS18046: 'completedToday' is of type 'unknown'.
+src/apps/habitkit/screens/DashboardScreen.tsx(71,29): error TS2339: Property 'currentStreak' does not exist on type 'never'.
+src/apps/habitkit/screens/DashboardScreen.tsx(75,35): error TS2339: Property 'name' does not exist on type 'never'.
+src/apps/habitkit/screens/DashboardScreen.tsx(125,24): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+src/apps/habitkit/screens/DashboardScreen.tsx(125,40): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/habitkit/screens/DashboardScreen.tsx(126,24): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+src/apps/habitkit/screens/DashboardScreen.tsx(126,40): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/habitkit/screens/DashboardScreen.tsx(144,26): error TS2339: Property 'goal' does not exist on type 'never'.
+src/apps/habitkit/screens/DashboardScreen.tsx(145,32): error TS2339: Property 'motivation' does not exist on type 'never'.
+src/apps/habitkit/screens/DashboardScreen.tsx(180,41): error TS2339: Property 'folder' does not exist on type 'never'.
+src/apps/habitkit/screens/DashboardScreen.tsx(193,66): error TS2322: Type 'unknown' is not assignable to type 'ReactNode'.
+src/apps/habitkit/screens/DashboardScreen.tsx(243,17): error TS2322: Type 'unknown' is not assignable to type 'ReactNode'.
+src/apps/habitkit/screens/DashboardScreen.tsx(257,36): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+src/apps/habitkit/screens/DashboardScreen.tsx(257,56): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/habitkit/screens/DashboardScreen.tsx(258,68): error TS2339: Property 'timesPerDay' does not exist on type 'never'.
+src/apps/habitkit/screens/DashboardScreen.tsx(261,35): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/habitkit/screens/DashboardScreen.tsx(263,82): error TS2339: Property 'name' does not exist on type 'never'.
+src/apps/habitkit/screens/DashboardScreen.tsx(265,45): error TS2339: Property 'timesPerDay' does not exist on type 'never'.
+src/apps/habitkit/screens/DashboardScreen.tsx(308,36): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+src/apps/habitkit/screens/DashboardScreen.tsx(308,56): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/habitkit/screens/DashboardScreen.tsx(309,56): error TS2339: Property 'timesPerDay' does not exist on type 'never'.
+src/apps/habitkit/screens/DashboardScreen.tsx(312,35): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/habitkit/screens/DashboardScreen.tsx(316,57): error TS2339: Property 'color' does not exist on type 'never'.
+src/apps/habitkit/screens/DashboardScreen.tsx(318,73): error TS2339: Property 'color' does not exist on type 'never'.
+src/apps/habitkit/screens/DashboardScreen.tsx(323,73): error TS2339: Property 'name' does not exist on type 'never'.
+src/apps/habitkit/screens/DashboardScreen.tsx(325,47): error TS2339: Property 'timesPerDay' does not exist on type 'never'.
+src/apps/habitkit/screens/HabitKitApp.tsx(21,27): error TS7006: Parameter 'path' implicitly has an 'any' type.
+src/apps/habitkit/screens/HabitKitApp.tsx(61,66): error TS7006: Parameter 'path' implicitly has an 'any' type.
+src/apps/habitkit/screens/HomePage.tsx(8,21): error TS7031: Binding element 'showAddModal' implicitly has an 'any' type.
+src/apps/habitkit/screens/HomePage.tsx(8,35): error TS7031: Binding element 'setShowAddModal' implicitly has an 'any' type.
+src/apps/habitkit/screens/HomePage.tsx(39,18): error TS2345: Argument of type 'any[]' is not assignable to parameter of type 'SetStateAction<never[]>'.
+  Type 'any[]' is not assignable to type 'never[]'.
+    Type 'any' is not assignable to type 'never'.
+src/apps/habitkit/screens/HomePage.tsx(47,9): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+src/apps/habitkit/screens/HomePage.tsx(69,43): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/habitkit/screens/HomePage.tsx(94,44): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/habitkit/screens/HomePage.tsx(95,32): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/habitkit/screens/HomePage.tsx(96,52): error TS2339: Property 'name' does not exist on type 'never'.
+src/apps/habitkit/screens/HomePage.tsx(97,51): error TS2339: Property 'name' does not exist on type 'never'.
+src/apps/habitkit/screens/HomePage.tsx(98,54): error TS2339: Property 'name' does not exist on type 'never'.
+src/apps/habitkit/screens/HomePage.tsx(104,33): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/apps/habitkit/screens/HomePage.tsx(120,26): error TS2339: Property 'response' does not exist on type '{}'.
+src/apps/habitkit/screens/HomePage.tsx(126,32): error TS7006: Parameter 'habitId' implicitly has an 'any' type.
+src/apps/habitkit/screens/HomePage.tsx(156,54): error TS2339: Property 'name' does not exist on type 'never'.
+src/apps/habitkit/screens/HomePage.tsx(168,27): error TS2339: Property 'response' does not exist on type '{}'.
+src/apps/habitkit/screens/HomePage.tsx(173,37): error TS7006: Parameter 'folderId' implicitly has an 'any' type.
+src/apps/habitkit/screens/HomePage.tsx(175,40): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/habitkit/screens/HomePage.tsx(178,43): error TS2339: Property 'folder' does not exist on type 'never'.
+src/apps/habitkit/screens/HomePage.tsx(178,61): error TS2339: Property 'name' does not exist on type 'never'.
+src/apps/habitkit/screens/HomePage.tsx(180,32): error TS2353: Object literal may only specify known properties, and 'folderId' does not exist in type '(prevState: null) => null'.
+src/apps/habitkit/screens/HomePage.tsx(180,61): error TS2339: Property 'name' does not exist on type 'never'.
+src/apps/habitkit/screens/HomePage.tsx(197,54): error TS2339: Property 'folder' does not exist on type 'never'.
+src/apps/habitkit/screens/HomePage.tsx(199,45): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/habitkit/screens/HomePage.tsx(212,69): error TS2339: Property 'folderId' does not exist on type 'never'.
+src/apps/habitkit/screens/HomePage.tsx(215,50): error TS2339: Property 'folderId' does not exist on type 'never'.
+src/apps/habitkit/screens/HomePage.tsx(220,37): error TS7006: Parameter 'folderId' implicitly has an 'any' type.
+src/apps/habitkit/screens/HomePage.tsx(222,52): error TS2339: Property 'name' does not exist on type 'never'.
+src/apps/habitkit/screens/HomePage.tsx(233,27): error TS2339: Property 'response' does not exist on type '{}'.
+src/apps/habitkit/screens/HomePage.tsx(239,24): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{}'.
+  No index signature with a parameter of type 'string' was found on type '{}'.
+src/apps/habitkit/screens/HomePage.tsx(240,18): error TS2339: Property 'folder' does not exist on type 'never'.
+src/apps/habitkit/screens/HomePage.tsx(244,26): error TS2339: Property 'folder' does not exist on type 'never'.
+src/apps/habitkit/screens/HomePage.tsx(245,10): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+src/apps/habitkit/screens/HomePage.tsx(245,26): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+src/apps/habitkit/screens/HomePage.tsx(246,5): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+src/apps/habitkit/screens/HomePage.tsx(250,33): error TS7006: Parameter 'folderName' implicitly has an 'any' type.
+src/apps/habitkit/screens/HomePage.tsx(253,22): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+src/apps/habitkit/screens/HomePage.tsx(257,26): error TS7006: Parameter 'folderName' implicitly has an 'any' type.
+src/apps/habitkit/screens/HomePage.tsx(263,30): error TS7006: Parameter 'folderName' implicitly has an 'any' type.
+src/apps/habitkit/screens/HomePage.tsx(265,82): error TS18046: 'sum' is of type 'unknown'.
+src/apps/habitkit/screens/HomePage.tsx(265,88): error TS18046: 'count' is of type 'unknown'.
+src/apps/habitkit/screens/HomePage.tsx(266,73): error TS2339: Property 'timesPerDay' does not exist on type 'never'.
+src/apps/habitkit/screens/HomePage.tsx(270,50): error TS2339: Property 'folder' does not exist on type 'never'.
+src/apps/habitkit/screens/HomePage.tsx(271,66): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+src/apps/habitkit/screens/HomePage.tsx(271,86): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/habitkit/screens/HomePage.tsx(272,67): error TS2339: Property 'timesPerDay' does not exist on type 'never'.
+src/apps/habitkit/screens/HomePage.tsx(276,27): error TS7006: Parameter 'habitId' implicitly has an 'any' type.
+src/apps/habitkit/screens/HomePage.tsx(277,24): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+src/apps/habitkit/screens/HomePage.tsx(278,41): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/habitkit/screens/HomePage.tsx(281,29): error TS2339: Property 'timesPerDay' does not exist on type 'never'.
+src/apps/habitkit/screens/HomePage.tsx(282,69): error TS2339: Property 'timesPerDay' does not exist on type 'never'.
+src/apps/habitkit/screens/HomePage.tsx(284,67): error TS2339: Property 'timesPerDay' does not exist on type 'never'.
+src/apps/habitkit/screens/HomePage.tsx(286,67): error TS2339: Property 'timesPerDay' does not exist on type 'never'.
+src/apps/habitkit/screens/HomePage.tsx(351,49): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/habitkit/screens/HomePage.tsx(353,47): error TS2339: Property 'folder' does not exist on type 'never'.
+src/apps/habitkit/screens/HomePage.tsx(353,65): error TS2339: Property 'name' does not exist on type 'never'.
+src/apps/habitkit/screens/HomePage.tsx(357,35): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/habitkit/screens/HomePage.tsx(360,61): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/habitkit/screens/HomePage.tsx(361,58): error TS2339: Property 'name' does not exist on type 'never'.
+src/apps/habitkit/screens/HomePage.tsx(362,51): error TS2339: Property 'name' does not exist on type 'never'.
+src/apps/habitkit/screens/HomePage.tsx(364,36): error TS7006: Parameter 'folderName' implicitly has an 'any' type.
+src/apps/habitkit/screens/HomePage.tsx(368,34): error TS7006: Parameter 'folderId' implicitly has an 'any' type.
+src/apps/habitkit/screens/HomePage.tsx(368,44): error TS7006: Parameter 'folderName' implicitly has an 'any' type.
+src/apps/habitkit/screens/HomePage.tsx(420,49): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/habitkit/screens/HomePage.tsx(422,47): error TS2339: Property 'folder' does not exist on type 'never'.
+src/apps/habitkit/screens/HomePage.tsx(422,65): error TS2339: Property 'name' does not exist on type 'never'.
+src/apps/habitkit/screens/HomePage.tsx(426,35): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/habitkit/screens/HomePage.tsx(429,61): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/habitkit/screens/HomePage.tsx(430,58): error TS2339: Property 'name' does not exist on type 'never'.
+src/apps/habitkit/screens/HomePage.tsx(431,51): error TS2339: Property 'name' does not exist on type 'never'.
+src/apps/habitkit/screens/HomePage.tsx(433,36): error TS7006: Parameter 'folderName' implicitly has an 'any' type.
+src/apps/habitkit/screens/HomePage.tsx(437,34): error TS7006: Parameter 'folderId' implicitly has an 'any' type.
+src/apps/habitkit/screens/HomePage.tsx(437,44): error TS7006: Parameter 'folderName' implicitly has an 'any' type.
+src/apps/habitkit/screens/HomePage.tsx(496,26): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{}'.
+  No index signature with a parameter of type 'string' was found on type '{}'.
+src/apps/habitkit/screens/HomePage.tsx(498,40): error TS18046: 'folderHabits' is of type 'unknown'.
+src/apps/habitkit/screens/HomePage.tsx(502,23): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{}'.
+  No index signature with a parameter of type 'string' was found on type '{}'.
+src/apps/habitkit/screens/HomePage.tsx(504,26): error TS18046: 'folderHabits' is of type 'unknown'.
+src/apps/habitkit/screens/HomePage.tsx(504,43): error TS7006: Parameter 'habit' implicitly has an 'any' type.
+src/apps/habitkit/screens/HomePage.tsx(591,42): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/habitkit/screens/HomePage.tsx(592,41): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/habitkit/screens/HomePage.tsx(592,60): error TS2339: Property 'name' does not exist on type 'never'.
+src/apps/habitkit/screens/HomePage.tsx(592,74): error TS2339: Property 'name' does not exist on type 'never'.
+src/apps/habitkit/screens/HomePage.tsx(638,46): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/habitkit/screens/HomePage.tsx(679,131): error TS2339: Property 'folderName' does not exist on type 'never'.
+src/apps/habitkit/screens/HomePage.tsx(680,88): error TS2339: Property 'habitsCount' does not exist on type 'never'.
+src/apps/habitkit/screens/OnboardingScreen.tsx(3,29): error TS7031: Binding element 'onComplete' implicitly has an 'any' type.
+src/apps/habitkit/screens/OnboardingScreen.tsx(47,27): error TS7006: Parameter 'updates' implicitly has an 'any' type.
+src/apps/habitkit/screens/OnboardingScreen.tsx(105,13): error TS2322: Type '{ userData: { name: string; goal: string; motivation: string; experience: string; reminderTime: string; theme: string; }; updateUserData: (updates: any) => void; onNext: () => void; onBack: () => void; currentStep: number; totalSteps: number; }' is not assignable to type 'IntrinsicAttributes & { userData: any; updateUserData: any; onNext: any; onBack: any; }'.
+  Property 'currentStep' does not exist on type 'IntrinsicAttributes & { userData: any; updateUserData: any; onNext: any; onBack: any; }'.
+src/apps/habitkit/screens/OnboardingScreen.tsx(115,24): error TS7031: Binding element 'onNext' implicitly has an 'any' type.
+src/apps/habitkit/screens/OnboardingScreen.tsx(177,24): error TS7031: Binding element 'userData' implicitly has an 'any' type.
+src/apps/habitkit/screens/OnboardingScreen.tsx(177,34): error TS7031: Binding element 'updateUserData' implicitly has an 'any' type.
+src/apps/habitkit/screens/OnboardingScreen.tsx(177,50): error TS7031: Binding element 'onNext' implicitly has an 'any' type.
+src/apps/habitkit/screens/OnboardingScreen.tsx(177,58): error TS7031: Binding element 'onBack' implicitly has an 'any' type.
+src/apps/habitkit/screens/OnboardingScreen.tsx(203,15): error TS2322: Type 'string' is not assignable to type 'number'.
+src/apps/habitkit/screens/OnboardingScreen.tsx(243,22): error TS7031: Binding element 'userData' implicitly has an 'any' type.
+src/apps/habitkit/screens/OnboardingScreen.tsx(243,32): error TS7031: Binding element 'updateUserData' implicitly has an 'any' type.
+src/apps/habitkit/screens/OnboardingScreen.tsx(243,48): error TS7031: Binding element 'onNext' implicitly has an 'any' type.
+src/apps/habitkit/screens/OnboardingScreen.tsx(243,56): error TS7031: Binding element 'onBack' implicitly has an 'any' type.
+src/apps/habitkit/screens/OnboardingScreen.tsx(344,28): error TS7031: Binding element 'userData' implicitly has an 'any' type.
+src/apps/habitkit/screens/OnboardingScreen.tsx(344,38): error TS7031: Binding element 'updateUserData' implicitly has an 'any' type.
+src/apps/habitkit/screens/OnboardingScreen.tsx(344,54): error TS7031: Binding element 'onNext' implicitly has an 'any' type.
+src/apps/habitkit/screens/OnboardingScreen.tsx(344,62): error TS7031: Binding element 'onBack' implicitly has an 'any' type.
+src/apps/habitkit/screens/OnboardingScreen.tsx(412,24): error TS7031: Binding element 'userData' implicitly has an 'any' type.
+src/apps/habitkit/screens/OnboardingScreen.tsx(412,34): error TS7031: Binding element 'onNext' implicitly has an 'any' type.
+src/apps/habitkit/screens/OnboardingScreen.tsx(412,42): error TS7031: Binding element 'onBack' implicitly has an 'any' type.
+src/apps/habitkit/screens/OnboardingScreen.tsx(413,24): error TS7006: Parameter 'goal' implicitly has an 'any' type.
+src/apps/habitkit/screens/OnboardingScreen.tsx(422,12): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ health: string; productivity: string; learning: string; relationships: string; finance: string; custom: string; }'.
+src/apps/habitkit/screens/OnboardingScreen.tsx(425,25): error TS7006: Parameter 'theme' implicitly has an 'any' type.
+src/apps/habitkit/screens/OnboardingScreen.tsx(432,12): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ green: string; blue: string; purple: string; orange: string; }'.
+src/apps/habitkit/screens/StatsPage.tsx(30,22): error TS2353: Object literal may only specify known properties, and 'noHabits' does not exist in type '(prevState: null) => null'.
+src/apps/habitkit/screens/StatsPage.tsx(40,28): error TS7006: Parameter 'c' implicitly has an 'any' type.
+src/apps/habitkit/screens/StatsPage.tsx(42,13): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+src/apps/habitkit/screens/StatsPage.tsx(42,24): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+src/apps/habitkit/screens/StatsPage.tsx(45,34): error TS7034: Variable 'prev' implicitly has type 'any' in some locations where its type cannot be determined.
+src/apps/habitkit/screens/StatsPage.tsx(46,28): error TS7006: Parameter 'c' implicitly has an 'any' type.
+src/apps/habitkit/screens/StatsPage.tsx(49,18): error TS7005: Variable 'prev' implicitly has an 'any' type.
+src/apps/habitkit/screens/StatsPage.tsx(51,29): error TS2362: The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+src/apps/habitkit/screens/StatsPage.tsx(63,43): error TS7006: Parameter 'sum' implicitly has an 'any' type.
+src/apps/habitkit/screens/StatsPage.tsx(63,48): error TS7006: Parameter 'h' implicitly has an 'any' type.
+src/apps/habitkit/screens/StatsPage.tsx(65,11): error TS2353: Object literal may only specify known properties, and 'labels' does not exist in type '(prevState: null) => null'.
+src/apps/habitkit/screens/StatsPage.tsx(68,35): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{}'.
+  No index signature with a parameter of type 'string' was found on type '{}'.
+src/apps/habitkit/screens/StatsPage.tsx(70,29): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{}'.
+  No index signature with a parameter of type 'string' was found on type '{}'.
+src/apps/habitkit/screens/StatsPage.tsx(71,41): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{}'.
+  No index signature with a parameter of type 'string' was found on type '{}'.
+src/apps/habitkit/screens/StatsPage.tsx(83,60): error TS2571: Object is of type 'unknown'.
+src/apps/habitkit/screens/StatsPage.tsx(83,65): error TS2571: Object is of type 'unknown'.
+src/apps/habitkit/screens/StatsPage.tsx(84,33): error TS2571: Object is of type 'unknown'.
+src/apps/habitkit/screens/StatsPage.tsx(84,74): error TS18046: 'sum' is of type 'unknown'.
+src/apps/habitkit/screens/StatsPage.tsx(84,80): error TS18046: 'val' is of type 'unknown'.
+src/apps/habitkit/screens/StatsPage.tsx(86,11): error TS2353: Object literal may only specify known properties, and 'rachaActual' does not exist in type '(prevState: null) => null'.
+src/apps/habitkit/screens/StatsPage.tsx(103,13): error TS2339: Property 'noHabits' does not exist on type 'never'.
+src/apps/habitkit/screens/StatsPage.tsx(131,28): error TS7006: Parameter 'context' implicitly has an 'any' type.
+src/apps/habitkit/screens/StatsPage.tsx(195,39): error TS2339: Property 'labels' does not exist on type 'never'.
+src/apps/habitkit/screens/StatsPage.tsx(195,81): error TS2322: Type '{ responsive: boolean; maintainAspectRatio: boolean; plugins: { legend: { display: boolean; }; title: { display: boolean; text: string; font: { size: number; weight: string; }; padding: { top: number; bottom: number; }; }; tooltip: { ...; }; }; scales: { ...; }; }' is not assignable to type '_DeepPartialObject<CoreChartOptions<"bar"> & ElementChartOptions<"bar"> & PluginChartOptions<"bar"> & DatasetChartOptions<"bar"> & ScaleChartOptions<...> & BarControllerChartOptions>'.
+  The types of 'plugins.title.font' are incompatible between these types.
+    Type '{ size: number; weight: string; }' is not assignable to type '((ctx: ScriptableChartContext, options: AnyObject) => Partial<FontSpec> | undefined) | _DeepPartialObject<Partial<FontSpec>> | _DeepPartialObject<...> | undefined'.
+      Type '{ size: number; weight: string; }' is not assignable to type '_DeepPartialObject<ScriptableOptions<Partial<FontSpec>, ScriptableChartContext>>'.
+        Types of property 'weight' are incompatible.
+          Type 'string' is not assignable to type 'number | "bold" | "normal" | "bolder" | "lighter" | ((ctx: ScriptableChartContext, options: AnyObject) => number | "bold" | "normal" | "bolder" | "lighter" | null | undefined) | null | undefined'.
+src/apps/habitkit/screens/StatsPage.tsx(201,81): error TS2339: Property 'promedioSemanal' does not exist on type 'never'.
+src/apps/habitkit/screens/StatsPage.tsx(205,81): error TS2339: Property 'metaDiaria' does not exist on type 'never'.
+src/apps/habitkit/screens/StatsPage.tsx(225,76): error TS2339: Property 'rachaActual' does not exist on type 'never'.
+src/apps/habitkit/screens/StatsPage.tsx(234,76): error TS2339: Property 'rachaMax' does not exist on type 'never'.
+src/apps/habitkit/screens/StatsPage.tsx(245,24): error TS2339: Property 'topDias' does not exist on type 'never'.
+src/apps/habitkit/screens/StatsPage.tsx(245,38): error TS7031: Binding element 'fecha' implicitly has an 'any' type.
+src/apps/habitkit/screens/StatsPage.tsx(245,45): error TS7031: Binding element 'total' implicitly has an 'any' type.
+src/apps/invoicekit/api/invoices.ts(4,37): error TS7006: Parameter 'endpoint' implicitly has an 'any' type.
+src/apps/invoicekit/api/invoices.ts(15,18): error TS2339: Property 'headers' does not exist on type '{}'.
+src/apps/invoicekit/api/invoices.ts(37,37): error TS7006: Parameter 'empresaData' implicitly has an 'any' type.
+src/apps/invoicekit/api/invoices.ts(44,37): error TS7006: Parameter 'id' implicitly has an 'any' type.
+src/apps/invoicekit/api/invoices.ts(44,41): error TS7006: Parameter 'empresaData' implicitly has an 'any' type.
+src/apps/invoicekit/api/invoices.ts(51,37): error TS7006: Parameter 'id' implicitly has an 'any' type.
+src/apps/invoicekit/api/invoices.ts(58,35): error TS7006: Parameter 'empresaId' implicitly has an 'any' type.
+src/apps/invoicekit/api/invoices.ts(67,37): error TS7006: Parameter 'clienteData' implicitly has an 'any' type.
+src/apps/invoicekit/api/invoices.ts(74,37): error TS7006: Parameter 'id' implicitly has an 'any' type.
+src/apps/invoicekit/api/invoices.ts(74,41): error TS7006: Parameter 'clienteData' implicitly has an 'any' type.
+src/apps/invoicekit/api/invoices.ts(81,37): error TS7006: Parameter 'id' implicitly has an 'any' type.
+src/apps/invoicekit/api/invoices.ts(88,36): error TS7006: Parameter 'empresaId' implicitly has an 'any' type.
+src/apps/invoicekit/api/invoices.ts(97,38): error TS7006: Parameter 'productoData' implicitly has an 'any' type.
+src/apps/invoicekit/api/invoices.ts(104,38): error TS7006: Parameter 'id' implicitly has an 'any' type.
+src/apps/invoicekit/api/invoices.ts(104,42): error TS7006: Parameter 'productoData' implicitly has an 'any' type.
+src/apps/invoicekit/api/invoices.ts(111,38): error TS7006: Parameter 'id' implicitly has an 'any' type.
+src/apps/invoicekit/api/invoices.ts(118,35): error TS7006: Parameter 'empresaId' implicitly has an 'any' type.
+src/apps/invoicekit/api/invoices.ts(127,37): error TS7006: Parameter 'facturaData' implicitly has an 'any' type.
+src/apps/invoicekit/api/invoices.ts(134,37): error TS7006: Parameter 'id' implicitly has an 'any' type.
+src/apps/invoicekit/api/invoices.ts(134,41): error TS7006: Parameter 'facturaData' implicitly has an 'any' type.
+src/apps/invoicekit/api/invoices.ts(141,37): error TS7006: Parameter 'id' implicitly has an 'any' type.
+src/apps/invoicekit/api/invoices.ts(147,41): error TS7006: Parameter 'id' implicitly has an 'any' type.
+src/apps/invoicekit/api/invoices.ts(147,45): error TS7006: Parameter 'tipo' implicitly has an 'any' type.
+src/apps/invoicekit/api/invoices.ts(155,39): error TS7006: Parameter 'empresaId' implicitly has an 'any' type.
+src/apps/invoicekit/components/SendInvoiceModal.tsx(3,29): error TS7031: Binding element 'isOpen' implicitly has an 'any' type.
+src/apps/invoicekit/components/SendInvoiceModal.tsx(3,37): error TS7031: Binding element 'onClose' implicitly has an 'any' type.
+src/apps/invoicekit/components/SendInvoiceModal.tsx(3,46): error TS7031: Binding element 'factura' implicitly has an 'any' type.
+src/apps/invoicekit/components/SendInvoiceModal.tsx(3,55): error TS7031: Binding element 'companyData' implicitly has an 'any' type.
+src/apps/invoicekit/components/SendInvoiceModal.tsx(3,68): error TS7031: Binding element 'onSend' implicitly has an 'any' type.
+src/apps/invoicekit/components/SendInvoiceModal.tsx(9,31): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/apps/invoicekit/screens/ClientsPage.tsx(4,25): error TS7031: Binding element 'clientes' implicitly has an 'any' type.
+src/apps/invoicekit/screens/ClientsPage.tsx(4,35): error TS7031: Binding element 'setClientes' implicitly has an 'any' type.
+src/apps/invoicekit/screens/ClientsPage.tsx(4,48): error TS7031: Binding element 'currentCompany' implicitly has an 'any' type.
+src/apps/invoicekit/screens/ClientsPage.tsx(30,31): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/apps/invoicekit/screens/ClientsPage.tsx(40,67): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/invoicekit/screens/ClientsPage.tsx(41,34): error TS7006: Parameter 'c' implicitly has an 'any' type.
+src/apps/invoicekit/screens/ClientsPage.tsx(41,64): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/invoicekit/screens/ClientsPage.tsx(48,16): error TS18046: 'err' is of type 'unknown'.
+src/apps/invoicekit/screens/ClientsPage.tsx(55,31): error TS7006: Parameter 'clienteId' implicitly has an 'any' type.
+src/apps/invoicekit/screens/ClientsPage.tsx(59,36): error TS7006: Parameter 'c' implicitly has an 'any' type.
+src/apps/invoicekit/screens/ClientsPage.tsx(66,44): error TS7006: Parameter 'c' implicitly has an 'any' type.
+src/apps/invoicekit/screens/ClientsPage.tsx(112,38): error TS7006: Parameter 'c' implicitly has an 'any' type.
+src/apps/invoicekit/screens/DashboardScreen.tsx(3,28): error TS7031: Binding element 'invoices' implicitly has an 'any' type.
+src/apps/invoicekit/screens/DashboardScreen.tsx(3,38): error TS7031: Binding element 'clientes' implicitly has an 'any' type.
+src/apps/invoicekit/screens/DashboardScreen.tsx(3,48): error TS7031: Binding element 'onNavigate' implicitly has an 'any' type.
+src/apps/invoicekit/screens/DashboardScreen.tsx(23,27): error TS7006: Parameter 'clienteId' implicitly has an 'any' type.
+src/apps/invoicekit/screens/DashboardScreen.tsx(24,35): error TS7006: Parameter 'c' implicitly has an 'any' type.
+src/apps/invoicekit/screens/DashboardScreen.tsx(29,40): error TS7006: Parameter 'inv' implicitly has an 'any' type.
+src/apps/invoicekit/screens/DashboardScreen.tsx(31,40): error TS7006: Parameter 'inv' implicitly has an 'any' type.
+src/apps/invoicekit/screens/DashboardScreen.tsx(31,67): error TS7006: Parameter 'sum' implicitly has an 'any' type.
+src/apps/invoicekit/screens/DashboardScreen.tsx(31,72): error TS7006: Parameter 'inv' implicitly has an 'any' type.
+src/apps/invoicekit/screens/DashboardScreen.tsx(32,42): error TS7006: Parameter 'inv' implicitly has an 'any' type.
+src/apps/invoicekit/screens/DashboardScreen.tsx(32,70): error TS7006: Parameter 'sum' implicitly has an 'any' type.
+src/apps/invoicekit/screens/DashboardScreen.tsx(32,75): error TS7006: Parameter 'inv' implicitly has an 'any' type.
+src/apps/invoicekit/screens/DashboardScreen.tsx(33,43): error TS7006: Parameter 'inv' implicitly has an 'any' type.
+src/apps/invoicekit/screens/DashboardScreen.tsx(45,30): error TS7006: Parameter 'code' implicitly has an 'any' type.
+src/apps/invoicekit/screens/DashboardScreen.tsx(47,12): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ USD: string; EUR: string; GBP: string; MXN: string; COP: string; ARS: string; }'.
+src/apps/invoicekit/screens/DashboardScreen.tsx(50,33): error TS2339: Property 'currency' does not exist on type 'never'.
+src/apps/invoicekit/screens/DashboardScreen.tsx(69,14): error TS7006: Parameter 'a' implicitly has an 'any' type.
+src/apps/invoicekit/screens/DashboardScreen.tsx(69,17): error TS7006: Parameter 'b' implicitly has an 'any' type.
+src/apps/invoicekit/screens/DashboardScreen.tsx(69,23): error TS2362: The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+src/apps/invoicekit/screens/DashboardScreen.tsx(69,43): error TS2363: The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+src/apps/invoicekit/screens/DashboardScreen.tsx(75,22): error TS7006: Parameter 'invoice' implicitly has an 'any' type.
+src/apps/invoicekit/screens/DashboardScreen.tsx(76,12): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+src/apps/invoicekit/screens/DashboardScreen.tsx(77,9): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+src/apps/invoicekit/screens/DashboardScreen.tsx(79,7): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+src/apps/invoicekit/screens/DashboardScreen.tsx(80,7): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+src/apps/invoicekit/screens/DashboardScreen.tsx(80,68): error TS2362: The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+src/apps/invoicekit/screens/DashboardScreen.tsx(80,98): error TS2363: The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+src/apps/invoicekit/screens/DashboardScreen.tsx(81,12): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+src/apps/invoicekit/screens/DashboardScreen.tsx(81,87): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+src/apps/invoicekit/screens/DashboardScreen.tsx(82,9): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+src/apps/invoicekit/screens/DashboardScreen.tsx(86,29): error TS18046: 'b' is of type 'unknown'.
+src/apps/invoicekit/screens/DashboardScreen.tsx(86,39): error TS18046: 'a' is of type 'unknown'.
+src/apps/invoicekit/screens/DashboardScreen.tsx(88,47): error TS2698: Spread types may only be created from object types.
+src/apps/invoicekit/screens/DashboardScreen.tsx(92,42): error TS7006: Parameter 'inv' implicitly has an 'any' type.
+src/apps/invoicekit/screens/DashboardScreen.tsx(97,41): error TS7006: Parameter 'inv' implicitly has an 'any' type.
+src/apps/invoicekit/screens/DashboardScreen.tsx(98,44): error TS7006: Parameter 'sum' implicitly has an 'any' type.
+src/apps/invoicekit/screens/DashboardScreen.tsx(98,49): error TS7006: Parameter 'inv' implicitly has an 'any' type.
+src/apps/invoicekit/screens/DashboardScreen.tsx(99,42): error TS7006: Parameter 'inv' implicitly has an 'any' type.
+src/apps/invoicekit/screens/DashboardScreen.tsx(126,42): error TS2339: Property 'name' does not exist on type 'never'.
+src/apps/invoicekit/screens/DashboardScreen.tsx(228,45): error TS7006: Parameter 'invoice' implicitly has an 'any' type.
+src/apps/invoicekit/screens/DashboardScreen.tsx(228,54): error TS7006: Parameter 'index' implicitly has an 'any' type.
+src/apps/invoicekit/screens/DashboardScreen.tsx(276,157): error TS7006: Parameter 'a' implicitly has an 'any' type.
+src/apps/invoicekit/screens/DashboardScreen.tsx(276,159): error TS7006: Parameter 'b' implicitly has an 'any' type.
+src/apps/invoicekit/screens/EmpresaForm.tsx(4,24): error TS7031: Binding element 'onSave' implicitly has an 'any' type.
+src/apps/invoicekit/screens/EmpresaForm.tsx(4,32): error TS7031: Binding element 'onBack' implicitly has an 'any' type.
+src/apps/invoicekit/screens/EmpresaForm.tsx(4,40): error TS7031: Binding element 'empresaToEdit' implicitly has an 'any' type.
+src/apps/invoicekit/screens/EmpresaForm.tsx(28,25): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/apps/invoicekit/screens/EmpresaForm.tsx(33,31): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/apps/invoicekit/screens/EmpresaForm.tsx(45,21): error TS18046: 'err' is of type 'unknown'.
+src/apps/invoicekit/screens/FacturasPage.tsx(6,25): error TS7031: Binding element 'invoices' implicitly has an 'any' type.
+src/apps/invoicekit/screens/FacturasPage.tsx(6,35): error TS7031: Binding element 'setInvoices' implicitly has an 'any' type.
+src/apps/invoicekit/screens/FacturasPage.tsx(6,48): error TS7031: Binding element 'clientes' implicitly has an 'any' type.
+src/apps/invoicekit/screens/FacturasPage.tsx(6,58): error TS7031: Binding element 'productos' implicitly has an 'any' type.
+src/apps/invoicekit/screens/FacturasPage.tsx(6,69): error TS7031: Binding element 'currentCompany' implicitly has an 'any' type.
+src/apps/invoicekit/screens/FacturasPage.tsx(17,62): error TS2339: Property 'cantidad' does not exist on type 'never'.
+src/apps/invoicekit/screens/FacturasPage.tsx(17,76): error TS2339: Property 'precio' does not exist on type 'never'.
+src/apps/invoicekit/screens/FacturasPage.tsx(24,17): error TS2698: Spread types may only be created from object types.
+src/apps/invoicekit/screens/FacturasPage.tsx(24,48): error TS2339: Property 'clienteId' does not exist on type 'never'.
+src/apps/invoicekit/screens/FacturasPage.tsx(27,65): error TS2353: Object literal may only specify known properties, and 'subtotal' does not exist in type 'SetStateAction<{ clienteId: string; items: never[]; fechaVencimiento: string; }>'.
+src/apps/invoicekit/screens/FacturasPage.tsx(32,31): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/apps/invoicekit/screens/FacturasPage.tsx(44,49): error TS2339: Property 'numero' does not exist on type 'never'.
+src/apps/invoicekit/screens/FacturasPage.tsx(45,64): error TS2339: Property 'cantidad' does not exist on type 'never'.
+src/apps/invoicekit/screens/FacturasPage.tsx(45,80): error TS2339: Property 'precio' does not exist on type 'never'.
+src/apps/invoicekit/screens/FacturasPage.tsx(46,61): error TS2339: Property 'cantidad' does not exist on type 'never'.
+src/apps/invoicekit/screens/FacturasPage.tsx(46,77): error TS2339: Property 'precio' does not exist on type 'never'.
+src/apps/invoicekit/screens/FacturasPage.tsx(52,67): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/invoicekit/screens/FacturasPage.tsx(53,34): error TS7006: Parameter 'inv' implicitly has an 'any' type.
+src/apps/invoicekit/screens/FacturasPage.tsx(53,68): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/invoicekit/screens/FacturasPage.tsx(59,65): error TS2353: Object literal may only specify known properties, and 'subtotal' does not exist in type 'SetStateAction<{ clienteId: string; items: never[]; fechaVencimiento: string; }>'.
+src/apps/invoicekit/screens/FacturasPage.tsx(62,47): error TS18046: 'error' is of type 'unknown'.
+src/apps/invoicekit/screens/FacturasPage.tsx(66,31): error TS7006: Parameter 'facturaId' implicitly has an 'any' type.
+src/apps/invoicekit/screens/FacturasPage.tsx(70,35): error TS7006: Parameter 'inv' implicitly has an 'any' type.
+src/apps/invoicekit/screens/FacturasPage.tsx(76,38): error TS7006: Parameter 'facturaId' implicitly has an 'any' type.
+src/apps/invoicekit/screens/FacturasPage.tsx(79,34): error TS7006: Parameter 'inv' implicitly has an 'any' type.
+src/apps/invoicekit/screens/FacturasPage.tsx(85,28): error TS7006: Parameter 'factura' implicitly has an 'any' type.
+src/apps/invoicekit/screens/FacturasPage.tsx(95,27): error TS7006: Parameter 'clienteId' implicitly has an 'any' type.
+src/apps/invoicekit/screens/FacturasPage.tsx(96,35): error TS7006: Parameter 'c' implicitly has an 'any' type.
+src/apps/invoicekit/screens/FacturasPage.tsx(102,41): error TS7006: Parameter 'inv' implicitly has an 'any' type.
+src/apps/invoicekit/screens/FacturasPage.tsx(103,44): error TS7006: Parameter 'sum' implicitly has an 'any' type.
+src/apps/invoicekit/screens/FacturasPage.tsx(103,49): error TS7006: Parameter 'inv' implicitly has an 'any' type.
+src/apps/invoicekit/screens/FacturasPage.tsx(106,44): error TS7006: Parameter 'f' implicitly has an 'any' type.
+src/apps/invoicekit/screens/FacturasPage.tsx(168,38): error TS7006: Parameter 'f' implicitly has an 'any' type.
+src/apps/invoicekit/screens/FacturasPage.tsx(168,40): error TS7006: Parameter 'i' implicitly has an 'any' type.
+src/apps/invoicekit/screens/FacturasPage.tsx(207,30): error TS7006: Parameter 'c' implicitly has an 'any' type.
+src/apps/invoicekit/screens/FacturasPage.tsx(207,32): error TS7006: Parameter 'i' implicitly has an 'any' type.
+src/apps/invoicekit/screens/FacturasPage.tsx(218,49): error TS7006: Parameter 'p' implicitly has an 'any' type.
+src/apps/invoicekit/screens/FacturasPage.tsx(222,33): error TS7006: Parameter 'p' implicitly has an 'any' type.
+src/apps/invoicekit/screens/FacturasPage.tsx(228,27): error TS2345: Argument of type '(f: { clienteId: string; items: never[]; fechaVencimiento: string; }) => { items: { id: number; nombre: string; cantidad: number; precio: number; }[]; clienteId: string; fechaVencimiento: string; }' is not assignable to parameter of type 'SetStateAction<{ clienteId: string; items: never[]; fechaVencimiento: string; }>'.
+  Type '(f: { clienteId: string; items: never[]; fechaVencimiento: string; }) => { items: { id: number; nombre: string; cantidad: number; precio: number; }[]; clienteId: string; fechaVencimiento: string; }' is not assignable to type '(prevState: { clienteId: string; items: never[]; fechaVencimiento: string; }) => { clienteId: string; items: never[]; fechaVencimiento: string; }'.
+    Call signature return types '{ items: { id: number; nombre: string; cantidad: number; precio: number; }[]; clienteId: string; fechaVencimiento: string; }' and '{ clienteId: string; items: never[]; fechaVencimiento: string; }' are incompatible.
+      The types of 'items' are incompatible between these types.
+        Type '{ id: number; nombre: string; cantidad: number; precio: number; }[]' is not assignable to type 'never[]'.
+          Type '{ id: number; nombre: string; cantidad: number; precio: number; }' is not assignable to type 'never'.
+src/apps/invoicekit/screens/FacturasPage.tsx(238,30): error TS2339: Property 'id' does not exist on type 'never'.
+src/apps/invoicekit/screens/FacturasPage.tsx(239,29): error TS2339: Property 'nombre' does not exist on type 'never'.
+src/apps/invoicekit/screens/FacturasPage.tsx(239,43): error TS2339: Property 'cantidad' does not exist on type 'never'.
+src/apps/invoicekit/screens/FacturasPage.tsx(241,33): error TS2339: Property 'cantidad' does not exist on type 'never'.
+src/apps/invoicekit/screens/FacturasPage.tsx(241,47): error TS2339: Property 'precio' does not exist on type 'never'.
+src/apps/invoicekit/screens/FacturasPage.tsx(249,35): error TS2339: Property 'total' does not exist on type '{ clienteId: string; items: never[]; fechaVencimiento: string; }'.
+src/apps/invoicekit/screens/InvoiceKitApp.tsx(33,35): error TS7006: Parameter 'key' implicitly has an 'any' type.
+src/apps/invoicekit/screens/InvoiceKitApp.tsx(46,45): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/apps/invoicekit/screens/InvoiceKitApp.tsx(50,18): error TS2345: Argument of type '"No se pudieron cargar los datos de la empresa. Inténtalo de nuevo."' is not assignable to parameter of type 'SetStateAction<null>'.
+src/apps/invoicekit/screens/InvoiceKitApp.tsx(62,34): error TS7006: Parameter 'companyId' implicitly has an 'any' type.
+src/apps/invoicekit/screens/InvoiceKitApp.tsx(75,16): error TS2345: Argument of type '"Error al cargar los datos de esta empresa."' is not assignable to parameter of type 'SetStateAction<null>'.
+src/apps/invoicekit/screens/InvoiceKitApp.tsx(83,75): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/invoicekit/screens/InvoiceKitApp.tsx(84,38): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/invoicekit/screens/InvoiceKitApp.tsx(93,30): error TS7006: Parameter 'savedEmpresa' implicitly has an 'any' type.
+src/apps/invoicekit/screens/InvoiceKitApp.tsx(94,41): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/invoicekit/screens/InvoiceKitApp.tsx(96,19): error TS2345: Argument of type 'any[]' is not assignable to parameter of type 'SetStateAction<never[]>'.
+  Type 'any[]' is not assignable to type 'never[]'.
+    Type 'any' is not assignable to type 'never'.
+src/apps/invoicekit/screens/InvoiceKitApp.tsx(96,39): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/invoicekit/screens/InvoiceKitApp.tsx(98,20): error TS2322: Type 'any' is not assignable to type 'never'.
+src/apps/invoicekit/screens/InvoiceKitApp.tsx(98,33): error TS2322: Type 'any' is not assignable to type 'never'.
+src/apps/invoicekit/screens/InvoiceKitApp.tsx(105,30): error TS7006: Parameter 'empresa' implicitly has an 'any' type.
+src/apps/invoicekit/screens/InvoiceKitApp.tsx(153,33): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/invoicekit/screens/InvoiceKitApp.tsx(161,70): error TS2339: Property 'name' does not exist on type 'never'.
+src/apps/invoicekit/screens/InvoiceKitApp.tsx(168,46): error TS2345: Argument of type '{}' is not assignable to parameter of type 'SetStateAction<null>'.
+  Type '{}' provides no match for the signature '(prevState: null): null'.
+src/apps/invoicekit/screens/InvoiceKitApp.tsx(189,9): error TS2322: Type 'null' is not assignable to type 'UserProfile | undefined'.
+src/apps/invoicekit/screens/InvoiceKitApp.tsx(197,37): error TS2339: Property 'logoUrl' does not exist on type 'never'.
+src/apps/invoicekit/screens/InvoiceKitApp.tsx(198,50): error TS2339: Property 'logoUrl' does not exist on type 'never'.
+src/apps/invoicekit/screens/InvoiceKitApp.tsx(201,45): error TS2339: Property 'name' does not exist on type 'never'.
+src/apps/invoicekit/screens/InvoiceKitApp.tsx(204,89): error TS2339: Property 'name' does not exist on type 'never'.
+src/apps/invoicekit/screens/InvoiceKitApp.tsx(210,50): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/invoicekit/screens/InvoiceKitApp.tsx(211,42): error TS2339: Property 'logoUrl' does not exist on type 'never'.
+src/apps/invoicekit/screens/InvoiceKitApp.tsx(212,55): error TS2339: Property 'logoUrl' does not exist on type 'never'.
+src/apps/invoicekit/screens/InvoiceKitApp.tsx(214,162): error TS2339: Property 'name' does not exist on type 'never'.
+src/apps/invoicekit/screens/InvoiceKitApp.tsx(216,82): error TS2339: Property 'name' does not exist on type 'never'.
+src/apps/invoicekit/screens/OnboardingScreen.tsx(4,29): error TS7031: Binding element 'onComplete' implicitly has an 'any' type.
+src/apps/invoicekit/screens/OnboardingScreen.tsx(21,23): error TS7006: Parameter 'key' implicitly has an 'any' type.
+src/apps/invoicekit/screens/OnboardingScreen.tsx(51,27): error TS7006: Parameter 'updates' implicitly has an 'any' type.
+src/apps/invoicekit/screens/OnboardingScreen.tsx(71,30): error TS7006: Parameter 'empresa' implicitly has an 'any' type.
+src/apps/invoicekit/screens/OnboardingScreen.tsx(98,30): error TS7006: Parameter 'idx' implicitly has an 'any' type.
+src/apps/invoicekit/screens/OnboardingScreen.tsx(104,32): error TS7006: Parameter 'empresa' implicitly has an 'any' type.
+src/apps/invoicekit/screens/OnboardingScreen.tsx(145,32): error TS7006: Parameter 'empresa' implicitly has an 'any' type.
+src/apps/invoicekit/screens/OnboardingScreen.tsx(145,41): error TS7006: Parameter 'idx' implicitly has an 'any' type.
+src/apps/invoicekit/screens/OnboardingScreen.tsx(162,26): error TS2322: Type '{ initialData: null; onSave: (empresa: any) => void; onCancel: () => void; }' is not assignable to type 'IntrinsicAttributes & { onSave: any; onBack: any; empresaToEdit: any; }'.
+  Property 'initialData' does not exist on type 'IntrinsicAttributes & { onSave: any; onBack: any; empresaToEdit: any; }'.
+src/apps/invoicekit/screens/OnboardingScreen.tsx(171,24): error TS7031: Binding element 'onNext' implicitly has an 'any' type.
+src/apps/invoicekit/screens/OnboardingScreen.tsx(233,25): error TS7031: Binding element 'userData' implicitly has an 'any' type.
+src/apps/invoicekit/screens/OnboardingScreen.tsx(233,35): error TS7031: Binding element 'updateUserData' implicitly has an 'any' type.
+src/apps/invoicekit/screens/OnboardingScreen.tsx(233,51): error TS7031: Binding element 'onNext' implicitly has an 'any' type.
+src/apps/invoicekit/screens/OnboardingScreen.tsx(233,59): error TS7031: Binding element 'onBack' implicitly has an 'any' type.
+src/apps/invoicekit/screens/OnboardingScreen.tsx(300,15): error TS2322: Type 'string' is not assignable to type 'number'.
+src/apps/invoicekit/screens/OnboardingScreen.tsx(351,28): error TS7031: Binding element 'userData' implicitly has an 'any' type.
+src/apps/invoicekit/screens/OnboardingScreen.tsx(351,38): error TS7031: Binding element 'updateUserData' implicitly has an 'any' type.
+src/apps/invoicekit/screens/OnboardingScreen.tsx(351,54): error TS7031: Binding element 'onNext' implicitly has an 'any' type.
+src/apps/invoicekit/screens/OnboardingScreen.tsx(351,62): error TS7031: Binding element 'onBack' implicitly has an 'any' type.
+src/apps/invoicekit/screens/OnboardingScreen.tsx(432,24): error TS7031: Binding element 'userData' implicitly has an 'any' type.
+src/apps/invoicekit/screens/OnboardingScreen.tsx(432,34): error TS7031: Binding element 'onNext' implicitly has an 'any' type.
+src/apps/invoicekit/screens/OnboardingScreen.tsx(432,42): error TS7031: Binding element 'onBack' implicitly has an 'any' type.
+src/apps/invoicekit/screens/OnboardingScreen.tsx(433,32): error TS7006: Parameter 'type' implicitly has an 'any' type.
+src/apps/invoicekit/screens/OnboardingScreen.tsx(441,12): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ freelance: string; consulting: string; retail: string; services: string; other: string; }'.
+src/apps/invoicekit/screens/OnboardingScreen.tsx(444,30): error TS7006: Parameter 'code' implicitly has an 'any' type.
+src/apps/invoicekit/screens/OnboardingScreen.tsx(446,12): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ USD: string; EUR: string; GBP: string; MXN: string; COP: string; ARS: string; }'.
+src/apps/invoicekit/screens/ProductsPage.tsx(4,25): error TS7031: Binding element 'productos' implicitly has an 'any' type.
+src/apps/invoicekit/screens/ProductsPage.tsx(4,36): error TS7031: Binding element 'setProductos' implicitly has an 'any' type.
+src/apps/invoicekit/screens/ProductsPage.tsx(4,50): error TS7031: Binding element 'currentCompany' implicitly has an 'any' type.
+src/apps/invoicekit/screens/ProductsPage.tsx(32,31): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/apps/invoicekit/screens/ProductsPage.tsx(43,70): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/invoicekit/screens/ProductsPage.tsx(44,36): error TS7006: Parameter 'p' implicitly has an 'any' type.
+src/apps/invoicekit/screens/ProductsPage.tsx(44,67): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/invoicekit/screens/ProductsPage.tsx(51,16): error TS18046: 'err' is of type 'unknown'.
+src/apps/invoicekit/screens/ProductsPage.tsx(58,31): error TS7006: Parameter 'productoId' implicitly has an 'any' type.
+src/apps/invoicekit/screens/ProductsPage.tsx(62,38): error TS7006: Parameter 'p' implicitly has an 'any' type.
+src/apps/invoicekit/screens/ProductsPage.tsx(69,35): error TS7006: Parameter 'p' implicitly has an 'any' type.
+src/apps/invoicekit/screens/ProductsPage.tsx(74,52): error TS7006: Parameter 'a' implicitly has an 'any' type.
+src/apps/invoicekit/screens/ProductsPage.tsx(74,55): error TS7006: Parameter 'b' implicitly has an 'any' type.
+src/apps/invoicekit/screens/ProductsPage.tsx(75,56): error TS7006: Parameter 'a' implicitly has an 'any' type.
+src/apps/invoicekit/screens/ProductsPage.tsx(75,59): error TS7006: Parameter 'b' implicitly has an 'any' type.
+src/apps/invoicekit/screens/ProductsPage.tsx(79,58): error TS7006: Parameter 'acc' implicitly has an 'any' type.
+src/apps/invoicekit/screens/ProductsPage.tsx(79,63): error TS7006: Parameter 'p' implicitly has an 'any' type.
+src/apps/invoicekit/screens/ProductsPage.tsx(101,38): error TS7006: Parameter 'p' implicitly has an 'any' type.
+src/apps/invoicekit/screens/ProductsPage.tsx(101,102): error TS2322: Type 'unknown' is not assignable to type 'string | number | readonly string[] | undefined'.
+src/apps/invoicekit/screens/ProductsPage.tsx(101,114): error TS2322: Type 'unknown' is not assignable to type 'ReactNode'.
+src/apps/invoicekit/screens/ProductsPage.tsx(136,30): error TS7006: Parameter 'p' implicitly has an 'any' type.
+src/apps/invoicekit/utils/api.ts(24,24): error TS7006: Parameter 'url' implicitly has an 'any' type.
+src/apps/invoicekit/utils/api.ts(33,33): error TS18046: 'error' is of type 'unknown'.
+src/apps/invoicekit/utils/api.ts(33,50): error TS18046: 'error' is of type 'unknown'.
+src/apps/invoicekit/utils/api.ts(33,72): error TS18046: 'error' is of type 'unknown'.
+src/apps/invoicekit/utils/api.ts(34,21): error TS18046: 'error' is of type 'unknown'.
+src/apps/invoicekit/utils/api.ts(61,44): error TS7006: Parameter 'id' implicitly has an 'any' type.
+src/apps/trainingkit/screens/AddTrainingScreen.tsx(4,30): error TS7031: Binding element 'onNavigate' implicitly has an 'any' type.
+src/apps/trainingkit/screens/AddTrainingScreen.tsx(15,24): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/apps/trainingkit/screens/AddTrainingScreen.tsx(23,30): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/apps/trainingkit/screens/CalendarScreen.tsx(19,27): error TS7031: Binding element 'onNavigate' implicitly has an 'any' type.
+src/apps/trainingkit/screens/CalendarScreen.tsx(32,33): error TS7006: Parameter 'value' implicitly has an 'any' type.
+src/apps/trainingkit/screens/CalendarScreen.tsx(40,31): error TS7006: Parameter 'id' implicitly has an 'any' type.
+src/apps/trainingkit/screens/CalendarScreen.tsx(46,29): error TS7031: Binding element 'date' implicitly has an 'any' type.
+src/apps/trainingkit/screens/CalendarScreen.tsx(48,50): error TS2339: Property 'date' does not exist on type 'never'.
+src/apps/trainingkit/screens/CalendarScreen.tsx(53,24): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/trainingkit/screens/CalendarScreen.tsx(54,14): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ Cardio: Element; Fuerza: Element; Yoga: Element; }'.
+src/apps/trainingkit/screens/CalendarScreen.tsx(54,26): error TS2339: Property 'type' does not exist on type 'never'.
+src/apps/trainingkit/screens/CalendarScreen.tsx(61,31): error TS7031: Binding element 'date' implicitly has an 'any' type.
+src/apps/trainingkit/screens/CalendarScreen.tsx(63,50): error TS2339: Property 'date' does not exist on type 'never'.
+src/apps/trainingkit/screens/CalendarScreen.tsx(73,11): error TS7034: Variable 'week' implicitly has type 'any[]' in some locations where its type cannot be determined.
+src/apps/trainingkit/screens/CalendarScreen.tsx(78,44): error TS2339: Property 'date' does not exist on type 'never'.
+src/apps/trainingkit/screens/CalendarScreen.tsx(80,22): error TS2345: Argument of type 'any[]' is not assignable to parameter of type 'SetStateAction<never[]>'.
+  Type 'any[]' is not assignable to type 'never[]'.
+    Type 'any' is not assignable to type 'never'.
+src/apps/trainingkit/screens/CalendarScreen.tsx(80,22): error TS7005: Variable 'week' implicitly has an 'any[]' type.
+src/apps/trainingkit/screens/CalendarScreen.tsx(109,28): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/trainingkit/screens/CalendarScreen.tsx(109,116): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ Cardio: string; Fuerza: string; Yoga: string; }'.
+src/apps/trainingkit/screens/CalendarScreen.tsx(109,128): error TS2339: Property 'type' does not exist on type 'never'.
+src/apps/trainingkit/screens/CalendarScreen.tsx(110,26): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ Cardio: Element; Fuerza: Element; Yoga: Element; }'.
+src/apps/trainingkit/screens/CalendarScreen.tsx(110,38): error TS2339: Property 'type' does not exist on type 'never'.
+src/apps/trainingkit/screens/CalendarScreen.tsx(110,58): error TS2339: Property 'type' does not exist on type 'never'.
+src/apps/trainingkit/screens/CalendarScreen.tsx(110,73): error TS2339: Property 'duration' does not exist on type 'never'.
+src/apps/trainingkit/screens/CalendarScreen.tsx(110,90): error TS2339: Property 'location' does not exist on type 'never'.
+src/apps/trainingkit/screens/CalendarScreen.tsx(110,109): error TS2339: Property 'location' does not exist on type 'never'.
+src/apps/trainingkit/screens/CalendarScreen.tsx(110,124): error TS2339: Property 'withFriends' does not exist on type 'never'.
+src/apps/trainingkit/screens/CalendarScreen.tsx(110,141): error TS2339: Property 'friends' does not exist on type 'never'.
+src/apps/trainingkit/screens/CalendarScreen.tsx(110,161): error TS2339: Property 'friends' does not exist on type 'never'.
+src/apps/trainingkit/screens/CalendarScreen.tsx(113,59): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/trainingkit/screens/CalendarScreen.tsx(126,28): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/trainingkit/screens/CalendarScreen.tsx(126,101): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ Cardio: string; Fuerza: string; Yoga: string; }'.
+src/apps/trainingkit/screens/CalendarScreen.tsx(126,113): error TS2339: Property 'type' does not exist on type 'never'.
+src/apps/trainingkit/screens/CalendarScreen.tsx(127,26): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ Cardio: Element; Fuerza: Element; Yoga: Element; }'.
+src/apps/trainingkit/screens/CalendarScreen.tsx(127,38): error TS2339: Property 'type' does not exist on type 'never'.
+src/apps/trainingkit/screens/CalendarScreen.tsx(127,58): error TS2339: Property 'type' does not exist on type 'never'.
+src/apps/trainingkit/screens/CalendarScreen.tsx(127,73): error TS2339: Property 'duration' does not exist on type 'never'.
+src/apps/trainingkit/screens/CalendarScreen.tsx(127,90): error TS2339: Property 'location' does not exist on type 'never'.
+src/apps/trainingkit/screens/CalendarScreen.tsx(127,109): error TS2339: Property 'location' does not exist on type 'never'.
+src/apps/trainingkit/screens/CalendarScreen.tsx(127,124): error TS2339: Property 'withFriends' does not exist on type 'never'.
+src/apps/trainingkit/screens/CalendarScreen.tsx(127,141): error TS2339: Property 'friends' does not exist on type 'never'.
+src/apps/trainingkit/screens/CalendarScreen.tsx(127,161): error TS2339: Property 'friends' does not exist on type 'never'.
+src/apps/trainingkit/screens/CalendarScreen.tsx(130,59): error TS2339: Property '_id' does not exist on type 'never'.
+src/apps/trainingkit/screens/DashboardScreen.tsx(13,28): error TS7031: Binding element 'onNavigate' implicitly has an 'any' type.
+src/apps/trainingkit/screens/DashboardScreen.tsx(57,68): error TS2322: Type 'unknown' is not assignable to type 'ReactNode'.
+src/apps/trainingkit/screens/DashboardScreen.tsx(57,76): error TS2339: Property 'byWeek' does not exist on type 'never'.
+src/apps/trainingkit/screens/DashboardScreen.tsx(57,105): error TS2339: Property 'byWeek' does not exist on type 'never'.
+src/apps/trainingkit/screens/DashboardScreen.tsx(62,76): error TS2339: Property 'currentStreak' does not exist on type 'never'.
+src/apps/trainingkit/screens/DashboardScreen.tsx(67,96): error TS2339: Property 'type' does not exist on type 'never'.
+src/apps/trainingkit/screens/DashboardScreen.tsx(67,118): error TS2339: Property 'duration' does not exist on type 'never'.
+src/apps/trainingkit/screens/MapScreen.tsx(18,22): error TS7031: Binding element 'onNavigate' implicitly has an 'any' type.
+src/apps/trainingkit/screens/MapScreen.tsx(25,36): error TS7006: Parameter 't' implicitly has an 'any' type.
+src/apps/trainingkit/screens/MapScreen.tsx(32,75): error TS2339: Property 'type' does not exist on type 'never'.
+src/apps/trainingkit/screens/MapScreen.tsx(33,52): error TS2339: Property 'location' does not exist on type 'never'.
+src/apps/trainingkit/screens/MapScreen.tsx(34,76): error TS2339: Property 'location' does not exist on type 'never'.
+src/apps/trainingkit/screens/MapScreen.tsx(34,131): error TS2339: Property 'location' does not exist on type 'never'.
+src/apps/trainingkit/screens/MapScreen.tsx(57,25): error TS2322: Type 'number[]' is not assignable to type 'LatLngExpression | undefined'.
+  Type 'number[]' is not assignable to type 'LatLngTuple'.
+    Target requires 2 element(s) but source may have fewer.
+src/apps/trainingkit/screens/MapScreen.tsx(60,44): error TS2339: Property 'location' does not exist on type 'never'.
+src/apps/trainingkit/screens/MapScreen.tsx(60,60): error TS2339: Property 'location' does not exist on type 'never'.
+src/apps/trainingkit/screens/MapScreen.tsx(62,76): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ Cardio: Element; Fuerza: Element; Yoga: Element; }'.
+src/apps/trainingkit/screens/MapScreen.tsx(62,88): error TS2339: Property 'type' does not exist on type 'never'.
+src/apps/trainingkit/screens/MapScreen.tsx(62,98): error TS2339: Property 'type' does not exist on type 'never'.
+src/apps/trainingkit/screens/MapScreen.tsx(63,70): error TS2339: Property 'date' does not exist on type 'never'.
+src/apps/trainingkit/screens/MapScreen.tsx(64,47): error TS2339: Property 'location' does not exist on type 'never'.
+src/apps/trainingkit/screens/MapScreen.tsx(65,57): error TS2339: Property 'duration' does not exist on type 'never'.
+src/apps/trainingkit/screens/MapScreen.tsx(66,22): error TS2339: Property 'withFriends' does not exist on type 'never'.
+src/apps/trainingkit/screens/MapScreen.tsx(66,39): error TS2339: Property 'friends' does not exist on type 'never'.
+src/apps/trainingkit/screens/MapScreen.tsx(66,83): error TS2339: Property 'friends' does not exist on type 'never'.
+src/apps/trainingkit/screens/MapScreen.tsx(76,51): error TS2339: Property 'location' does not exist on type 'never'.
+src/apps/trainingkit/screens/MapScreen.tsx(76,105): error TS2339: Property 'date' does not exist on type 'never'.
+src/apps/trainingkit/screens/ProfileScreen.tsx(4,26): error TS7031: Binding element 'onNavigate' implicitly has an 'any' type.
+src/apps/trainingkit/screens/StatsScreen.tsx(21,23): error TS7006: Parameter 'summary' implicitly has an 'any' type.
+src/apps/trainingkit/screens/StatsScreen.tsx(21,32): error TS7006: Parameter 'filtro' implicitly has an 'any' type.
+src/apps/trainingkit/screens/StatsScreen.tsx(37,24): error TS7031: Binding element 'onNavigate' implicitly has an 'any' type.
+src/apps/trainingkit/screens/StatsScreen.tsx(56,30): error TS2339: Property 'currentStreak' does not exist on type 'never'.
+src/apps/trainingkit/screens/StatsScreen.tsx(56,61): error TS2339: Property 'maxStreak' does not exist on type 'never'.
+src/apps/trainingkit/screens/StatsScreen.tsx(56,88): error TS2339: Property 'totalDuration' does not exist on type 'never'.
+src/apps/trainingkit/screens/StatsScreen.tsx(66,55): error TS2339: Property 'currentStreak' does not exist on type 'never'.
+src/apps/trainingkit/screens/StatsScreen.tsx(66,86): error TS2339: Property 'currentStreak' does not exist on type 'never'.
+src/apps/trainingkit/screens/StatsScreen.tsx(71,55): error TS2339: Property 'totalDuration' does not exist on type 'never'.
+src/apps/trainingkit/screens/StatsScreen.tsx(71,86): error TS2339: Property 'totalDuration' does not exist on type 'never'.
+src/apps/trainingkit/screens/StatsScreen.tsx(76,55): error TS2339: Property 'maxStreak' does not exist on type 'never'.
+src/apps/trainingkit/screens/StatsScreen.tsx(76,82): error TS2339: Property 'maxStreak' does not exist on type 'never'.
+src/apps/trainingkit/screens/WeekSummaryScreen.tsx(4,30): error TS7031: Binding element 'onNavigate' implicitly has an 'any' type.
+src/apps/trainingkit/screens/WeekSummaryScreen.tsx(28,46): error TS2339: Property 'date' does not exist on type 'never'.
+src/apps/trainingkit/screens/WeekSummaryScreen.tsx(29,36): error TS2339: Property 'type' does not exist on type 'never'.
+src/apps/trainingkit/screens/WeekSummaryScreen.tsx(30,40): error TS2339: Property 'duration' does not exist on type 'never'.
+src/apps/trainingkit/screens/WeekSummaryScreen.tsx(31,41): error TS2339: Property 'location' does not exist on type 'never'.
+src/apps/trainingkit/screens/WeekSummaryScreen.tsx(32,42): error TS2339: Property 'withFriends' does not exist on type 'never'.
+src/apps/trainingkit/screens/WeekSummaryScreen.tsx(32,65): error TS2339: Property 'friends' does not exist on type 'never'.
+src/components/AppAccessGuard.tsx(5,3): error TS7031: Binding element 'appName' implicitly has an 'any' type.
+src/components/AppAccessGuard.tsx(6,3): error TS7031: Binding element 'children' implicitly has an 'any' type.
+src/components/AppAccessGuard.tsx(54,14): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ habitkit: string; invoicekit: string; trainingkit: string; caloriekit: string; }'.
+src/components/AppAccessGuard.tsx(85,20): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{ habitkit: string; invoicekit: string; trainingkit: string; caloriekit: string; }'.
+  No index signature with a parameter of type 'string' was found on type '{ habitkit: string; invoicekit: string; trainingkit: string; caloriekit: string; }'.
+src/components/EditHabitModal.tsx(5,27): error TS7031: Binding element 'habit' implicitly has an 'any' type.
+src/components/EditHabitModal.tsx(5,34): error TS7031: Binding element 'onClose' implicitly has an 'any' type.
+src/components/EditHabitModal.tsx(5,43): error TS7031: Binding element 'onHabitUpdated' implicitly has an 'any' type.
+src/components/EditHabitModal.tsx(5,59): error TS7031: Binding element 'folders' implicitly has an 'any' type.
+src/components/EditHabitModal.tsx(11,31): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/components/EditHabitModal.tsx(67,37): error TS7006: Parameter 'f' implicitly has an 'any' type.
+src/components/HomeAppsSection.tsx(27,28): error TS7031: Binding element 'onAppClick' implicitly has an 'any' type.
+src/pages/AccountPage.tsx(77,52): error TS18047: 'user' is possibly 'null'.
