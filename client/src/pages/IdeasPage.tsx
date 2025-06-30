@@ -201,7 +201,7 @@ const IdeasPage = () => {
                 onClick={() => setShowForm(true)}
                 className="w-full bg-indigo-600 text-white py-3 px-6 rounded-xl font-semibold hover:bg-indigo-700 transition-colors flex items-center justify-center gap-2"
               >
-                <FaPlus />
+                ➕
                 Compartir una idea
               </button>
             ) : (
@@ -277,7 +277,7 @@ const IdeasPage = () => {
                               : 'bg-gray-100 text-gray-600 hover:bg-red-100 hover:text-red-600'
                           } ${!user ? 'opacity-50 cursor-not-allowed' : ''}`}
                         >
-                          <FaHeart className="w-4 h-4" />
+                          ❤️
                           <span>{idea.likes}</span>
                         </button>
                         <button
@@ -289,7 +289,7 @@ const IdeasPage = () => {
                               : 'bg-gray-100 text-gray-600 hover:bg-blue-100 hover:text-blue-600'
                           } ${!user ? 'opacity-50 cursor-not-allowed' : ''}`}
                         >
-                          <FaThumbsDown className="w-4 h-4" />
+                          👎
                           <span>{idea.dislikes}</span>
                         </button>
                       </div>
@@ -303,13 +303,13 @@ const IdeasPage = () => {
                           onClick={() => handleEdit(idea.id)}
                           className="p-2 text-gray-500 hover:text-indigo-600 transition-colors"
                         >
-                          <FaEdit />
+                          ✏️
                         </button>
                         <button
                           onClick={() => handleDelete(idea.id)}
                           className="p-2 text-gray-500 hover:text-red-600 transition-colors"
                         >
-                          <FaTrash />
+                          🗑️
                         </button>
                       </div>
                     )}

@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import apiClient from '../apps/habitkit/utils/api';
-import { FaEye, FaEyeSlash, FaLock, FaCheckCircle, FaShieldAlt, FaMobileAlt, FaEnvelope, FaUser } from 'react-icons/fa';
 
 interface FormErrors {
   name?: string;
@@ -129,7 +128,7 @@ const RegisterPage = () => {
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Nombre</label>
             <div className="relative">
-              <FaUser className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-300" />
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-300">👤</span>
               <input
                 id="name"
                 name="name"
@@ -148,7 +147,7 @@ const RegisterPage = () => {
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email</label>
             <div className="relative">
-              <FaEnvelope className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-300" />
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-300">✉️</span>
               <input
                 id="email"
                 name="email"
@@ -167,7 +166,7 @@ const RegisterPage = () => {
           <div>
             <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">Teléfono</label>
             <div className="relative">
-              <FaMobileAlt className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-300" />
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-300">📱</span>
               <input
                 id="phone"
                 name="phone"
@@ -186,7 +185,7 @@ const RegisterPage = () => {
           <div>
             <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
             <div className="relative">
-              <FaLock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-300" />
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-300">🔒</span>
               <input
                 id="password"
                 name="password"
@@ -202,15 +201,15 @@ const RegisterPage = () => {
                 }}
               />
               <button type="button" tabIndex={-1} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-indigo-600" onClick={() => setShowPassword(v => !v)} aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}>
-                {showPassword ? <FaEyeSlash /> : <FaEye />}
+                {showPassword ? '🙈' : '👁️'}
               </button>
             </div>
             {/* Indicador de seguridad */}
             {formData.password && (
               <div className="flex items-center gap-2 mt-1 text-xs">
-                {passwordStrength === 'Débil' && <FaShieldAlt className="text-red-400" />} 
-                {passwordStrength === 'Media' && <FaShieldAlt className="text-yellow-400" />} 
-                {passwordStrength === 'Fuerte' && <FaCheckCircle className="text-green-500" />} 
+                {passwordStrength === 'Débil' && '🛡️'} 
+                {passwordStrength === 'Media' && '🛡️'} 
+                {passwordStrength === 'Fuerte' && '✅'} 
                 <span className={
                   passwordStrength === 'Débil' ? 'text-red-500' :
                   passwordStrength === 'Media' ? 'text-yellow-600' :
@@ -226,7 +225,7 @@ const RegisterPage = () => {
           <div>
             <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">Confirmar contraseña</label>
             <div className="relative">
-              <FaLock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-300" />
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-300">🔒</span>
               <input
                 id="confirmPassword"
                 name="confirmPassword"
@@ -239,7 +238,7 @@ const RegisterPage = () => {
                 onChange={e => setFormData({ ...formData, confirmPassword: e.target.value })}
               />
               <button type="button" tabIndex={-1} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-indigo-600" onClick={() => setShowConfirm(v => !v)} aria-label={showConfirm ? 'Ocultar contraseña' : 'Mostrar contraseña'}>
-                {showConfirm ? <FaEyeSlash /> : <FaEye />}
+                {showConfirm ? '🙈' : '👁️'}
               </button>
             </div>
             {errors.confirmPassword && <p className="text-red-500 text-xs mt-1">{errors.confirmPassword}</p>}
@@ -281,9 +280,9 @@ const RegisterPage = () => {
         <div className="text-xs text-indigo-500 text-center mb-2">Te enviaremos un correo para verificar tu cuenta.</div>
         {/* Beneficios */}
         <ul className="w-full mt-4 text-xs text-gray-600 space-y-1 border-t pt-4">
-          <li className="flex items-center gap-2"><FaCheckCircle className="text-green-500" /> Apps esenciales sin anuncios</li>
-          <li className="flex items-center gap-2"><FaCheckCircle className="text-green-500" /> Una sola cuenta para todo</li>
-          <li className="flex items-center gap-2"><FaCheckCircle className="text-green-500" /> Siempre puedes cancelar</li>
+          <li className="flex items-center gap-2">✅ Apps esenciales sin anuncios</li>
+          <li className="flex items-center gap-2">✅ Una sola cuenta para todo</li>
+          <li className="flex items-center gap-2">✅ Siempre puedes cancelar</li>
         </ul>
       </div>
     </div>

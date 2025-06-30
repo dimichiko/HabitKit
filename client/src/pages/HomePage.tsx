@@ -41,9 +41,9 @@ const HomePage = () => {
 
   // Beneficios visuales
   const whyKit = [
-    { icon: <FaRocket className="text-indigo-500 text-2xl" />, title: 'Todo en uno', desc: 'Hábitos, entrenos, facturas y más.' },
-    { icon: <FaLock className="text-pink-500 text-2xl" />, title: 'Privacidad real', desc: 'Sin anuncios ni venta de datos.' },
-    { icon: <FaBolt className="text-yellow-500 text-2xl" />, title: 'Ultra rápido', desc: 'Apps ligeras, sin distracciones.' },
+    { icon: <span className="text-indigo-500 text-2xl">🚀</span>, title: 'Todo en uno', desc: 'Hábitos, entrenos, facturas y más.' },
+    { icon: <span className="text-pink-500 text-2xl">🔒</span>, title: 'Privacidad real', desc: 'Sin anuncios ni venta de datos.' },
+    { icon: <span className="text-yellow-500 text-2xl">⚡</span>, title: 'Ultra rápido', desc: 'Apps ligeras, sin distracciones.' },
   ];
 
   return (
@@ -71,7 +71,7 @@ const HomePage = () => {
         <div className="fixed top-16 left-0 right-0 z-40 bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-4 py-3 shadow-lg">
           <div className="max-w-5xl mx-auto flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <FaCrown className="text-yellow-300" />
+              <span className="text-yellow-300">👑</span>
               <span className="text-sm font-medium">Estás en el plan gratuito</span>
             </div>
             <button 
@@ -79,7 +79,7 @@ const HomePage = () => {
               className="text-sm bg-white text-purple-600 px-4 py-1 rounded-full font-medium hover:bg-gray-100 transition-colors flex items-center gap-2"
             >
               Descubre Lifehub Full
-              <FaArrowRight className="w-3 h-3" />
+              <span className="ml-2">➡️</span>
             </button>
           </div>
         </div>
@@ -88,7 +88,7 @@ const HomePage = () => {
       {isLogged && user.plan === 'premium' && (
         <div className="fixed top-16 left-0 right-0 z-40 bg-gradient-to-r from-yellow-400 via-pink-400 to-indigo-500 text-white px-4 py-3 shadow-lg">
           <div className="max-w-5xl mx-auto flex items-center justify-center gap-3">
-            <FaCrown className="text-yellow-200 text-xl" />
+            <span className="text-yellow-200 text-xl">👑</span>
             <span className="text-base font-semibold">¡Bienvenido a Lifehub Full! Disfruta todas las apps sin límites 🚀</span>
           </div>
         </div>
@@ -96,6 +96,10 @@ const HomePage = () => {
       <main className={`pt-24 max-w-5xl mx-auto px-4 flex flex-col items-center ${isLogged && (user.plan === 'free' || user.plan === 'premium') ? 'mt-16' : ''}`}>
         {/* HERO VISUAL */}
         <section className="w-full flex-1 flex flex-col items-center justify-center text-center mb-12">
+          <div className="flex items-center justify-center mb-8">
+            <span className="text-6xl mr-4">🚀</span>
+            <h1 className="text-5xl font-bold text-gray-800">HabitKit</h1>
+          </div>
           <motion.h1
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}

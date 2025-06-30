@@ -3,7 +3,7 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { motion, AnimatePresence } from 'framer-motion';
 import apiClient, { statsClient } from '../utils/api';
-import { FaPlus, FaEdit, FaTrash, FaRunning, FaDumbbell, FaSpa, FaFire } from 'react-icons/fa';
+
 
 interface Training {
   _id: string;
@@ -32,9 +32,9 @@ interface StatsResponse {
 }
 
 const tipoIcono: Record<string, React.ReactElement> = {
-  'Cardio': <FaRunning className="inline text-blue-500" />,
-  'Fuerza': <FaDumbbell className="inline text-red-500" />,
-  'Yoga': <FaSpa className="inline text-green-500" />,
+  'Cardio': <span className="inline text-blue-500">🏃</span>,
+  'Fuerza': <span className="inline text-red-500">🏋️</span>,
+  'Yoga': <span className="inline text-green-500">🧘</span>,
 };
 
 const tipoColor: Record<string, string> = {
@@ -114,7 +114,7 @@ const CalendarScreen = ({ onNavigate }: CalendarScreenProps) => {
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6 gap-4">
         <h2 className="text-2xl font-bold">Calendario de Entrenamientos</h2>
         <div className="bg-orange-100 text-orange-700 px-4 py-2 rounded-md inline-flex items-center gap-2">
-          <FaFire className="animate-bounce" /> Racha actual: <strong>{streak} días seguidos</strong>
+          <span className="animate-bounce">🔥</span> Racha actual: <strong>{streak} días seguidos</strong>
         </div>
       </div>
       <div className="bg-white rounded-2xl shadow-lg p-4">
@@ -138,8 +138,8 @@ const CalendarScreen = ({ onNavigate }: CalendarScreenProps) => {
                 <li key={t._id || `week-${i}`} className={`mb-2 p-3 rounded-xl flex justify-between items-center ${tipoColor[t.type] || 'bg-gray-100'}`}>
                   <span>{tipoIcono[t.type] || '✅'} <b>{t.type}</b> - {t.duration} min {t.location && `- ${t.location}`} {t.withFriends && t.friends && `con ${t.friends}`}</span>
                   <span className="flex gap-2">
-                    <button onClick={() => onNavigate('edit', t)} className="text-blue-500"><FaEdit /></button>
-                    <button onClick={() => handleDelete(t._id)} className="text-red-500"><FaTrash /></button>
+                    <button onClick={() => onNavigate('edit', t)} className="text-blue-500"><span>✏️</span></button>
+                    <button onClick={() => handleDelete(t._id)} className="text-red-500"><span>🗑️</span></button>
                   </span>
                 </li>
               ))}
@@ -149,14 +149,14 @@ const CalendarScreen = ({ onNavigate }: CalendarScreenProps) => {
               {selectedDayTrainings.length === 0 ? (
                 <li className="text-gray-500 flex flex-col items-center">
                   No hay entrenamientos.<br />
-                  <button className="mt-4 bg-indigo-500 text-white px-4 py-2 rounded-lg hover:bg-indigo-600 transition flex items-center gap-2" onClick={() => onNavigate('add')}><FaPlus /> Registrar Entrenamiento</button>
+                  <button className="mt-4 bg-indigo-500 text-white px-4 py-2 rounded-lg hover:bg-indigo-600 transition flex items-center gap-2" onClick={() => onNavigate('add')}><span>➕</span> Registrar Entrenamiento</button>
                 </li>
               ) : selectedDayTrainings.map((t: Training) => (
                 <li key={t._id} className={`mb-2 p-3 rounded-xl flex justify-between items-center ${tipoColor[t.type] || 'bg-gray-100'}`}>
                   <span>{tipoIcono[t.type] || '✅'} <b>{t.type}</b> - {t.duration} min {t.location && `- ${t.location}`} {t.withFriends && t.friends && `con ${t.friends}`}</span>
                   <span className="flex gap-2">
-                    <button onClick={() => onNavigate('edit', t)} className="text-blue-500"><FaEdit /></button>
-                    <button onClick={() => handleDelete(t._id)} className="text-red-500"><FaTrash /></button>
+                    <button onClick={() => onNavigate('edit', t)} className="text-blue-500"><span>✏️</span></button>
+                    <button onClick={() => handleDelete(t._id)} className="text-red-500"><span>🗑️</span></button>
                   </span>
                 </li>
               ))}

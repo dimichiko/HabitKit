@@ -3,7 +3,6 @@ import Header from '../shared/components/Header';
 import Footer from '../shared/components/Footer';
 import { useUser } from '../shared/context/UserContext';
 import { useNavigate } from 'react-router-dom';
-import { FaCheckCircle, FaCrown, FaAppleAlt, FaDumbbell, FaFileInvoice } from 'react-icons/fa';
 import apiClient from '../apps/habitkit/utils/api';
 import { Helmet } from 'react-helmet-async';
 
@@ -17,10 +16,10 @@ interface Plan {
 }
 
 const APPS = [
-  { id: 'habitkit', name: 'HabitKit', icon: <FaCheckCircle className="text-blue-500" />, desc: 'Hábitos diarios', badge: '✅ Hábitos' },
-  { id: 'invoicekit', name: 'InvoiceKit', icon: <FaFileInvoice className="text-yellow-500" />, desc: 'Facturación simple', badge: '💰 Facturación' },
-  { id: 'trainingkit', name: 'TrainingKit', icon: <FaDumbbell className="text-green-500" />, desc: 'Entrenamiento', badge: '🏋️ Entrena' },
-  { id: 'caloriekit', name: 'CalorieKit', icon: <FaAppleAlt className="text-red-500" />, desc: 'Nutrición', badge: '🍎 Nutrición' },
+  { id: 'habitkit', name: 'HabitKit', icon: <span className="text-blue-500">✅</span>, desc: 'Hábitos diarios', badge: '✅ Hábitos' },
+  { id: 'invoicekit', name: 'InvoiceKit', icon: <span className="text-yellow-500">📄</span>, desc: 'Facturación simple', badge: '💰 Facturación' },
+  { id: 'trainingkit', name: 'TrainingKit', icon: <span className="text-green-500">🏋️</span>, desc: 'Entrenamiento', badge: '🏋️ Entrena' },
+  { id: 'caloriekit', name: 'CalorieKit', icon: <span className="text-red-500">🍎</span>, desc: 'Nutrición', badge: '🍎 Nutrición' },
 ];
 
 const FLEX_PRICING = [

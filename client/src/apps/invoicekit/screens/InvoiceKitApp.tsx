@@ -57,8 +57,8 @@ const InvoiceKitApp = () => {
   const { user, logout } = useUser();
   const userId = user?.id;
   const [currentPage, setActiveScreen] = useState<CurrentPage>('dashboard');
-  const [empresas, setEmpresas] = useState<Empresa[]>([]);
-  const [currentCompany, setCurrentCompany] = useState<Empresa | null>(null);
+  const [empresas, setEmpresas] = useState<any[]>([]);
+  const [currentCompany, setCurrentCompany] = useState<any>(null);
   const [clientes, setClientes] = useState<Cliente[]>([]);
   const [productos, setProductos] = useState<Producto[]>([]);
   const [invoices, setInvoices] = useState<Factura[]>([]);
@@ -66,7 +66,7 @@ const InvoiceKitApp = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [showCompanySelector, setShowCompanySelector] = useState<boolean>(false);
-  const [editingEmpresa, setEditingEmpresa] = useState<Empresa | null>(null);
+  const [editingEmpresa, setEditingEmpresa] = useState<any>(null);
   const [isCompanyDataLoading, setIsCompanyDataLoading] = useState<boolean>(false);
 
   const getUserKey = useCallback((key: string) => `invoicekit_${key}_${userId}`, [userId]);
@@ -129,10 +129,10 @@ const InvoiceKitApp = () => {
     if (profile) setUserProfile(JSON.parse(profile));
   }, []);
 
-  const handleSaveEmpresa = (savedEmpresa: Empresa) => {
-    const exists = empresas.some((e: Empresa) => e._id === savedEmpresa._id);
+  const handleSaveEmpresa = (savedEmpresa: any) => {
+    const exists = empresas.some((e: any) => e._id === savedEmpresa._id);
     if (exists) {
-      setEmpresas(empresas.map((e: Empresa) => e._id === savedEmpresa._id ? savedEmpresa : e));
+      setEmpresas(empresas.map((e: any) => e._id === savedEmpresa._id ? savedEmpresa : e));
     } else {
       setEmpresas([...empresas, savedEmpresa]);
     }
@@ -141,7 +141,7 @@ const InvoiceKitApp = () => {
     setEditingEmpresa(null);
   };
 
-  const handleEditEmpresa = (empresa: Empresa) => {
+  const handleEditEmpresa = (empresa: any) => {
     setEditingEmpresa(empresa);
     setShowCompanySelector(true);
   };

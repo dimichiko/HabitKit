@@ -2,16 +2,20 @@ import React, { useState } from 'react';
 
 import apiClient from '../apps/habitkit/utils/api';
 
-const EditHabitModal = ({ habit, onClose, onHabitUpdated, folders }) => {
-  const [name, setName] = useState(habit.name);
-  const [color, setColor] = useState(habit.color);
-  const [timesPerDay, setTimesPerDay] = useState(habit.timesPerDay);
-  const [folder, setFolder] = useState(habit.folder || (folders && folders[0]?.name) || '');
+const EditHabitModal = ({ habit, onClose, onHabitUpdated, folders }: { habit: any; onClose: any; onHabitUpdated: any; folders: any }) => {
+  const [formData, setFormData] = useState({
+    name: habit?.name || '',
+    description: habit?.description || '',
+    frequency: habit?.frequency || 'daily',
+    timeOfDay: habit?.timeOfDay || 'morning',
+    folderId: habit?.folderId || '',
+    color: habit?.color || '#3B82F6'
+  });
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
-      await apiClient.put(`/habits/${habit._id}`, { name, color, timesPerDay, folder });
+      await apiClient.put(`/habits/${habit._id}`, { name: formData.name, color: formData.color, timesPerDay: formData.frequency, folder: formData.folderId });
       onHabitUpdated(); 
       onClose(); 
     } catch (error) {
@@ -27,8 +31,8 @@ const EditHabitModal = ({ habit, onClose, onHabitUpdated, folders }) => {
           <label className="block text-sm font-medium text-gray-700">Nombre</label>
           <input
             type="text"
-            value={name}
-            onChange={e => setName(e.target.value)}
+            value={formData.name}
+            onChange={e => setFormData({ ...formData, name: e.target.value })}
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500"
             required
           />
@@ -40,8 +44,8 @@ const EditHabitModal = ({ habit, onClose, onHabitUpdated, folders }) => {
               <button
                 type="button"
                 key={n}
-                onClick={() => setTimesPerDay(n)}
-                className={`w-8 h-8 rounded-full border-2 flex items-center justify-center text-sm font-bold transition ${timesPerDay === n ? 'bg-green-400 border-green-600 text-white scale-110' : 'bg-white border-gray-300 text-gray-500 hover:border-green-400'}`}
+                onClick={() => setFormData({ ...formData, frequency: n })}
+                className={`w-8 h-8 rounded-full border-2 flex items-center justify-center text-sm font-bold transition ${formData.frequency === n ? 'bg-green-400 border-green-600 text-white scale-110' : 'bg-white border-gray-300 text-gray-500 hover:border-green-400'}`}
               >
                 {n}
               </button>
@@ -52,20 +56,20 @@ const EditHabitModal = ({ habit, onClose, onHabitUpdated, folders }) => {
           <label className="block text-sm font-medium text-gray-700">Color</label>
           <input
             type="color"
-            value={color}
-            onChange={e => setColor(e.target.value)}
+            value={formData.color}
+            onChange={e => setFormData({ ...formData, color: e.target.value })}
             className="mt-1 block w-full h-10 rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500"
           />
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700">Carpeta</label>
           <select
-            value={folder}
-            onChange={e => setFolder(e.target.value)}
+            value={formData.folderId}
+            onChange={e => setFormData({ ...formData, folderId: e.target.value })}
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500"
           >
-            {folders && folders.map(f => (
-              <option key={f._id} value={f.name}>{f.name}</option>
+            {folders && folders.map((f: any) => (
+              <option key={f._id} value={f._id}>{f.name}</option>
             ))}
           </select>
         </div>

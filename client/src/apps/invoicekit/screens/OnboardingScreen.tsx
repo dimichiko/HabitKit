@@ -55,10 +55,11 @@ const OnboardingScreen = ({ onComplete }: OnboardingScreenProps) => {
   });
   const [showEmpresaForm, setShowEmpresaForm] = useState<boolean>(false);
   const [empresaEditIndex, setEmpresaEditIndex] = useState<number | null>(null);
-  const [empresaEditData, setEmpresaEditData] = useState<Empresa | null>(null);
+  const [empresaEditData, setEmpresaEditData] = useState<any>(null);
   const userId = localStorage.getItem('userId');
   const getUserKey = (key: string): string => `invoicekit_${key}_${userId}`;
-  const [empresas, setEmpresas] = useState<Empresa[]>(() => JSON.parse(localStorage.getItem(getUserKey('companies')) || '[]'));
+  const [empresas, setEmpresas] = useState<any[]>(() => JSON.parse(localStorage.getItem(getUserKey('companies')) || '[]'));
+  const [selectedEmpresa, setSelectedEmpresa] = useState<any>(null);
 
   const steps: Step[] = [
     {
@@ -107,19 +108,14 @@ const OnboardingScreen = ({ onComplete }: OnboardingScreenProps) => {
     }
   };
 
-  const handleSaveEmpresa = (empresa: Empresa) => {
-    const nuevas = [...empresas];
-    if (empresaEditIndex !== null) {
-      nuevas[empresaEditIndex] = { ...nuevas[empresaEditIndex], ...empresa };
+  const handleSaveEmpresa = (empresa: any) => {
+    const exists = empresas.some((e: any) => e.id === empresa.id);
+    if (exists) {
+      setEmpresas(empresas.map((e: any) => e.id === empresa.id ? empresa : e));
     } else {
-      nuevas.push({ ...empresa, id: Date.now() });
+      setEmpresas([...empresas, empresa]);
     }
-    setEmpresas(nuevas);
-    localStorage.setItem(getUserKey('companies'), JSON.stringify(nuevas));
-    setShowEmpresaForm(false);
-    setEmpresaEditIndex(null);
     setEmpresaEditData(null);
-    onComplete(userData);
   };
 
   const handleCancelEmpresa = () => {
@@ -140,8 +136,8 @@ const OnboardingScreen = ({ onComplete }: OnboardingScreenProps) => {
     setShowEmpresaForm(true);
   };
 
-  const handleSelectEmpresa = (empresa: Empresa) => {
-    onComplete(userData);
+  const handleSelectEmpresa = (empresa: any) => {
+    setSelectedEmpresa(empresa);
   };
 
   const CurrentStepComponent = steps[currentStep].component;

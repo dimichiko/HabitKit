@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import apiClient from '../utils/api';
 
-const AddTrainingScreen = ({ onNavigate }) => {
+const AddTrainingScreen = ({ onNavigate }: { onNavigate: any }) => {
   const [form, setForm] = useState({
     date: '',
     type: '',
@@ -12,7 +12,7 @@ const AddTrainingScreen = ({ onNavigate }) => {
   });
   const [loading, setLoading] = useState(false);
 
-  const handleChange = e => {
+  const handleChange = (e: any) => {
     const { name, value, type, checked } = e.target;
     setForm(f => ({
       ...f,
@@ -20,7 +20,7 @@ const AddTrainingScreen = ({ onNavigate }) => {
     }));
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     setLoading(true);
     try {
@@ -30,6 +30,10 @@ const AddTrainingScreen = ({ onNavigate }) => {
       alert('Error al guardar entrenamiento');
     }
     setLoading(false);
+  };
+
+  const handleInputChange = (e: any) => {
+    // ... existing code ...
   };
 
   return (

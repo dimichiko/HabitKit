@@ -24,7 +24,7 @@ const apps = [
   },
 ];
 
-const HomeAppsSection = ({ onAppClick }) => (
+const HomeAppsSection = ({ onAppClick }: { onAppClick: any }) => (
   <section className="w-full max-w-3xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
     {apps.map(app => (
       <button

@@ -161,7 +161,7 @@ const LoginPage = () => {
           {requiresTwoFactor && (
             <div className="w-full mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
               <div className="flex items-center gap-2 text-blue-800 mb-2">
-                <FaShieldAlt />
+                <span>🛡️</span>
                 <span className="font-medium">Verificación requerida</span>
               </div>
               <p className="text-blue-700 text-sm">
@@ -177,7 +177,7 @@ const LoginPage = () => {
                 {/* Campo Email con ícono */}
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <FaEnvelope className="h-5 w-5 text-gray-400" />
+                    <span>✉️</span>
                   </div>
                   <input
                     className={`w-full pl-10 pr-3 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 transition-colors ${
@@ -196,7 +196,7 @@ const LoginPage = () => {
                 {/* Campo Contraseña con ícono */}
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <FaLock className="h-5 w-5 text-gray-400" />
+                    <span>🔒</span>
                   </div>
                   <input
                     className={`w-full pl-10 pr-12 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 transition-colors ${
@@ -216,7 +216,7 @@ const LoginPage = () => {
                     aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
                     tabIndex={-1}
                   >
-                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                    {showPassword ? '🙈' : '👁️'}
                   </button>
                 </div>
                 {errors.password && <div className="text-red-500 text-sm">{errors.password}</div>}
@@ -328,7 +328,7 @@ const LoginPage = () => {
                   disabled={isLoading}
                   className="w-full flex items-center justify-center gap-3 bg-white border border-gray-300 text-gray-700 px-4 py-3 rounded-lg font-medium hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <FaGoogle className="text-red-500" />
+                  <span className="text-red-500">🟢</span>
                   Google
                 </button>
                 
@@ -337,7 +337,7 @@ const LoginPage = () => {
                   disabled={isLoading}
                   className="w-full flex items-center justify-center gap-3 bg-gray-800 text-white px-4 py-3 rounded-lg font-medium hover:bg-gray-900 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <FaGithub />
+                  <span>🐱</span>
                   GitHub
                 </button>
                 
@@ -346,7 +346,7 @@ const LoginPage = () => {
                   disabled={isLoading}
                   className="w-full flex items-center justify-center gap-3 bg-black text-white px-4 py-3 rounded-lg font-medium hover:bg-gray-900 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <FaApple />
+                  <span>🍏</span>
                   Apple
                 </button>
               </div>
@@ -364,7 +364,7 @@ const LoginPage = () => {
         
         {/* Footer mejorado */}
         <footer className="mt-12 text-zinc-400 text-xs text-center flex flex-col items-center gap-1">
-          <span className="flex items-center gap-2 font-bold text-indigo-700"><FaGlobeEurope/> Lifehub</span>
+          <span className="flex items-center gap-2 font-bold text-indigo-700">🌍 Lifehub</span>
           <span>© 2025 Lifehub. Todos los derechos reservados.</span>
         </footer>
       </main>

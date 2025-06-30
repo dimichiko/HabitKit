@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useUser } from '../../../shared/context/UserContext';
 
-const ProfileScreen = ({ onNavigate }) => {
+const ProfileScreen = ({ onNavigate }: { onNavigate: any }) => {
   const { user, updateUser, logout } = useUser();
   const [name, setName] = useState(user?.name || '');
   const [photo, setPhoto] = useState(user?.avatarUrl || '');

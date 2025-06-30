@@ -38,22 +38,22 @@ const PrivacyPage = () => {
         </h1>
         {/* Tabla de contenido sticky */}
         <nav className="sticky top-4 z-10 bg-white/80 rounded-xl shadow mb-8 py-3 px-4 flex flex-wrap gap-3 justify-center border border-gray-200">
-          <a href="#datos" className="text-indigo-600 hover:underline flex items-center gap-1"><FaSearch /> Datos que recopilamos</a>
-          <a href="#uso" className="text-indigo-600 hover:underline flex items-center gap-1"><FaTools /> Uso de datos</a>
-          <a href="#rights" className="text-indigo-600 hover:underline flex items-center gap-1"><FaBalanceScale /> Tus derechos</a>
-          <a href="#cookies" className="text-indigo-600 hover:underline flex items-center gap-1"><FaCookieBite /> Cookies</a>
-          <a href="#seguridad" className="text-indigo-600 hover:underline flex items-center gap-1"><FaLock /> Seguridad</a>
+          <a href="#datos" className="text-indigo-600 hover:underline flex items-center gap-1">🔍 Datos que recopilamos</a>
+          <a href="#uso" className="text-indigo-600 hover:underline flex items-center gap-1">��️ Uso de datos</a>
+          <a href="#rights" className="text-indigo-600 hover:underline flex items-center gap-1">⚖️ Tus derechos</a>
+          <a href="#cookies" className="text-indigo-600 hover:underline flex items-center gap-1">🍪 Cookies</a>
+          <a href="#seguridad" className="text-indigo-600 hover:underline flex items-center gap-1">🔒 Seguridad</a>
         </nav>
         <div className="bg-white rounded-xl shadow-md p-8 text-left flex flex-col gap-10 border border-gray-200">
           {/* Responsable legal */}
           <div className="mb-2">
-            <div className="flex items-center gap-2 mb-2"><FaShieldAlt className="text-indigo-600" /><span className="font-bold text-indigo-700">Responsable del tratamiento</span></div>
+            <div className="flex items-center gap-2 mb-2"><span className="text-indigo-600">🛡️</span><span className="font-bold text-indigo-700">Responsable del tratamiento</span></div>
             <p className="text-gray-700 text-sm mb-1">Lifehub SpA · contacto: <a href="mailto:soporte@lifehub.app" className="underline text-indigo-600">soporte@lifehub.app</a></p>
             <span className="inline-block bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded-full font-semibold">Cumplimos con la Ley 19.628 sobre protección de la vida privada (Chile)</span>
           </div>
           {/* Bloque: Datos */}
           <div id="datos">
-            <h2 className="text-xl font-bold text-indigo-600 mb-2 flex items-center gap-2"><FaSearch /> 🔍 Los datos que recopilamos</h2>
+            <h2 className="text-xl font-bold text-indigo-600 mb-2 flex items-center gap-2">🔍 Los datos que recopilamos</h2>
             <p className="text-gray-600 mb-2">Recopilamos solo la información necesaria para brindarte una experiencia personalizada y segura.</p>
             <ul className="list-disc list-inside text-gray-700 mb-2">
               <li>Nombre y correo para tu cuenta</li>
@@ -63,7 +63,7 @@ const PrivacyPage = () => {
           </div>
           {/* Bloque: Uso */}
           <div id="uso">
-            <h2 className="text-xl font-bold text-indigo-600 mb-2 flex items-center gap-2"><FaTools /> 🔧 Cómo usamos tu información</h2>
+            <h2 className="text-xl font-bold text-indigo-600 mb-2 flex items-center gap-2">🛠️ Cómo usamos tu información</h2>
             <p className="text-gray-600 mb-2">Utilizamos tus datos para que puedas acceder a Lifehub y para mejorar continuamente nuestras herramientas.</p>
             <ul className="list-disc list-inside text-gray-700 mb-2">
               <li>Para darte acceso a las apps</li>
@@ -72,7 +72,7 @@ const PrivacyPage = () => {
           </div>
           {/* Bloque: Derechos */}
           <div id="rights">
-            <h2 className="text-xl font-bold text-indigo-600 mb-2 flex items-center gap-2"><FaBalanceScale /> ⚖️ Tus derechos</h2>
+            <h2 className="text-xl font-bold text-indigo-600 mb-2 flex items-center gap-2">⚖️ Tus derechos</h2>
             <p className="text-gray-600 mb-2">Tienes control total sobre tu información personal y puedes ejercer tus derechos en cualquier momento.</p>
             <ul className="list-disc list-inside text-gray-700 mb-2">
               <li>Puedes acceder a tus datos personales.</li>
@@ -82,12 +82,12 @@ const PrivacyPage = () => {
           </div>
           {/* Bloque: Cookies */}
           <div id="cookies">
-            <h2 className="text-xl font-bold text-indigo-600 mb-2 flex items-center gap-2"><FaCookieBite /> 🍪 Cookies</h2>
+            <h2 className="text-xl font-bold text-indigo-600 mb-2 flex items-center gap-2">🍪 Cookies</h2>
             <p className="text-gray-600 mb-2">Lifehub no utiliza cookies de seguimiento ni tecnologías de terceros para mostrar anuncios. Solo usamos cookies esenciales para el funcionamiento de la app.</p>
           </div>
           {/* Bloque: Seguridad */}
           <div id="seguridad">
-            <h2 className="text-xl font-bold text-indigo-600 mb-2 flex items-center gap-2"><FaLock /> 🔒 Seguridad y almacenamiento</h2>
+            <h2 className="text-xl font-bold text-indigo-600 mb-2 flex items-center gap-2">🔒 Seguridad y almacenamiento</h2>
             <p className="text-gray-600 mb-2">Tus datos están almacenados en servidores seguros. Solo el equipo de Lifehub tiene acceso interno, y nunca se comparten con terceros.</p>
           </div>
           <div className="text-gray-400 text-sm mb-2">Última revisión: 23 de junio de 2025. Puedes consultar versiones anteriores escribiéndonos.</div>
