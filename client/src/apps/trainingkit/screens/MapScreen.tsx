@@ -5,24 +5,49 @@ import apiClient from '../utils/api';
 import { FaMapMarkerAlt, FaRunning, FaDumbbell, FaSpa } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 
-const tipoIcono = {
+interface Location {
+  lat: number;
+  lng: number;
+  name?: string;
+}
+
+interface Training {
+  id: string;
+  type: string;
+  date: string;
+  duration: number;
+  location?: Location;
+  withFriends?: boolean;
+  friends?: string;
+}
+
+interface MapScreenProps {
+  onNavigate: (screen: string) => void;
+}
+
+interface TipoIcono {
+  [key: string]: React.ReactElement;
+}
+
+const tipoIcono: TipoIcono = {
   'Cardio': <FaRunning className="inline text-blue-500" />,
   'Fuerza': <FaDumbbell className="inline text-red-500" />,
   'Yoga': <FaSpa className="inline text-green-500" />,
 };
 
-const tipos = ['Todos', 'Cardio', 'Fuerza', 'Yoga'];
+const tipos: string[] = ['Todos', 'Cardio', 'Fuerza', 'Yoga'];
 
-const defaultCenter = [-33.45, -70.6667]; // Santiago, Chile
+const defaultCenter: [number, number] = [-33.45, -70.6667]; // Santiago, Chile
 
-const MapScreen = ({ onNavigate }) => {
-  const [trainings, setTrainings] = useState([]);
-  const [tipo, setTipo] = useState('Todos');
-  const [center, setCenter] = useState(defaultCenter);
+const MapScreen = ({ onNavigate }: MapScreenProps) => {
+  const [trainings, setTrainings] = useState<Training[]>([]);
+  const [tipo, setTipo] = useState<string>('Todos');
+  const [center, setCenter] = useState<[number, number]>(defaultCenter);
 
   useEffect(() => {
-    apiClient.get('/').then(res => {
-      setTrainings(res.data.filter(t => t.location && t.location.lat && t.location.lng));
+    apiClient.get('/').then((res: any) => {
+      const filteredTrainings = res.data.filter((t: Training) => t.location && t.location.lat && t.location.lng);
+      setTrainings(filteredTrainings);
       if (res.data.length > 0 && res.data[0].location && res.data[0].location.lat) {
         setCenter([res.data[0].location.lat, res.data[0].location.lng]);
       }
@@ -57,7 +82,7 @@ const MapScreen = ({ onNavigate }) => {
           <MapContainer center={center} zoom={13} className="h-full w-full" scrollWheelZoom={false}>
             <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
             {filtered.map((t, i) => (
-              <Marker key={i} position={[t.location.lat, t.location.lng]}>
+              <Marker key={i} position={[t.location!.lat, t.location!.lng]}>
                 <Popup>
                   <div className="font-bold mb-1 flex items-center gap-1">{tipoIcono[t.type]} {t.type}</div>
                   <div className="text-xs text-gray-600">{new Date(t.date).toLocaleDateString()}</div>

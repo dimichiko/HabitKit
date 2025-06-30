@@ -1,8 +1,37 @@
 import React, { useState, useEffect } from 'react';
 
-const OnboardingScreen = ({ onComplete }) => {
-  const [currentStep, setCurrentStep] = useState(0);
-  const [userData, setUserData] = useState({
+interface UserData {
+  name: string;
+  goal: string;
+  motivation: string;
+  experience: string;
+  reminderTime: string;
+  theme: string;
+}
+
+interface OnboardingScreenProps {
+  onComplete: (userData: UserData) => void;
+}
+
+interface StepComponentProps {
+  userData: UserData;
+  updateUserData: (updates: Partial<UserData>) => void;
+  onNext: () => void;
+  onBack?: () => void;
+  currentStep?: number;
+  totalSteps?: number;
+}
+
+interface Step {
+  id: string;
+  title: string;
+  subtitle: string;
+  component: React.ComponentType<StepComponentProps>;
+}
+
+const OnboardingScreen = ({ onComplete }: OnboardingScreenProps) => {
+  const [currentStep, setCurrentStep] = useState<number>(0);
+  const [userData, setUserData] = useState<UserData>({
     name: '',
     goal: '',
     motivation: '',
@@ -11,7 +40,7 @@ const OnboardingScreen = ({ onComplete }) => {
     theme: 'green'
   });
 
-  const steps = [
+  const steps: Step[] = [
     {
       id: 'welcome',
       title: '¡Bienvenido a HabitKit!',
@@ -44,7 +73,7 @@ const OnboardingScreen = ({ onComplete }) => {
     }
   ];
 
-  const updateUserData = (updates) => {
+  const updateUserData = (updates: Partial<UserData>) => {
     setUserData(prev => ({ ...prev, ...updates }));
   };
 
@@ -112,8 +141,8 @@ const OnboardingScreen = ({ onComplete }) => {
 };
 
 // Welcome Step Component
-const WelcomeStep = ({ onNext }) => {
-  const [isVisible, setIsVisible] = useState(false);
+const WelcomeStep = ({ onNext }: Pick<StepComponentProps, 'onNext'>) => {
+  const [isVisible, setIsVisible] = useState<boolean>(false);
 
   useEffect(() => {
     setIsVisible(true);
@@ -174,7 +203,7 @@ const WelcomeStep = ({ onNext }) => {
 };
 
 // Profile Step Component
-const ProfileStep = ({ userData, updateUserData, onNext, onBack }) => {
+const ProfileStep = ({ userData, updateUserData, onNext, onBack }: Pick<StepComponentProps, 'userData' | 'updateUserData' | 'onNext' | 'onBack'>) => {
   return (
     <div>
       <h2 className="text-3xl font-bold text-gray-800 mb-2 text-center">Tu Perfil</h2>
@@ -199,7 +228,7 @@ const ProfileStep = ({ userData, updateUserData, onNext, onBack }) => {
               value={userData.motivation}
               onChange={(e) => updateUserData({ motivation: e.target.value })}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-              placeholder="Ej: Quiero ser más saludable, productivo, etc."
+              placeholder="Ej: Quiero ser más productivo, mejorar mi salud..."
               rows={3}
             />
           </div>
@@ -212,9 +241,9 @@ const ProfileStep = ({ userData, updateUserData, onNext, onBack }) => {
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
             >
               <option value="">Selecciona...</option>
-              <option value="beginner">Principiante - Es mi primera vez</option>
-              <option value="intermediate">Intermedio - He intentado antes</option>
-              <option value="advanced">Avanzado - Ya tengo algunos hábitos</option>
+              <option value="beginner">Principiante - Nunca he construido hábitos</option>
+              <option value="intermediate">Intermedio - He tenido algunos hábitos</option>
+              <option value="advanced">Avanzado - Tengo varios hábitos establecidos</option>
             </select>
           </div>
         </div>
@@ -229,7 +258,7 @@ const ProfileStep = ({ userData, updateUserData, onNext, onBack }) => {
         </button>
         <button
           onClick={onNext}
-          disabled={!userData.name}
+          disabled={!userData.name || !userData.motivation || !userData.experience}
           className="px-8 py-3 bg-green-500 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 disabled:bg-gray-300 disabled:cursor-not-allowed"
         >
           Continuar
@@ -240,49 +269,49 @@ const ProfileStep = ({ userData, updateUserData, onNext, onBack }) => {
 };
 
 // Goals Step Component
-const GoalsStep = ({ userData, updateUserData, onNext, onBack }) => {
-  const commonGoals = [
+const GoalsStep = ({ userData, updateUserData, onNext, onBack }: Pick<StepComponentProps, 'userData' | 'updateUserData' | 'onNext' | 'onBack'>) => {
+  const goals = [
     {
       id: 'health',
       title: 'Salud y Bienestar',
       description: 'Ejercicio, alimentación, sueño',
       icon: '🏃‍♂️',
-      examples: ['Hacer ejercicio 30 min', 'Beber 8 vasos de agua', 'Dormir 8 horas']
+      color: 'from-green-400 to-green-600'
     },
     {
       id: 'productivity',
       title: 'Productividad',
       description: 'Trabajo, estudio, organización',
       icon: '💼',
-      examples: ['Leer 30 min', 'Planificar el día', 'Meditar 10 min']
+      color: 'from-blue-400 to-blue-600'
     },
     {
       id: 'learning',
       title: 'Aprendizaje',
-      description: 'Nuevas habilidades, idiomas',
+      description: 'Lectura, cursos, habilidades',
       icon: '📚',
-      examples: ['Practicar idioma', 'Aprender algo nuevo', 'Escribir en blog']
+      color: 'from-purple-400 to-purple-600'
     },
     {
       id: 'relationships',
       title: 'Relaciones',
       description: 'Familia, amigos, comunicación',
       icon: '❤️',
-      examples: ['Llamar a familia', 'Salir con amigos', 'Expresar gratitud']
+      color: 'from-pink-400 to-pink-600'
     },
     {
       id: 'finance',
       title: 'Finanzas',
       description: 'Ahorro, inversión, presupuesto',
       icon: '💰',
-      examples: ['Ahorrar 10%', 'Revisar gastos', 'Invertir mensualmente']
+      color: 'from-yellow-400 to-yellow-600'
     },
     {
       id: 'custom',
       title: 'Personalizado',
       description: 'Define tus propios objetivos',
       icon: '🎯',
-      examples: ['Cualquier hábito que quieras construir']
+      color: 'from-gray-400 to-gray-600'
     }
   ];
 
@@ -291,34 +320,26 @@ const GoalsStep = ({ userData, updateUserData, onNext, onBack }) => {
       <h2 className="text-3xl font-bold text-gray-800 mb-2 text-center">Tus Objetivos</h2>
       <p className="text-lg text-gray-600 mb-8 text-center">¿Qué hábitos quieres construir?</p>
 
-      <div className="mb-8">
-        <label className="block text-sm font-medium text-gray-700 mb-4">Selecciona tu área principal de enfoque:</label>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {commonGoals.map((goal) => (
-            <button
-              key={goal.id}
-              onClick={() => updateUserData({ goal: goal.id })}
-              className={`p-4 rounded-lg border-2 transition-all duration-300 text-left ${
-                userData.goal === goal.id
-                  ? 'border-green-500 bg-green-50 shadow-lg'
-                  : 'border-gray-200 bg-white hover:border-green-300 hover:shadow-md'
-              }`}
-            >
-              <div className="flex items-start space-x-3">
-                <span className="text-2xl">{goal.icon}</span>
-                <div>
-                  <h3 className="font-semibold text-gray-800">{goal.title}</h3>
-                  <p className="text-sm text-gray-600 mb-2">{goal.description}</p>
-                  <ul className="text-xs text-gray-500 space-y-1">
-                    {goal.examples.map((example, index) => (
-                      <li key={index}>• {example}</li>
-                    ))}
-                  </ul>
-                </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+        {goals.map((goal) => (
+          <button
+            key={goal.id}
+            onClick={() => updateUserData({ goal: goal.id })}
+            className={`p-6 rounded-lg border-2 transition-all duration-300 text-left ${
+              userData.goal === goal.id
+                ? `border-green-500 bg-gradient-to-r ${goal.color} text-white shadow-lg`
+                : 'border-gray-200 bg-white hover:border-green-300 hover:shadow-md'
+            }`}
+          >
+            <div className="flex items-center space-x-4">
+              <span className="text-3xl">{goal.icon}</span>
+              <div>
+                <h3 className="font-semibold text-lg">{goal.title}</h3>
+                <p className="text-sm opacity-80">{goal.description}</p>
               </div>
-            </button>
-          ))}
-        </div>
+            </div>
+          </button>
+        ))}
       </div>
 
       <div className="flex justify-between">
@@ -341,12 +362,12 @@ const GoalsStep = ({ userData, updateUserData, onNext, onBack }) => {
 };
 
 // Preferences Step Component
-const PreferencesStep = ({ userData, updateUserData, onNext, onBack }) => {
+const PreferencesStep = ({ userData, updateUserData, onNext, onBack }: Pick<StepComponentProps, 'userData' | 'updateUserData' | 'onNext' | 'onBack'>) => {
   const themes = [
-    { id: 'green', name: 'Verde', color: 'bg-green-500', description: 'Naturaleza y crecimiento' },
-    { id: 'blue', name: 'Azul', color: 'bg-blue-500', description: 'Calma y confianza' },
-    { id: 'purple', name: 'Púrpura', color: 'bg-purple-500', description: 'Creatividad y sabiduría' },
-    { id: 'orange', name: 'Naranja', color: 'bg-orange-500', description: 'Energía y entusiasmo' }
+    { id: 'green', name: 'Verde', color: 'bg-green-500' },
+    { id: 'blue', name: 'Azul', color: 'bg-blue-500' },
+    { id: 'purple', name: 'Púrpura', color: 'bg-purple-500' },
+    { id: 'orange', name: 'Naranja', color: 'bg-orange-500' }
   ];
 
   return (
@@ -354,35 +375,33 @@ const PreferencesStep = ({ userData, updateUserData, onNext, onBack }) => {
       <h2 className="text-3xl font-bold text-gray-800 mb-2 text-center">Preferencias</h2>
       <p className="text-lg text-gray-600 mb-8 text-center">Personaliza tu experiencia</p>
 
-      <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
+      <div className="bg-white rounded-lg shadow-lg p-8">
         <div className="space-y-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Hora de recordatorio diario</label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Hora de recordatorio</label>
             <input
               type="time"
               value={userData.reminderTime}
               onChange={(e) => updateUserData({ reminderTime: e.target.value })}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
             />
-            <p className="text-xs text-gray-500 mt-1">Te recordaremos revisar tus hábitos a esta hora</p>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-4">Tema de color</label>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <label className="block text-sm font-medium text-gray-700 mb-2">Tema de color</label>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               {themes.map((theme) => (
                 <button
                   key={theme.id}
                   onClick={() => updateUserData({ theme: theme.id })}
                   className={`p-4 rounded-lg border-2 transition-all duration-300 ${
                     userData.theme === theme.id
-                      ? 'border-green-500 bg-green-50'
-                      : 'border-gray-200 bg-white hover:border-green-300'
+                      ? 'border-green-500 shadow-lg'
+                      : 'border-gray-200 hover:border-green-300'
                   }`}
                 >
                   <div className={`w-8 h-8 ${theme.color} rounded-full mx-auto mb-2`}></div>
-                  <h4 className="font-semibold text-gray-800 text-sm">{theme.name}</h4>
-                  <p className="text-xs text-gray-600">{theme.description}</p>
+                  <span className="text-sm font-medium">{theme.name}</span>
                 </button>
               ))}
             </div>
@@ -390,7 +409,7 @@ const PreferencesStep = ({ userData, updateUserData, onNext, onBack }) => {
         </div>
       </div>
 
-      <div className="flex justify-between">
+      <div className="flex justify-between mt-8">
         <button
           onClick={onBack}
           className="px-6 py-3 text-gray-600 font-medium hover:text-gray-800 transition"
@@ -409,9 +428,9 @@ const PreferencesStep = ({ userData, updateUserData, onNext, onBack }) => {
 };
 
 // Summary Step Component
-const SummaryStep = ({ userData, onNext, onBack }) => {
-  const getGoalText = (goal) => {
-    const goals = {
+const SummaryStep = ({ userData, onNext, onBack }: Pick<StepComponentProps, 'userData' | 'onNext' | 'onBack'>) => {
+  const getGoalText = (goal: string): string => {
+    const map: Record<string, string> = {
       health: 'Salud y Bienestar',
       productivity: 'Productividad',
       learning: 'Aprendizaje',
@@ -419,62 +438,66 @@ const SummaryStep = ({ userData, onNext, onBack }) => {
       finance: 'Finanzas',
       custom: 'Personalizado'
     };
-    return goals[goal] || goal;
+    return map[goal] || 'No definido';
   };
 
-  const getThemeText = (theme) => {
-    const themes = {
+  const getThemeText = (theme: string): string => {
+    const map: Record<string, string> = {
       green: 'Verde',
       blue: 'Azul',
       purple: 'Púrpura',
       orange: 'Naranja'
     };
-    return themes[theme] || theme;
+    return map[theme] || 'No definido';
   };
 
   return (
     <div className="text-center">
-      <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center">
-        <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-        </svg>
-      </div>
-      
       <h2 className="text-3xl font-bold text-gray-800 mb-2">¡Todo Listo!</h2>
       <p className="text-lg text-gray-600 mb-8">Comienza tu viaje hacia mejores hábitos</p>
+      
+      <div className="bg-white rounded-lg shadow-lg p-8 text-left space-y-6">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-4">
+          <div>
+            <p className="text-sm text-gray-500">Nombre</p>
+            <p className="font-semibold text-gray-800">{userData.name}</p>
+          </div>
+          <div>
+            <p className="text-sm text-gray-500">Objetivo Principal</p>
+            <p className="font-semibold text-gray-800">{getGoalText(userData.goal)}</p>
+          </div>
+          <div>
+            <p className="text-sm text-gray-500">Experiencia</p>
+            <p className="font-semibold text-gray-800 capitalize">{userData.experience}</p>
+          </div>
+          <div>
+            <p className="text-sm text-gray-500">Tema</p>
+            <p className="font-semibold text-gray-800">{getThemeText(userData.theme)}</p>
+          </div>
+        </div>
 
-      <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="text-left">
-            <h3 className="font-semibold text-gray-800 mb-4">Tu Perfil</h3>
-            <div className="space-y-2 text-sm">
-              <p><span className="font-medium">Nombre:</span> {userData.name}</p>
-              <p><span className="font-medium">Experiencia:</span> {userData.experience}</p>
-              <p><span className="font-medium">Motivación:</span> {userData.motivation}</p>
-            </div>
-          </div>
-          
-          <div className="text-left">
-            <h3 className="font-semibold text-gray-800 mb-4">Configuración</h3>
-            <div className="space-y-2 text-sm">
-              <p><span className="font-medium">Objetivo:</span> {getGoalText(userData.goal)}</p>
-              <p><span className="font-medium">Recordatorio:</span> {userData.reminderTime}</p>
-              <p><span className="font-medium">Tema:</span> {getThemeText(userData.theme)}</p>
-            </div>
-          </div>
+        <div className="pt-6 border-t border-gray-200">
+          <p className="text-sm text-gray-500 mb-2">Tu motivación:</p>
+          <p className="text-gray-800 italic">"{userData.motivation}"</p>
+        </div>
+
+        <div className="pt-6 border-t border-gray-200 text-center">
+          <p className="text-sm text-gray-600">
+            Con esta configuración, HabitKit te ayudará a construir hábitos sostenibles y alcanzar tus objetivos.
+          </p>
         </div>
       </div>
 
-      <div className="flex justify-between">
+      <div className="flex justify-between mt-8">
         <button
           onClick={onBack}
-          className="px-6 py-3 text-gray-600 font-medium hover:text-gray-800 transition"
+          className="px-6 py-3 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 transition"
         >
-          ← Atrás
+          Atrás
         </button>
         <button
           onClick={onNext}
-          className="px-8 py-4 bg-gradient-to-r from-green-500 to-emerald-500 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+          className="px-8 py-3 bg-gradient-to-r from-green-500 to-emerald-500 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
         >
           ¡Comenzar!
         </button>

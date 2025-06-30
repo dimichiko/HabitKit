@@ -1,20 +1,55 @@
 import React, { useState } from 'react';
 import { createProducto, updateProducto, deleteProducto } from '../utils/api';
 
-const ProductsPage = ({ productos, setProductos, currentCompany }) => {
-  const [showForm, setShowForm] = useState(false);
-  const [editingProducto, setEditingProducto] = useState(null);
-  const [form, setForm] = useState({ nombre: '', descripcion: '', precio: '', categoria: '', impuestos: '' });
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [search, setSearch] = useState('');
-  const [categoriaFilter, setCategoriaFilter] = useState('');
-  const [sort, setSort] = useState('');
+interface Producto {
+  _id: string;
+  nombre: string;
+  descripcion: string;
+  precio: number;
+  categoria: string;
+  impuestos: string;
+  companyId?: string;
+}
 
-  const handleShowForm = (producto = null) => {
+interface Company {
+  _id: string;
+  name: string;
+}
+
+interface ProductsPageProps {
+  productos: Producto[];
+  setProductos: React.Dispatch<React.SetStateAction<Producto[]>>;
+  currentCompany: Company;
+}
+
+interface FormData {
+  nombre: string;
+  descripcion: string;
+  precio: string;
+  categoria: string;
+  impuestos: string;
+}
+
+const ProductsPage = ({ productos, setProductos, currentCompany }: ProductsPageProps) => {
+  const [showForm, setShowForm] = useState<boolean>(false);
+  const [editingProducto, setEditingProducto] = useState<Producto | null>(null);
+  const [form, setForm] = useState<FormData>({ nombre: '', descripcion: '', precio: '', categoria: '', impuestos: '' });
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>('');
+  const [search, setSearch] = useState<string>('');
+  const [categoriaFilter, setCategoriaFilter] = useState<string>('');
+  const [sort, setSort] = useState<string>('');
+
+  const handleShowForm = (producto: Producto | null = null) => {
     if (producto) {
       setEditingProducto(producto);
-      setForm(producto);
+      setForm({
+        nombre: producto.nombre,
+        descripcion: producto.descripcion,
+        precio: producto.precio.toString(),
+        categoria: producto.categoria,
+        impuestos: producto.impuestos
+      });
     } else {
       setEditingProducto(null);
       setForm({ nombre: '', descripcion: '', precio: '', categoria: '', impuestos: '' });
@@ -29,7 +64,7 @@ const ProductsPage = ({ productos, setProductos, currentCompany }) => {
     setError('');
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!form.nombre || !form.precio) {
       setError('El nombre y el precio son obligatorios.');
@@ -38,16 +73,21 @@ const ProductsPage = ({ productos, setProductos, currentCompany }) => {
     setLoading(true);
     setError('');
     try {
-      const productoData = { ...form, precio: Number(form.precio) };
+      const productoData = { 
+        name: form.nombre,
+        description: form.descripcion,
+        price: Number(form.precio),
+        empresaId: currentCompany._id
+      };
       if (editingProducto) {
         const updatedProducto = await updateProducto(editingProducto._id, productoData);
         setProductos(productos.map(p => p._id === editingProducto._id ? updatedProducto : p));
       } else {
-        const newProducto = await createProducto({ ...productoData, companyId: currentCompany._id });
+        const newProducto = await createProducto(productoData);
         setProductos([...productos, newProducto]);
       }
       handleCloseForm();
-    } catch (err) {
+    } catch (err: any) {
       setError(err.message || 'Error al guardar el producto.');
       console.error("Error guardando producto:", err);
     } finally {
@@ -55,12 +95,12 @@ const ProductsPage = ({ productos, setProductos, currentCompany }) => {
     }
   };
 
-  const handleDelete = async (productoId) => {
+  const handleDelete = async (productoId: string) => {
     if (!window.confirm('¿Estás seguro de que quieres eliminar este producto?')) return;
     try {
       await deleteProducto(productoId);
       setProductos(productos.filter((p) => p._id !== productoId));
-    } catch (err) {
+    } catch (err: any) {
       console.error("Error eliminando producto:", err);
     }
   };

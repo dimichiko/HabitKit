@@ -1,16 +1,41 @@
 import React, { useState, useEffect } from 'react';
 
+interface Meal {
+  calories: number;
+}
+
+interface DayData {
+  date: string;
+  calories: number;
+  goal: number;
+  meals: number;
+  isToday: boolean;
+}
+
+interface WeekData {
+  weekStart: string;
+  days: DayData[];
+  totalCalories: number;
+  avgCalories: number;
+  goalMet: number;
+  hasData: boolean;
+}
+
+interface UserProfile {
+  dailyGoal?: number;
+}
+
 const WeeklyProgress = () => {
-  const [weeklyData, setWeeklyData] = useState([]);
-  const [selectedWeek, setSelectedWeek] = useState(0);
+  const [weeklyData, setWeeklyData] = useState<WeekData[]>([]);
+  const [selectedWeek, setSelectedWeek] = useState<number>(0);
 
   useEffect(() => {
     loadWeeklyData();
   }, []);
 
-  const loadWeeklyData = () => {
+  const loadWeeklyData = (): void => {
     const today = new Date();
-    const weekData = [];
+    const weekData: WeekData[] = [];
     
     // Get data for the last 4 weeks
     for (let week = 0; week < 4; week++) {
@@ -18,15 +43,15 @@ const WeeklyProgress = () => {
       weekStart.setDate(today.getDate() - (today.getDay() + 7 * week));
       weekStart.setHours(0, 0, 0, 0);
       
-      const days = [];
+      const days: DayData[] = [];
       for (let day = 0; day < 7; day++) {
         const date = new Date(weekStart);
         date.setDate(weekStart.getDate() + day);
         const dateStr = date.toISOString().split('T')[0];
         
-        const meals = JSON.parse(localStorage.getItem(`caloriekit_meals_${dateStr}`) || '[]');
-        const totalCalories = meals.reduce((sum, meal) => sum + (parseFloat(meal.calories) || 0), 0);
-        const userProfile = JSON.parse(localStorage.getItem('caloriekit_user_profile') || '{}');
+        const meals: Meal[] = JSON.parse(localStorage.getItem(`caloriekit_meals_${dateStr}`) || '[]');
+        const totalCalories = meals.reduce((sum, meal) => sum + (parseFloat(meal.calories.toString()) || 0), 0);
+        const userProfile: UserProfile = JSON.parse(localStorage.getItem('caloriekit_user_profile') || '{}');
         const dailyGoal = userProfile.dailyGoal || 2000;
         
         days.push({
@@ -51,12 +76,12 @@ const WeeklyProgress = () => {
     setWeeklyData(weekData);
   };
 
-  const getDayName = (dateStr) => {
+  const getDayName = (dateStr: string): string => {
     const date = new Date(dateStr);
     return date.toLocaleDateString('es-ES', { weekday: 'short' });
   };
 
-  const getProgressColor = (calories, goal) => {
+  const getProgressColor = (calories: number, goal: number): string => {
     const percentage = (calories / goal) * 100;
     if (percentage < 60) return 'bg-red-500';
     if (percentage < 80) return 'bg-yellow-500';
@@ -64,7 +89,7 @@ const WeeklyProgress = () => {
     return 'bg-green-500';
   };
 
-  const getWeekLabel = (weekStart) => {
+  const getWeekLabel = (weekStart: string): string => {
     const start = new Date(weekStart);
     const end = new Date(start);
     end.setDate(start.getDate() + 6);
@@ -72,7 +97,7 @@ const WeeklyProgress = () => {
     return `${start.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' })} - ${end.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' })}`;
   };
 
-  const isCurrentWeek = (weekIndex) => {
+  const isCurrentWeek = (weekIndex: number): boolean => {
     return weekIndex === 0;
   };
 

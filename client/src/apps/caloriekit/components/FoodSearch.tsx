@@ -1,14 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import { searchFood, getUserFoods, createFood } from '../utils/api';
 
-const FoodSearch = ({ onFoodSelect }) => {
-  const [query, setQuery] = useState('');
-  const [results, setResults] = useState([]);
-  const [customFoods, setCustomFoods] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [showResults, setShowResults] = useState(false);
-  const [showCreateForm, setShowCreateForm] = useState(false);
-  const [createFormData, setCreateFormData] = useState({
+interface Food {
+  _id?: string;
+  name: string;
+  calories: number;
+  protein: number;
+  carbs: number;
+  fat: number;
+  baseAmount?: number;
+  unit?: string;
+}
+
+interface FoodSearchProps {
+  onFoodSelect: (food: Food) => void;
+}
+
+interface CreateFormData {
+  name: string;
+  calories: string;
+  protein: string;
+  carbs: string;
+  fat: string;
+  baseAmount: string;
+  unit: string;
+}
+
+const FoodSearch = ({ onFoodSelect }: FoodSearchProps) => {
+  const [query, setQuery] = useState<string>('');
+  const [results, setResults] = useState<Food[]>([]);
+  const [customFoods, setCustomFoods] = useState<Food[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [showResults, setShowResults] = useState<boolean>(false);
+  const [showCreateForm, setShowCreateForm] = useState<boolean>(false);
+  const [createFormData, setCreateFormData] = useState<CreateFormData>({
     name: '',
     calories: '',
     protein: '',
@@ -31,7 +56,7 @@ const FoodSearch = ({ onFoodSelect }) => {
     }
   };
 
-  const searchFoods = async (searchQuery) => {
+  const searchFoods = async (searchQuery: string) => {
     if (!searchQuery.trim()) {
       setResults([]);
       setShowResults(false);
@@ -51,7 +76,7 @@ const FoodSearch = ({ onFoodSelect }) => {
     }
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setQuery(value);
     
@@ -63,14 +88,14 @@ const FoodSearch = ({ onFoodSelect }) => {
     }
   };
 
-  const handleFoodSelect = (food) => {
+  const handleFoodSelect = (food: Food) => {
     onFoodSelect(food);
     setQuery(food.name);
     setShowResults(false);
     setShowCreateForm(false);
   };
 
-  const handleCreateFood = async (e) => {
+  const handleCreateFood = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
     if (!createFormData.name.trim()) {
@@ -108,7 +133,7 @@ const FoodSearch = ({ onFoodSelect }) => {
     }
   };
 
-  const handleCreateFormInputChange = (e) => {
+  const handleCreateFormInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setCreateFormData(prev => ({
       ...prev,

@@ -1,9 +1,48 @@
 import React, { useState, useEffect } from 'react';
 import EmpresaForm from './EmpresaForm';
 
-const OnboardingScreen = ({ onComplete }) => {
-  const [currentStep, setCurrentStep] = useState(0);
-  const [userData, setUserData] = useState({
+interface UserData {
+  name: string;
+  businessName: string;
+  businessType: string;
+  email: string;
+  phone: string;
+  address: string;
+  taxId: string;
+  currency: string;
+  defaultTax: number;
+}
+
+interface Empresa {
+  id: number;
+  name: string;
+  ruc?: string;
+  email?: string;
+}
+
+interface OnboardingScreenProps {
+  onComplete: (userData: UserData) => void;
+}
+
+interface StepComponentProps {
+  userData: UserData;
+  updateUserData: (updates: Partial<UserData>) => void;
+  onNext: () => void;
+  onBack?: () => void;
+  currentStep?: number;
+  totalSteps?: number;
+}
+
+interface Step {
+  id: string;
+  title: string;
+  subtitle: string;
+  component: React.ComponentType<StepComponentProps>;
+}
+
+const OnboardingScreen = ({ onComplete }: OnboardingScreenProps) => {
+  const [currentStep, setCurrentStep] = useState<number>(0);
+  const [userData, setUserData] = useState<UserData>({
     name: '',
     businessName: '',
     businessType: '',
@@ -14,14 +53,14 @@ const OnboardingScreen = ({ onComplete }) => {
     currency: 'USD',
     defaultTax: 21
   });
-  const [showEmpresaForm, setShowEmpresaForm] = useState(false);
-  const [empresaEditIndex, setEmpresaEditIndex] = useState(null);
-  const [empresaEditData, setEmpresaEditData] = useState(null);
+  const [showEmpresaForm, setShowEmpresaForm] = useState<boolean>(false);
+  const [empresaEditIndex, setEmpresaEditIndex] = useState<number | null>(null);
+  const [empresaEditData, setEmpresaEditData] = useState<Empresa | null>(null);
   const userId = localStorage.getItem('userId');
-  const getUserKey = (key) => `invoicekit_${key}_${userId}`;
-  const [empresas, setEmpresas] = useState(() => JSON.parse(localStorage.getItem(getUserKey('companies')) || '[]'));
+  const getUserKey = (key: string): string => `invoicekit_${key}_${userId}`;
+  const [empresas, setEmpresas] = useState<Empresa[]>(() => JSON.parse(localStorage.getItem(getUserKey('companies')) || '[]'));
 
-  const steps = [
+  const steps: Step[] = [
     {
       id: 'welcome',
       title: '¡Bienvenido a InvoiceKit!',
@@ -48,7 +87,7 @@ const OnboardingScreen = ({ onComplete }) => {
     }
   ];
 
-  const updateUserData = (updates) => {
+  const updateUserData = (updates: Partial<UserData>) => {
     setUserData(prev => ({ ...prev, ...updates }));
   };
 
@@ -68,8 +107,8 @@ const OnboardingScreen = ({ onComplete }) => {
     }
   };
 
-  const handleSaveEmpresa = (empresa) => {
-    let nuevas = [...empresas];
+  const handleSaveEmpresa = (empresa: Empresa) => {
+    const nuevas = [...empresas];
     if (empresaEditIndex !== null) {
       nuevas[empresaEditIndex] = { ...nuevas[empresaEditIndex], ...empresa };
     } else {
@@ -95,13 +134,13 @@ const OnboardingScreen = ({ onComplete }) => {
     setShowEmpresaForm(true);
   };
 
-  const handleEditEmpresa = (idx) => {
+  const handleEditEmpresa = (idx: number) => {
     setEmpresaEditIndex(idx);
     setEmpresaEditData(empresas[idx]);
     setShowEmpresaForm(true);
   };
 
-  const handleSelectEmpresa = (empresa) => {
+  const handleSelectEmpresa = (empresa: Empresa) => {
     onComplete(userData);
   };
 
@@ -159,7 +198,7 @@ const OnboardingScreen = ({ onComplete }) => {
               <button onClick={handleAddEmpresa} className="w-full py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-medium transition">+ Nueva Empresa</button>
             </div>
           ) : (
-            <EmpresaForm initialData={empresaEditData} onSave={handleSaveEmpresa} onCancel={handleCancelEmpresa} />
+            <EmpresaForm onSave={handleSaveEmpresa} onBack={handleCancelEmpresa} empresaToEdit={empresaEditData} />
           )}
         </div>
       </div>
@@ -168,8 +207,8 @@ const OnboardingScreen = ({ onComplete }) => {
 };
 
 // Welcome Step Component
-const WelcomeStep = ({ onNext }) => {
-  const [isVisible, setIsVisible] = useState(false);
+const WelcomeStep = ({ onNext }: Pick<StepComponentProps, 'onNext'>) => {
+  const [isVisible, setIsVisible] = useState<boolean>(false);
 
   useEffect(() => {
     setIsVisible(true);
@@ -230,7 +269,7 @@ const WelcomeStep = ({ onNext }) => {
 };
 
 // Business Step Component
-const BusinessStep = ({ userData, updateUserData, onNext, onBack }) => {
+const BusinessStep = ({ userData, updateUserData, onNext, onBack }: Pick<StepComponentProps, 'userData' | 'updateUserData' | 'onNext' | 'onBack'>) => {
   const businessTypes = [
     { id: 'freelance', title: 'Freelancer', description: 'Trabajo independiente', icon: '👨‍💻' },
     { id: 'consulting', title: 'Consultoría', description: 'Servicios de consultoría', icon: '💼' },
@@ -348,7 +387,7 @@ const BusinessStep = ({ userData, updateUserData, onNext, onBack }) => {
 };
 
 // Preferences Step Component
-const PreferencesStep = ({ userData, updateUserData, onNext, onBack }) => {
+const PreferencesStep = ({ userData, updateUserData, onNext, onBack }: Pick<StepComponentProps, 'userData' | 'updateUserData' | 'onNext' | 'onBack'>) => {
   const currencies = [
     { code: 'USD', symbol: '$', name: 'Dólar Estadounidense' },
     { code: 'EUR', symbol: '€', name: 'Euro' },
@@ -429,21 +468,28 @@ const PreferencesStep = ({ userData, updateUserData, onNext, onBack }) => {
 };
 
 // Summary Step Component
-const SummaryStep = ({ userData, onNext, onBack }) => {
-  const getBusinessTypeText = (type) => {
-    const types = {
-      freelance: 'Freelancer',
+const SummaryStep = ({ userData, onNext, onBack }: Pick<StepComponentProps, 'userData' | 'onNext' | 'onBack'>) => {
+  const getBusinessTypeText = (type: string): string => {
+    const map: Record<string, string> = {
+      freelance: 'Freelance',
       consulting: 'Consultoría',
       retail: 'Comercio',
       services: 'Servicios',
       other: 'Otro'
     };
-    return types[type] || type;
+    return map[type] || 'No definido';
   };
 
-  const getCurrencySymbol = (code) => {
-    const currencies = { USD: '$', EUR: '€', GBP: '£', MXN: '$', COP: '$', ARS: '$' };
-    return currencies[code] || code;
+  const getCurrencySymbol = (code: string): string => {
+    const map: Record<string, string> = {
+      USD: '$',
+      EUR: '€',
+      GBP: '£',
+      MXN: '$',
+      COP: '$',
+      ARS: '$'
+    };
+    return map[code] || code;
   };
 
   return (

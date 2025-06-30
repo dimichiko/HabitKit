@@ -6,10 +6,28 @@ import WeeklyProgress from '../components/WeeklyProgress';
 import WeightTracker from '../components/WeightTracker';
 import GoalComparison from '../components/GoalComparison';
 
-const DashboardScreen = ({ onNavigate, userProfile }) => {
+interface UserProfile {
+  name?: string;
+  calorieTarget?: number;
+  streakDays?: number;
+}
+
+interface DashboardScreenProps {
+  onNavigate: (screen: string) => void;
+  userProfile: UserProfile;
+}
+
+interface QuickAction {
+  title: string;
+  icon: string;
+  action: () => void;
+  color: string;
+}
+
+const DashboardScreen = ({ onNavigate, userProfile }: DashboardScreenProps) => {
   const { meals: todayMeals, loading, error, setError, refreshMeals } = useMealContext();
-  const [currentTime, setCurrentTime] = useState(new Date());
-  const [initialized, setInitialized] = useState(false);
+  const [currentTime, setCurrentTime] = useState<Date>(new Date());
+  const [initialized, setInitialized] = useState<boolean>(false);
 
   useEffect(() => {
     if (!initialized) {
@@ -23,51 +41,51 @@ const DashboardScreen = ({ onNavigate, userProfile }) => {
     }, 60000);
 
     return () => clearInterval(interval);
-  }, [initialized]);
+  }, [initialized, refreshMeals]);
 
   // Cálculos seguros con validación
-  const totalCalories = todayMeals.reduce((sum, meal) => sum + (parseFloat(meal.calories) || 0), 0);
-  const totalProtein = todayMeals.reduce((sum, meal) => sum + (parseFloat(meal.protein) || 0), 0);
-  const totalCarbs = todayMeals.reduce((sum, meal) => sum + (parseFloat(meal.carbs) || 0), 0);
-  const totalFat = todayMeals.reduce((sum, meal) => sum + (parseFloat(meal.fat) || 0), 0);
+  const totalCalories = todayMeals.reduce((sum, meal) => sum + meal.totalCalories, 0);
+  const totalProtein = todayMeals.reduce((sum, meal) => sum + meal.totalProtein, 0);
+  const totalCarbs = todayMeals.reduce((sum, meal) => sum + meal.totalCarbs, 0);
+  const totalFat = todayMeals.reduce((sum, meal) => sum + meal.totalFat, 0);
 
   const dailyGoal = userProfile?.calorieTarget || 2000;
   const progressPercentage = Math.min((totalCalories / dailyGoal) * 100, 100);
 
-  const getGreeting = () => {
+  const getGreeting = (): string => {
     const hour = currentTime.getHours();
     if (hour < 12) return '¡Buenos días!';
     if (hour < 18) return '¡Buenas tardes!';
     return '¡Buenas noches!';
   };
 
-  const getProgressColor = () => {
+  const getProgressColor = (): string => {
     if (progressPercentage < 80) return 'text-red-500';
     if (progressPercentage < 100) return 'text-yellow-500';
     return 'text-green-500';
   };
 
-  const getProgressBarColor = () => {
+  const getProgressBarColor = (): string => {
     if (progressPercentage < 80) return 'bg-red-500';
     if (progressPercentage < 100) return 'bg-yellow-500';
     return 'bg-green-500';
   };
 
-  const getProgressIcon = () => {
+  const getProgressIcon = (): string => {
     if (progressPercentage < 50) return '🔴';
     if (progressPercentage < 80) return '🟡';
     if (progressPercentage < 100) return '🟠';
     return '🟢';
   };
 
-  const getStreakDays = () => {
+  const getStreakDays = (): number => {
     // Calcular racha basada en comidas registradas consecutivamente
     // Por ahora usamos un valor fijo basado en el perfil del usuario
     const baseStreak = userProfile?.streakDays || 3;
     return Math.min(baseStreak, 7); // Máximo 7 días para demo
   };
 
-  const getNextMeal = () => {
+  const getNextMeal = (): string => {
     const hour = currentTime.getHours();
     if (hour < 10) return 'Desayuno';
     if (hour < 14) return 'Almuerzo';
@@ -75,9 +93,9 @@ const DashboardScreen = ({ onNavigate, userProfile }) => {
     return 'Snack';
   };
 
-  const translateMealType = (englishType) => {
+  const translateMealType = (englishType: string): string => {
     if (!englishType) return 'Comida';
-    const mapping = {
+    const mapping: Record<string, string> = {
       'breakfast': 'Desayuno',
       'lunch': 'Almuerzo',
       'dinner': 'Cena',
@@ -89,7 +107,7 @@ const DashboardScreen = ({ onNavigate, userProfile }) => {
     return mapping[englishType.toLowerCase()] || englishType;
   };
 
-  const quickActions = [
+  const quickActions: QuickAction[] = [
     {
       title: 'Agregar Comida',
       icon: '🍽️',
@@ -110,7 +128,7 @@ const DashboardScreen = ({ onNavigate, userProfile }) => {
     }
   ];
 
-  const getMealIcon = (mealType) => {
+  const getMealIcon = (mealType: string): string => {
     if (!mealType) return '🍽️';
     const type = mealType.toLowerCase();
     if (type.includes('breakfast') || type.includes('desayuno')) return '🥣';
@@ -120,7 +138,7 @@ const DashboardScreen = ({ onNavigate, userProfile }) => {
     return '🍽️';
   };
 
-  const getMealTime = (meal) => {
+  const getMealTime = (meal: any): string => {
     if (meal.createdAt) {
       return new Date(meal.createdAt).toLocaleTimeString('es-ES', { 
         hour: '2-digit', 
@@ -160,7 +178,7 @@ const DashboardScreen = ({ onNavigate, userProfile }) => {
           <div className="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg animate-fadeIn">
             {error}
             <button 
-              onClick={() => setError(null)}
+              onClick={() => setError('')}
               className="float-right text-red-800 hover:text-red-900"
               aria-label="Cerrar mensaje de error"
             >
@@ -367,35 +385,35 @@ const DashboardScreen = ({ onNavigate, userProfile }) => {
               <div className="space-y-4">
                 {todayMeals.slice(0, 3).map((meal) => (
                   <div 
-                    key={meal._id} 
+                    key={meal.id} 
                     className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-all duration-200 group"
                   >
                     <div className="flex items-center space-x-4">
                       <div className="flex flex-col items-center">
-                        <span className="text-2xl">{getMealIcon(meal.mealType)}</span>
+                        <span className="text-2xl">{getMealIcon(meal.name)}</span>
                         <span className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                           {getMealTime(meal)}
                         </span>
                       </div>
                       <div>
-                        <p className="font-medium text-gray-900 dark:text-white">{meal.foodName}</p>
+                        <p className="font-medium text-gray-900 dark:text-white">{meal.name}</p>
                         <p className="text-sm text-gray-600 dark:text-gray-400">
-                          {translateMealType(meal.mealType)}
+                          {translateMealType(meal.name)}
                         </p>
                         {/* Macros tooltip */}
                         <div className="hidden group-hover:block absolute mt-2 p-2 bg-gray-800 text-white text-xs rounded-lg z-10">
-                          <div>Proteínas: {meal.protein || 0}g</div>
-                          <div>Carbohidratos: {meal.carbs || 0}g</div>
-                          <div>Grasas: {meal.fat || 0}g</div>
+                          <div>Proteínas: {meal.totalProtein || 0}g</div>
+                          <div>Carbohidratos: {meal.totalCarbs || 0}g</div>
+                          <div>Grasas: {meal.totalFat || 0}g</div>
                         </div>
                       </div>
                     </div>
                     <div className="text-right">
                       <div className="text-sm font-semibold text-gray-700 dark:text-gray-300">
-                        {meal.calories || 0} cal
+                        {meal.totalCalories || 0} cal
                       </div>
                       <div className="text-xs text-gray-500 dark:text-gray-400">
-                        {meal.servingSize || '1 porción'}
+                        {meal.foods.length} alimentos
                       </div>
                     </div>
                   </div>
@@ -409,7 +427,7 @@ const DashboardScreen = ({ onNavigate, userProfile }) => {
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <WeightTracker />
-          <GoalComparison userProfile={userProfile} />
+          <GoalComparison userProfile={userProfile} todayMeals={todayMeals} />
         </div>
       </main>
     </div>

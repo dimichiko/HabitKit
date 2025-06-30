@@ -1,8 +1,25 @@
 import React, { useState } from 'react';
 
-const DailySummary = ({ meals, waterIntake, exercise, dailyGoal = 2000 }) => {
-  const [waterAmount, setWaterAmount] = useState(waterIntake || 0);
-  const [exerciseAmount, setExerciseAmount] = useState(exercise || 0);
+interface Meal {
+  id: string;
+  food: string;
+  type: string;
+  calories: number;
+  protein: number;
+  carbs: number;
+  fat: number;
+}
+
+interface DailySummaryProps {
+  meals: Meal[];
+  waterIntake?: number;
+  exercise?: number;
+  dailyGoal?: number;
+}
+
+const DailySummary = ({ meals, waterIntake, exercise, dailyGoal = 2000 }: DailySummaryProps) => {
+  const [waterAmount, setWaterAmount] = useState<number>(waterIntake || 0);
+  const [exerciseAmount, setExerciseAmount] = useState<number>(exercise || 0);
 
   const totalCalories = meals.reduce((sum, meal) => sum + meal.calories, 0);
   const totalProtein = meals.reduce((sum, meal) => sum + meal.protein, 0);
@@ -13,22 +30,22 @@ const DailySummary = ({ meals, waterIntake, exercise, dailyGoal = 2000 }) => {
   const remainingCalories = dailyGoal - netCalories;
   const progressPercentage = Math.min((netCalories / dailyGoal) * 100, 100);
 
-  const getProgressColor = () => {
+  const getProgressColor = (): string => {
     if (progressPercentage < 80) return 'bg-red-500';
     if (progressPercentage < 100) return 'bg-yellow-500';
     return 'bg-green-500';
   };
 
-  const getRemainingColor = () => {
+  const getRemainingColor = (): string => {
     if (remainingCalories > 0) return 'text-green-600';
     return 'text-red-600';
   };
 
-  const handleWaterAdd = (amount) => {
+  const handleWaterAdd = (amount: number): void => {
     setWaterAmount(prev => prev + amount);
   };
 
-  const handleExerciseAdd = (amount) => {
+  const handleExerciseAdd = (amount: number): void => {
     setExerciseAmount(prev => prev + amount);
   };
 
