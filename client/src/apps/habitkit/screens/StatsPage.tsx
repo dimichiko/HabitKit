@@ -58,7 +58,7 @@ const StatsPage = () => {
     const fetchStats = async () => {
       setLoading(true);
       try {
-        const { data: habits } = await apiClient.get('/habits');
+        const { data: habits } = await apiClient.get('/api/habits');
 
         if (habits.length === 0) {
           setStats({ noHabits: true, rachaActual: 0, rachaMax: 0, topDias: [], promedioSemanal: 0, metaDiaria: 0 });

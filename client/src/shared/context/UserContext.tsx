@@ -166,7 +166,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 
   // Configurar axios interceptors
   useEffect(() => {
-    // Configurar baseURL para axios
+    // Configurar baseURL para axios (usar proxy configurado en package.json)
     axios.defaults.baseURL = '';
     
     // Interceptor para agregar token a todas las requests
@@ -202,6 +202,9 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
             // Actualizar tokens en localStorage y estado
             localStorage.setItem('token', token);
             localStorage.setItem('refreshToken', refreshToken);
+            
+            // Configurar headers de axios para requests posteriores
+            axios.defaults.headers.common.Authorization = `Bearer ${token}`;
             
             dispatch({ type: 'SET_TOKENS', payload: { token, refreshToken } });
             

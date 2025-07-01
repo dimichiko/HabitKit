@@ -84,10 +84,14 @@ const HomePage = ({ showAddModal, setShowAddModal }: HomePageProps) => {
   const [confirmDeleteFolder, setConfirmDeleteFolder] = useState<ConfirmDeleteFolder | null>(null);
   const [collapsedFolders, setCollapsedFolders] = useState<CollapsedFolders>({});
   const [showAddFolderModal, setShowAddFolderModal] = useState(false);
+  const [creatingFolder, setCreatingFolder] = useState(false);
+  const [folderSuccess, setFolderSuccess] = useState<string | null>(null);
+  const [creatingHabit, setCreatingHabit] = useState(false);
+  const [habitSuccess, setHabitSuccess] = useState<string | null>(null);
 
   const fetchFolders = useCallback(async () => {
     try {
-      const { data } = await apiClient.get('/habits/folders');
+      const { data } = await apiClient.get('/api/habits/folders');
       const allHabitsFolder: Folder = { _id: 'all-habits', name: 'Todos los hábitos' };
       const fetchedFolders: Folder[] = [allHabitsFolder, ...data];
       setFolders(fetchedFolders);
@@ -108,7 +112,7 @@ const HomePage = ({ showAddModal, setShowAddModal }: HomePageProps) => {
 
   const fetchHabits = useCallback(async () => {
     try {
-      const { data } = await apiClient.get('/habits');
+      const { data } = await apiClient.get('/api/habits');
       setAllHabits(data);
     } catch (error) {
       console.error('Error fetching habits:', error);
@@ -122,7 +126,7 @@ const HomePage = ({ showAddModal, setShowAddModal }: HomePageProps) => {
     }
     const habitIds = allHabits.map(h => h._id);
     try {
-      const { data } = await apiClient.post('/habits/checkins/counts', { habitIds });
+      const { data } = await apiClient.post('/api/habits/checkins/counts', { habitIds });
       setCheckinCounts(data.counts || {});
     } catch (error) {
       console.error('Error fetching checkin counts:', error);
@@ -157,29 +161,58 @@ const HomePage = ({ showAddModal, setShowAddModal }: HomePageProps) => {
 
   const handleAddHabit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log('handleAddHabit llamado con:', newHabit);
     setHabitError('');
+    setHabitSuccess(null);
+    
+    // Validaciones
+    if (!newHabit.name.trim()) {
+      setHabitError('El nombre del hábito no puede estar vacío');
+      setTimeout(() => setHabitError(''), 2000);
+      return;
+    }
+    if (newHabit.timesPerDay < 1) {
+      setHabitError('Debe completar al menos 1 vez por día');
+      setTimeout(() => setHabitError(''), 2000);
+      return;
+    }
+    
+    setCreatingHabit(true);
     try {
-      await apiClient.post('/habits', {
-        name: newHabit.name,
+      console.log('Enviando POST /habits con:', {
+        name: newHabit.name.trim(),
         color: newHabit.color,
         timesPerDay: newHabit.timesPerDay,
         folder: newHabit.folder || ''
       });
+      const response = await apiClient.post('/api/habits', {
+        name: newHabit.name.trim(),
+        color: newHabit.color,
+        timesPerDay: newHabit.timesPerDay,
+        folder: newHabit.folder || ''
+      });
+      console.log('Response del servidor:', response);
+      console.log('Hábito creado exitosamente');
       setShowAddModal(false);
       setNewHabit({ name: '', color: '#4ade80', timesPerDay: 1, folder: '' });
+      setHabitSuccess('¡Hábito creado exitosamente!');
       fetchHabits();
       fetchCheckinCounts();
       fetchFolders();
+      setTimeout(() => setHabitSuccess(null), 3000);
     } catch (error: any) {
+      console.error('Error al crear hábito:', error);
       const msg = error?.response?.data?.error || 'Error al crear hábito';
       setHabitError(msg);
       setTimeout(() => setHabitError(''), 2500);
+    } finally {
+      setCreatingHabit(false);
     }
   };
 
   const handleCheckin = async (habitId: string) => {
     try {
-      await apiClient.post(`/habits/${habitId}/checkin`);
+      await apiClient.post(`/api/habits/${habitId}/checkin`);
       setCheckinSuccess(habitId);
       fetchHabits();
       fetchCheckinCounts();
@@ -194,7 +227,7 @@ const HomePage = ({ showAddModal, setShowAddModal }: HomePageProps) => {
     if (!deleteHabitId) return;
     setDeleting(true);
     try {
-      await apiClient.delete(`/habits/${deleteHabitId}`);
+      await apiClient.delete(`/api/habits/${deleteHabitId}`);
       setDeleteHabitId(null);
       fetchHabits();
       fetchFolders();
@@ -206,21 +239,37 @@ const HomePage = ({ showAddModal, setShowAddModal }: HomePageProps) => {
   };
 
   const handleAddFolder = async () => {
+    console.log('handleAddFolder llamado con:', newFolderName);
     setFolderError('');
-    if (!newFolderName.trim() || folders.some(f => f.name === newFolderName.trim())) {
+    setFolderSuccess(null);
+    if (!newFolderName.trim()) {
+      setFolderError('El nombre no puede estar vacío');
+      setTimeout(() => setFolderError(''), 2000);
+      return;
+    }
+    if (folders.some(f => f.name === newFolderName.trim())) {
       setFolderError('Ya existe una carpeta con ese nombre');
       setTimeout(() => setFolderError(''), 2500);
       return;
     }
+    setCreatingFolder(true);
     try {
-      await apiClient.post('/habits/folders', { name: newFolderName.trim() });
+      console.log('Enviando POST /habits/folders con:', { name: newFolderName.trim() });
+      const response = await apiClient.post('/api/habits/folders', { name: newFolderName.trim() });
+      console.log('Response del servidor (carpeta):', response);
+      console.log('Carpeta creada exitosamente');
       setNewFolderName('');
       setShowAddFolderModal(false);
       setFolderError('');
+      setFolderSuccess('¡Carpeta creada!');
       fetchFolders();
+      setTimeout(() => setFolderSuccess(null), 2000);
     } catch (err: any) {
+      console.error('Error al crear carpeta:', err);
       setFolderError(err?.response?.data?.error || 'Error al crear carpeta');
       setTimeout(() => setFolderError(''), 2500);
+    } finally {
+      setCreatingFolder(false);
     }
   };
 
@@ -236,7 +285,7 @@ const HomePage = ({ showAddModal, setShowAddModal }: HomePageProps) => {
     }
     // Si no hay hábitos, eliminar directo
     try {
-      await apiClient.delete(`/habits/folders/${folderId}`);
+      await apiClient.delete(`/api/habits/folders/${folderId}`);
       fetchFolders();
       if (selectedFolder === folderId) setSelectedFolder('all-habits');
       fetchHabits();
@@ -250,9 +299,9 @@ const HomePage = ({ showAddModal, setShowAddModal }: HomePageProps) => {
       const { folderName, folderId } = confirmDeleteFolder;
       const habitsToDelete = allHabits.filter(h => h.folder === folderName);
       for (const h of habitsToDelete) {
-        await apiClient.delete(`/habits/${h._id}`);
+        await apiClient.delete(`/api/habits/${h._id}`);
       }
-      await apiClient.delete(`/habits/folders/${folderId}`);
+      await apiClient.delete(`/api/habits/folders/${folderId}`);
       setConfirmDeleteFolder(null);
       fetchFolders();
       if (selectedFolder === folderId) setSelectedFolder('all-habits');
@@ -263,7 +312,7 @@ const HomePage = ({ showAddModal, setShowAddModal }: HomePageProps) => {
   const deleteFolderOnly = async () => {
     if (!confirmDeleteFolder) return;
     try {
-      await apiClient.delete(`/habits/folders/${confirmDeleteFolder.folderId}`);
+      await apiClient.delete(`/api/habits/folders/${confirmDeleteFolder.folderId}`);
       setConfirmDeleteFolder(null);
       fetchFolders();
       if (selectedFolder === confirmDeleteFolder.folderId) setSelectedFolder('all-habits');
@@ -278,7 +327,7 @@ const HomePage = ({ showAddModal, setShowAddModal }: HomePageProps) => {
       return;
     }
     try {
-      await apiClient.put(`/habits/folders/${folderId}`, { name: renameValue.trim() });
+      await apiClient.put(`/api/habits/folders/${folderId}`, { name: renameValue.trim() });
       setRenamingFolder(null);
       setRenameValue('');
       fetchFolders();
@@ -667,18 +716,27 @@ const HomePage = ({ showAddModal, setShowAddModal }: HomePageProps) => {
                   type="button"
                   onClick={() => setShowAddModal(false)}
                   className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200"
+                  disabled={creatingHabit}
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 text-sm font-medium text-white bg-green-500 rounded-md hover:bg-green-600"
+                  className="px-4 py-2 text-sm font-medium text-white bg-green-500 rounded-md hover:bg-green-600 disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled={creatingHabit}
                 >
-                  Crear Hábito
+                  {creatingHabit ? 'Creando...' : 'Crear Hábito'}
                 </button>
               </div>
             </form>
           </div>
+        </div>
+      )}
+
+      {/* Mensaje de éxito del hábito - fuera del modal */}
+      {habitSuccess && (
+        <div className="fixed top-4 right-4 z-50 p-4 bg-green-50 border border-green-200 rounded-md shadow-lg">
+          <p className="text-green-600 text-sm font-medium">{habitSuccess}</p>
         </div>
       )}
 
@@ -777,11 +835,17 @@ const HomePage = ({ showAddModal, setShowAddModal }: HomePageProps) => {
                 <button
                   type="submit"
                   className="px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600"
+                  disabled={creatingFolder}
                 >
-                  Crear Carpeta
+                  {creatingFolder ? 'Creando...' : 'Crear Carpeta'}
                 </button>
               </div>
             </form>
+            {folderSuccess && (
+              <div className="mt-2 p-3 bg-green-50 border border-green-200 rounded-md">
+                <p className="text-green-600 text-sm">{folderSuccess}</p>
+              </div>
+            )}
           </div>
         </div>
       )}

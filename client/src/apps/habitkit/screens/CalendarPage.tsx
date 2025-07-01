@@ -78,7 +78,7 @@ const CalendarPage = () => {
   useEffect(() => {
     const fetchAll = async () => {
       setLoading(true);
-      const { data: habits } = await apiClient.get('/habits');
+      const { data: habits } = await apiClient.get('/api/habits');
       setHabits(habits);
       let allCheckins: Checkin[] = [];
       for (const h of habits) {

@@ -1,5 +1,5 @@
-import React from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { useUser } from '../context/UserContext';
 
 interface ProtectedAppRouteProps {
@@ -13,8 +13,24 @@ const ProtectedAppRoute: React.FC<ProtectedAppRouteProps> = ({
   appName, 
   fallbackComponent 
 }) => {
-  const { user, isLoading, hasAppAccess, isAuthenticated } = useUser();
+  const { user, isLoading, hasAppAccess, isAuthenticated, getAvailableApps } = useUser();
   const location = useLocation();
+  const navigate = useNavigate();
+
+  // Redirección automática si no tiene acceso a la app
+  useEffect(() => {
+    if (!isLoading && isAuthenticated && user && !hasAppAccess(appName)) {
+      const availableApps = getAvailableApps();
+      
+      if (availableApps.length > 0) {
+        // Si tiene otras apps disponibles, ir a /apps
+        setTimeout(() => navigate('/apps'), 2000);
+      } else {
+        // Si no tiene ninguna app, ir a /pricing
+        setTimeout(() => navigate('/pricing'), 2000);
+      }
+    }
+  }, [isLoading, isAuthenticated, user, hasAppAccess, appName, navigate, getAvailableApps]);
 
   // Mostrar loading mientras se verifica la autenticación
   if (isLoading) {
@@ -33,8 +49,9 @@ const ProtectedAppRoute: React.FC<ProtectedAppRouteProps> = ({
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  // Si no tiene acceso a la app, mostrar fallback o página de upgrade
+  // Si no tiene acceso a la app, mostrar página de acceso restringido
   if (!hasAppAccess(appName)) {
+
     if (fallbackComponent) {
       return <>{fallbackComponent}</>;
     }
@@ -55,14 +72,14 @@ const ProtectedAppRoute: React.FC<ProtectedAppRouteProps> = ({
             
             <div className="space-y-4">
               <button 
-                onClick={() => window.location.href = '/pricing'}
+                onClick={() => navigate('/pricing')}
                 className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-indigo-700 hover:to-purple-700 transition-all duration-200"
               >
                 Actualizar Plan
               </button>
               
               <button 
-                onClick={() => window.location.href = '/apps'}
+                onClick={() => navigate('/apps')}
                 className="w-full bg-white text-indigo-600 px-6 py-3 rounded-lg border border-indigo-200 hover:bg-indigo-50 transition-colors font-medium"
               >
                 Ver Apps Disponibles
@@ -72,6 +89,9 @@ const ProtectedAppRoute: React.FC<ProtectedAppRouteProps> = ({
             <div className="mt-6 pt-4 border-t border-gray-200">
               <p className="text-sm text-gray-500">
                 Plan actual: <span className="font-medium">{user.plan}</span>
+              </p>
+              <p className="text-xs text-gray-400 mt-2">
+                Redirigiendo automáticamente en 2 segundos...
               </p>
             </div>
           </div>

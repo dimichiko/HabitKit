@@ -2,60 +2,37 @@
 import axios from 'axios';
 
 // Usamos el proxy configurado en package.json
+// No necesitamos interceptores aquí porque ya están en UserContext
 const apiClient = axios.create({
-  baseURL: '/api',
+  baseURL: '',
   headers: {
     'Content-Type': 'application/json'
   }
 });
 
-// Interceptor de respuesta para manejar errores 401 automáticamente
+// Interceptor de request para agregar token automáticamente
+apiClient.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    console.log('apiClient request:', config.method?.toUpperCase(), config.url, config.data);
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
+// Interceptor de response para debug
 apiClient.interceptors.response.use(
   (response) => {
+    console.log('apiClient response:', response.status, response.data);
     return response;
   },
-  async (error) => {
-    const originalRequest = error.config;
-
-    // Si es un error 401 y no hemos intentado refrescar el token
-    if (error.response?.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
-
-      try {
-        // Intentar refrescar el token
-        const response = await apiClient.post('/auth/refresh');
-        
-        if (response.data && response.data.success && response.data.data.token) {
-          const newToken = response.data.data.token;
-          
-          // Guardar el nuevo token
-          localStorage.setItem('token', newToken);
-          
-          // Actualizar el header de la petición original
-          originalRequest.headers.Authorization = `Bearer ${newToken}`;
-          
-          // Reintentar la petición original
-          return apiClient(originalRequest);
-        }
-      } catch (refreshError) {
-        console.error('Error al refrescar token:', refreshError);
-        
-        // Si falla el refresh, limpiar datos de sesión
-        localStorage.removeItem('token');
-        localStorage.removeItem('user_id');
-        localStorage.removeItem('user_name');
-        localStorage.removeItem('user_email');
-        localStorage.removeItem('user_plan');
-        localStorage.removeItem('session_id');
-        localStorage.removeItem('last_activity');
-        
-        // Redirigir al login si estamos en el navegador
-        if (typeof window !== 'undefined') {
-          window.location.href = '/login';
-        }
-      }
-    }
-
+  (error) => {
+    console.error('apiClient error:', error.response?.status, error.response?.data);
     return Promise.reject(error);
   }
 );

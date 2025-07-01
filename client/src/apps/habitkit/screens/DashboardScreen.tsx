@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import apiClient from '../utils/api';
 import { FaCheckCircle } from 'react-icons/fa';
+import { useUser } from '../../../shared/context/UserContext';
+import axios from 'axios';
 
 interface Habit {
   _id: string;
@@ -51,34 +53,50 @@ interface InspirationContent {
 }
 
 const DashboardScreen = ({ onNavigate }: DashboardScreenProps) => {
+  const { user, isLoading } = useUser();
   const [currentTime, setCurrentTime] = useState<Date>(new Date());
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [habits, setHabits] = useState<Habit[]>([]);
   const [checkinCounts, setCheckinCounts] = useState<Record<string, number>>({});
   const [stats, setStats] = useState<Stats | null>(null);
 
+  // Logs de depuración
+  console.log('user:', user);
+  console.log('token:', axios.defaults.headers.common.Authorization);
+  console.log('activeApps:', user?.activeApps);
+
   useEffect(() => {
+    if (!user || !axios.defaults.headers.common.Authorization) return;
     // Load user profile
     const profile = localStorage.getItem('habitkit_user_profile');
     if (profile) {
       setUserProfile(JSON.parse(profile));
     }
-
-    // Load habits and stats
+    // Load habits y stats solo si hay token
     loadHabits();
     loadStats();
-
     // Update time every minute
     const interval = setInterval(() => {
       setCurrentTime(new Date());
     }, 60000);
-
     return () => clearInterval(interval);
-  }, []);
+  }, [user]);
+
+  // Loader si no hay user o token
+  if (isLoading || !user || !axios.defaults.headers.common.Authorization) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Cargando datos de usuario...</p>
+        </div>
+      </div>
+    );
+  }
 
   const loadHabits = async () => {
     try {
-      const { data } = await apiClient.get('/habits');
+      const { data } = await apiClient.get('/api/habits');
       setHabits(data);
       loadCheckinCounts(data);
     } catch (error) {

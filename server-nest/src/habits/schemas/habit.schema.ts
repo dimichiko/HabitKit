@@ -7,10 +7,16 @@ export class Habit extends Document {
   user: Types.ObjectId;
 
   @Prop({ required: true })
-  title: string;
+  name: string;
 
-  @Prop()
-  description?: string;
+  @Prop({ default: '#4ade80' })
+  color: string;
+
+  @Prop({ default: 1, min: 1 })
+  timesPerDay: number;
+
+  @Prop({ default: '' })
+  folder: string;
 
   @Prop({ type: [String], default: [] })
   completedDates: string[]; // Fechas en formato YYYY-MM-DD

@@ -5,25 +5,25 @@ const apps = [
     name: 'HabitKit',
     icon: '✅',
     desc: 'Hábitos diarios',
-    path: '/habitkit',
+    path: '/apps/habitkit',
   },
   {
     name: 'CalorieKit',
     icon: '🍎',
     desc: 'Control nutricional',
-    path: '/caloriekit',
+    path: '/apps/caloriekit',
   },
   {
     name: 'InvoiceKit',
     icon: '📄',
     desc: 'Facturas simples',
-    path: '/invoicekit',
+    path: '/apps/invoicekit',
   },
   {
     name: 'TrainingKit',
     icon: '🏋️',
     desc: 'Registro de entrenos',
-    path: '/trainingkit',
+    path: '/apps/trainingkit',
   },
 ];
 

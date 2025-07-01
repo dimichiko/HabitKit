@@ -6,10 +6,10 @@ import { useUser } from '../shared/context/UserContext';
 import { Helmet } from 'react-helmet-async';
 
 const APPS = [
-  { id: 'habitkit', name: 'HabitKit', icon: <span className="text-green-500 text-4xl">✅</span>, desc: 'Hábitos diarios', path: '/habitkit' },
-  { id: 'invoicekit', name: 'InvoiceKit', icon: <span className="text-yellow-500 text-4xl">📄</span>, desc: 'Facturación simple', path: '/invoicekit' },
-  { id: 'trainingkit', name: 'TrainingKit', icon: <span className="text-indigo-500 text-4xl">🏋️</span>, desc: 'Entrenamiento', path: '/trainingkit-app' },
-  { id: 'caloriekit', name: 'CalorieKit', icon: <span className="text-red-500 text-4xl">🍎</span>, desc: 'Nutrición', path: '/caloriekit' },
+  { id: 'habitkit', name: 'HabitKit', icon: <span className="text-green-500 text-4xl">✅</span>, desc: 'Hábitos diarios', path: '/apps/habitkit' },
+  { id: 'invoicekit', name: 'InvoiceKit', icon: <span className="text-yellow-500 text-4xl">📄</span>, desc: 'Facturación simple', path: '/apps/invoicekit' },
+  { id: 'trainingkit', name: 'TrainingKit', icon: <span className="text-indigo-500 text-4xl">🏋️</span>, desc: 'Entrenamiento', path: '/apps/trainingkit' },
+  { id: 'caloriekit', name: 'CalorieKit', icon: <span className="text-red-500 text-4xl">🍎</span>, desc: 'Nutrición', path: '/apps/caloriekit' },
 ];
 
 const FullAccessPage = () => {
