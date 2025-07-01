@@ -51,7 +51,8 @@ type AuthAction =
   | { type: 'LOGOUT' }
   | { type: 'UPDATE_USER'; payload: Partial<User> }
   | { type: 'SET_USER'; payload: User }
-  | { type: 'CLEAR_ERROR' };
+  | { type: 'CLEAR_ERROR' }
+  | { type: 'SET_TOKENS'; payload: { token: string; refreshToken: string } };
 
 // Reducer
 const authReducer = (state: AuthState, action: AuthAction): AuthState => {
@@ -74,6 +75,13 @@ const authReducer = (state: AuthState, action: AuthAction): AuthState => {
         isAuthenticated: true,
         loading: false,
         error: null
+      };
+    
+    case 'SET_TOKENS':
+      return {
+        ...state,
+        token: action.payload.token,
+        refreshToken: action.payload.refreshToken
       };
     
     case 'LOGOUT':
@@ -112,6 +120,7 @@ const authReducer = (state: AuthState, action: AuthAction): AuthState => {
 // Contexto
 interface UserContextType extends AuthState {
   login: (email: string, password: string) => Promise<void>;
+  silentLogin: (user: User, token: string, refreshToken: string) => void;
   register: (userData: { name: string; email: string; password: string }) => Promise<void>;
   logout: () => void;
   updateUser: (userData: Partial<User>) => Promise<void>;
@@ -155,53 +164,119 @@ interface UserProviderProps {
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
-  // Configurar axios
+  // Configurar axios interceptors
   useEffect(() => {
-    if (state.token) {
-      axios.defaults.headers.common['Authorization'] = `Bearer ${state.token}`;
-    } else {
-      delete axios.defaults.headers.common['Authorization'];
-    }
-  }, [state.token]);
-
-  // Verificar token al cargar
-  useEffect(() => {
-    if (state.token) {
-      verifyToken();
-    } else {
-      dispatch({ type: 'SET_LOADING', payload: false });
-    }
-  }, []);
-
-  // Interceptor para refresh token
-  useEffect(() => {
-    const interceptor = axios.interceptors.response.use(
-      (response) => response,
-      async (error) => {
-        if (error.response?.status === 401 && state.refreshToken) {
-          try {
-            await refreshAuth();
-            return axios.request(error.config);
-          } catch (refreshError) {
-            logout();
-            return Promise.reject(refreshError);
-          }
+    // Configurar baseURL para axios
+    axios.defaults.baseURL = '';
+    
+    // Interceptor para agregar token a todas las requests
+    const requestInterceptor = axios.interceptors.request.use(
+      (config) => {
+        if (state.token) {
+          config.headers.Authorization = `Bearer ${state.token}`;
         }
+        return config;
+      },
+      (error) => {
         return Promise.reject(error);
       }
     );
 
-    return () => axios.interceptors.response.eject(interceptor);
-  }, [state.refreshToken]);
+    // Interceptor para manejar errores 401 y refresh token
+    const responseInterceptor = axios.interceptors.response.use(
+      (response) => response,
+      async (error) => {
+        const originalRequest = error.config;
 
-  const verifyToken = async (): Promise<void> => {
-    try {
-      const response = await axios.get('/api/auth/profile');
-      dispatch({ type: 'SET_USER', payload: response.data });
-    } catch (error) {
-      logout();
-    }
-  };
+        if (error.response?.status === 401 && !originalRequest._retry && state.refreshToken) {
+          originalRequest._retry = true;
+
+          try {
+            console.log('Token expirado, intentando refresh...');
+            const response = await axios.post('/api/auth/refresh', {
+              refreshToken: state.refreshToken
+            });
+            
+            const { token, refreshToken } = response.data;
+            
+            // Actualizar tokens en localStorage y estado
+            localStorage.setItem('token', token);
+            localStorage.setItem('refreshToken', refreshToken);
+            
+            dispatch({ type: 'SET_TOKENS', payload: { token, refreshToken } });
+            
+            // Reintentar la request original
+            originalRequest.headers.Authorization = `Bearer ${token}`;
+            return axios(originalRequest);
+          } catch (refreshError) {
+            console.error('Error en refresh token:', refreshError);
+            logout();
+            return Promise.reject(refreshError);
+          }
+        }
+        
+        return Promise.reject(error);
+      }
+    );
+
+    return () => {
+      axios.interceptors.request.eject(requestInterceptor);
+      axios.interceptors.response.eject(responseInterceptor);
+    };
+  }, [state.token, state.refreshToken]);
+
+  // Verificar token al cargar la aplicación
+  useEffect(() => {
+    const initializeAuth = async () => {
+      const token = localStorage.getItem('token');
+      const refreshToken = localStorage.getItem('refreshToken');
+      
+      if (token && refreshToken) {
+        try {
+          console.log('Verificando token al cargar...');
+          
+          // Configurar headers de axios para requests posteriores
+          axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+          
+          const response = await axios.get('/api/auth/profile');
+          console.log('Token válido, cargando usuario:', response.data);
+          
+          dispatch({ type: 'SET_USER', payload: response.data });
+        } catch (error) {
+          console.error('Error verificando token al cargar:', error);
+          
+          // Intentar refresh si falla la verificación
+          try {
+            console.log('Intentando refresh token al cargar...');
+            const refreshResponse = await axios.post('/api/auth/refresh', {
+              refreshToken
+            });
+            
+            const { token: newToken, refreshToken: newRefreshToken } = refreshResponse.data;
+            
+            localStorage.setItem('token', newToken);
+            localStorage.setItem('refreshToken', newRefreshToken);
+            
+            // Configurar headers de axios para requests posteriores
+            axios.defaults.headers.common.Authorization = `Bearer ${newToken}`;
+            
+            dispatch({ type: 'SET_TOKENS', payload: { token: newToken, refreshToken: newRefreshToken } });
+            
+            // Obtener perfil con el nuevo token
+            const profileResponse = await axios.get('/api/auth/profile');
+            dispatch({ type: 'SET_USER', payload: profileResponse.data });
+          } catch (refreshError) {
+            console.error('Error en refresh al cargar:', refreshError);
+            logout();
+          }
+        }
+      } else {
+        dispatch({ type: 'SET_LOADING', payload: false });
+      }
+    };
+
+    initializeAuth();
+  }, []);
 
   const login = async (email: string, password: string): Promise<void> => {
     try {
@@ -211,8 +286,18 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
       const response = await axios.post('/api/auth/login', { email, password });
       const { user, token, refreshToken } = response.data;
 
+      // Verificar que token sea string, no objeto
+      if (typeof token !== 'string') {
+        throw new Error('Token inválido recibido del servidor');
+      }
+
+      // Guardar en localStorage
       localStorage.setItem('token', token);
       localStorage.setItem('refreshToken', refreshToken);
+      localStorage.setItem('user', JSON.stringify(user));
+
+      // Configurar headers de axios para requests posteriores
+      axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 
       dispatch({ type: 'LOGIN_SUCCESS', payload: { user, token, refreshToken } });
     } catch (error: any) {
@@ -220,6 +305,19 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
       dispatch({ type: 'SET_ERROR', payload: errorMessage });
       throw error;
     }
+  };
+
+  const silentLogin = (user: User, token: string, refreshToken: string): void => {
+    // Guardar en localStorage
+    localStorage.setItem('token', token);
+    localStorage.setItem('refreshToken', refreshToken);
+    localStorage.setItem('user', JSON.stringify(user));
+
+    // Configurar headers de axios para requests posteriores
+    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+
+    // Actualizar estado sin mostrar loading
+    dispatch({ type: 'LOGIN_SUCCESS', payload: { user, token, refreshToken } });
   };
 
   const register = async (userData: { name: string; email: string; password: string }): Promise<void> => {
@@ -238,8 +336,14 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   };
 
   const logout = (): void => {
+    // Limpiar localStorage
     localStorage.removeItem('token');
     localStorage.removeItem('refreshToken');
+    localStorage.removeItem('user');
+    
+    // Limpiar headers de axios
+    delete axios.defaults.headers.common['Authorization'];
+    
     dispatch({ type: 'LOGOUT' });
   };
 
@@ -250,6 +354,12 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 
       const response = await axios.put('/api/users/profile', userData);
       dispatch({ type: 'UPDATE_USER', payload: response.data });
+      
+      // Actualizar user en localStorage
+      if (state.user) {
+        const updatedUser = { ...state.user, ...response.data };
+        localStorage.setItem('user', JSON.stringify(updatedUser));
+      }
     } catch (error: any) {
       const errorMessage = error.response?.data?.message || 'Error al actualizar usuario';
       dispatch({ type: 'SET_ERROR', payload: errorMessage });
@@ -357,6 +467,10 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 
       localStorage.setItem('token', token);
       localStorage.setItem('refreshToken', refreshToken);
+      localStorage.setItem('user', JSON.stringify(user));
+
+      // Configurar headers de axios para requests posteriores
+      axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 
       dispatch({ type: 'LOGIN_SUCCESS', payload: { user, token, refreshToken } });
     } catch (error: any) {
@@ -377,11 +491,10 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
       localStorage.setItem('token', token);
       localStorage.setItem('refreshToken', refreshToken);
       
-      dispatch({ type: 'LOGIN_SUCCESS', payload: { 
-        user: state.user!, 
-        token, 
-        refreshToken 
-      }});
+      // Configurar headers de axios para requests posteriores
+      axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+      
+      dispatch({ type: 'SET_TOKENS', payload: { token, refreshToken } });
     } catch (error) {
       logout();
       throw error;
@@ -400,6 +513,12 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   const hasAppAccess = (appName: string): boolean => {
     if (!state.user) return false;
     
+    // Si el usuario tiene activeApps, verificar si la app está incluida
+    if (state.user.activeApps && state.user.activeApps.length > 0) {
+      return state.user.activeApps.includes(appName);
+    }
+    
+    // Si no tiene activeApps, usar la lógica de planes
     const planFeatures = getPlanFeatures();
     return planFeatures[appName] || false;
   };
@@ -470,6 +589,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     
     // Funciones de autenticación
     login,
+    silentLogin,
     register,
     logout,
     

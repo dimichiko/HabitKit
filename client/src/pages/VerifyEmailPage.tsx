@@ -2,16 +2,21 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import Header from '../shared/components/Header';
 import apiClient from '../apps/habitkit/utils/api';
+import { useUserContext } from '../shared/context/UserContext';
 
 const VerifyEmailPage: React.FC = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const { setAlert, hasAppAccess, getAvailableApps, silentLogin } = useUserContext();
   const [status, setStatus] = useState('verifying'); // verifying, success, error, expired, used
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [email, setEmail] = useState('');
-  const [redirectCountdown, setRedirectCountdown] = useState(10);
+  const [redirectCountdown, setRedirectCountdown] = useState(3);
   const [autoRedirect, setAutoRedirect] = useState(true);
+  const [showResendInput, setShowResendInput] = useState(false);
+  const [resendStatus, setResendStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [resendMsg, setResendMsg] = useState('');
 
   const token = searchParams.get('token');
 
@@ -21,9 +26,34 @@ const VerifyEmailPage: React.FC = () => {
     try {
       const response = await apiClient.post('/auth/verify-email', { token: verificationToken });
       
-      if (response.data.success) {
+      // El backend ahora devuelve { message, user, token, refreshToken }
+      if (response.data.message && response.data.message.includes('verificado correctamente')) {
         setStatus('success');
-        setTimeout(() => navigate('/'), 2000);
+        
+        // Login automático con los datos recibidos
+        if (response.data.user && response.data.token && response.data.refreshToken) {
+          // Hacer login silencioso usando el contexto
+          silentLogin(response.data.user, response.data.token, response.data.refreshToken);
+          
+          // Mostrar mensaje de éxito
+          setAlert({
+            type: 'success',
+            message: '¡Cuenta verificada e iniciada sesión automáticamente!'
+          });
+          
+          // Redirigir según acceso a apps
+          setTimeout(() => {
+            const availableApps = getAvailableApps();
+            if (availableApps.length > 0) {
+              navigate('/apps');
+            } else {
+              navigate('/');
+            }
+          }, 3000);
+        } else {
+          // Fallback si no hay datos de login
+          setTimeout(() => navigate('/login'), 3000);
+        }
       } else {
         setError(response.data.message || 'Tu enlace puede haber expirado o ya fue utilizado.');
       }
@@ -44,7 +74,7 @@ const VerifyEmailPage: React.FC = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [navigate]);
+  }, [navigate, setAlert, getAvailableApps, silentLogin]);
 
   useEffect(() => {
     if (token) {
@@ -57,6 +87,13 @@ const VerifyEmailPage: React.FC = () => {
 
   // Redirección automática
   useEffect(() => {
+    if (status === 'success' && redirectCountdown > 0) {
+      const timer = setTimeout(() => setRedirectCountdown(c => c - 1), 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [status, redirectCountdown]);
+
+  useEffect(() => {
     if ((status === 'expired' || status === 'used' || status === 'error' || status === 'network') && autoRedirect && redirectCountdown > 0) {
       const timer = setTimeout(() => setRedirectCountdown(c => c - 1), 1000);
       if (redirectCountdown === 1) navigate('/login');
@@ -66,22 +103,25 @@ const VerifyEmailPage: React.FC = () => {
 
   const resendEmail = async () => {
     if (!email) {
-      setError('No hay email para reenviar');
+      setResendMsg('Por favor ingresa tu email.');
+      setResendStatus('error');
       return;
     }
-
     try {
       setIsLoading(true);
+      setResendStatus('loading');
+      setResendMsg('');
       await apiClient.post('/auth/resend-verification', { email });
-      setError('');
-      alert('Email de verificación reenviado. Revisa tu bandeja de entrada.');
+      setResendStatus('success');
+      setResendMsg('Correo de verificación reenviado. Revisa tu bandeja de entrada.');
     } catch (error: unknown) {
+      setResendStatus('error');
       if (error && typeof error === 'object' && 'response' in error) {
         const errorResponse = error as { response: { data: { message?: string } } };
         const { data } = errorResponse.response;
-        setError(data.message || 'Error reenviando el email');
+        setResendMsg(data.message || 'Error reenviando el email');
       } else {
-        setError('No pudimos conectarnos al servidor. Revisa tu conexión e intenta nuevamente.');
+        setResendMsg('No pudimos conectarnos al servidor. Revisa tu conexión e intenta nuevamente.');
       }
     } finally {
       setIsLoading(false);
@@ -106,25 +146,31 @@ const VerifyEmailPage: React.FC = () => {
             </div>
             <h2 className="text-2xl font-bold text-gray-800 mb-2" aria-label="Verificado">¡Email verificado!</h2>
             <p className="text-gray-600 mb-4">
-              Tu cuenta ha sido verificada exitosamente. Serás redirigido automáticamente.
+              Tu cuenta ha sido verificada exitosamente. Iniciando sesión automáticamente...
             </p>
             <div className="text-sm text-gray-500">
-              Redirigiendo en 3 segundos...
+              Redirigiendo en {redirectCountdown} segundos...
             </div>
           </div>
         );
       case 'expired':
+      case 'error':
         return (
           <div className="text-center">
             <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <span className="text-3xl">⏰</span>
             </div>
-            <h2 className="text-2xl font-bold text-gray-800 mb-2" aria-label="Enlace expirado">No pudimos verificar tu cuenta</h2>
-            <p className="text-gray-600 mb-2">Tu enlace puede haber expirado o ya fue utilizado.</p>
-            <p className="text-gray-500 text-sm mb-4">Esto puede suceder si ya usaste el enlace o si expiró.</p>
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2" htmlFor="email">Ingresa tu email para reenviar la verificación:</label>
+            <h2 className="text-2xl font-bold text-gray-800 mb-2" aria-label="Enlace expirado">Token inválido o expirado.</h2>
+            <p className="text-gray-600 mb-4">No pudimos verificar tu cuenta. Puedes solicitar un nuevo correo de verificación.</p>
+            {!showResendInput ? (
+              <button
+                onClick={() => setShowResendInput(true)}
+                className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-4 py-2 rounded-xl font-medium hover:from-indigo-700 hover:to-purple-700 transition-colors mb-4"
+              >
+                Reenviar verificación
+              </button>
+            ) : (
+              <div className="space-y-4">
                 <input
                   id="email"
                   type="email"
@@ -133,43 +179,47 @@ const VerifyEmailPage: React.FC = () => {
                   placeholder="tu@email.com"
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500"
                   aria-label="Email para reenviar verificación"
+                  disabled={isLoading || resendStatus === 'success'}
                 />
-              </div>
-              <button
-                onClick={resendEmail}
-                disabled={isLoading || !email}
-                className="w-full bg-indigo-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                aria-label="Reenviar correo de verificación"
-              >
-                {isLoading ? (
-                  <div className="flex items-center justify-center gap-2">
-                    <span className="animate-spin">🔄</span>
-                    Reenviando...
-                  </div>
-                ) : (
-                  'Reenviar correo de verificación'
-                )}
-              </button>
-              <button
-                onClick={() => navigate('/login')}
-                className="w-full bg-gray-100 text-gray-700 px-4 py-2 rounded-lg font-medium hover:bg-gray-200 transition-colors"
-                aria-label="Iniciar sesión"
-              >
-                ¿Ya verificaste? Inicia sesión aquí
-              </button>
-              <div className="text-xs text-gray-500 mt-2">
-                {autoRedirect ? (
-                  <>
-                    Serás redirigido en {redirectCountdown} segundos...{' '}
-                    <button className="underline text-indigo-600" onClick={() => setAutoRedirect(false)} aria-label="Cancelar redirección">Cancelar</button>
-                  </>
-                ) : (
-                  <span>Redirección automática cancelada.</span>
+                <button
+                  onClick={resendEmail}
+                  disabled={isLoading || !email || resendStatus === 'success'}
+                  className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-4 py-2 rounded-xl font-medium hover:from-indigo-700 hover:to-purple-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  aria-label="Reenviar correo de verificación"
+                >
+                  {isLoading ? (
+                    <div className="flex items-center justify-center gap-2">
+                      <span className="animate-spin">🔄</span>
+                      Reenviando...
+                    </div>
+                  ) : (
+                    resendStatus === 'success' ? 'Correo enviado' : 'Reenviar correo de verificación'
+                  )}
+                </button>
+                {resendMsg && (
+                  <div className={`text-sm ${resendStatus === 'success' ? 'text-green-600' : 'text-red-600'}`}>{resendMsg}</div>
                 )}
               </div>
-              <div className="text-xs text-gray-500 mt-2">
-                ¿Necesitas ayuda? <a href="mailto:soporte@lifehub.app" className="text-indigo-600 underline">soporte@lifehub.app</a>
-              </div>
+            )}
+            <button
+              onClick={() => navigate('/login')}
+              className="w-full mt-6 bg-gray-100 text-gray-700 px-4 py-2 rounded-lg font-medium hover:bg-gray-200 transition-colors"
+              aria-label="Iniciar sesión"
+            >
+              ¿Ya verificaste? Inicia sesión aquí
+            </button>
+            <div className="text-xs text-gray-500 mt-2">
+              {autoRedirect ? (
+                <>
+                  Serás redirigido en {redirectCountdown} segundos...{' '}
+                  <button className="underline text-indigo-600" onClick={() => setAutoRedirect(false)} aria-label="Cancelar redirección">Cancelar</button>
+                </>
+              ) : (
+                <span>Redirección automática cancelada.</span>
+              )}
+            </div>
+            <div className="text-xs text-gray-500 mt-2">
+              ¿Necesitas ayuda? <a href="mailto:soporte@lifehub.app" className="text-indigo-600 underline">soporte@lifehub.app</a>
             </div>
           </div>
         );
@@ -204,50 +254,8 @@ const VerifyEmailPage: React.FC = () => {
             </div>
           </div>
         );
-      case 'error':
-        return (
-          <div className="text-center">
-            <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <span className="text-3xl">⚠️</span>
-            </div>
-            <h2 className="text-2xl font-bold text-gray-800 mb-2" aria-label="Error">Error de verificación</h2>
-            <p className="text-gray-600 mb-4">{error}</p>
-            <button
-              onClick={() => navigate('/login')}
-              className="w-full bg-indigo-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-indigo-700 transition-colors"
-              aria-label="Iniciar sesión"
-            >
-              Ir al login
-            </button>
-            <div className="text-xs text-gray-500 mt-2">
-              {autoRedirect ? (
-                <>
-                  Serás redirigido en {redirectCountdown} segundos...{' '}
-                  <button className="underline text-indigo-600" onClick={() => setAutoRedirect(false)} aria-label="Cancelar redirección">Cancelar</button>
-                </>
-              ) : (
-                <span>Redirección automática cancelada.</span>
-              )}
-            </div>
-          </div>
-        );
       default:
-        return (
-          <div className="text-center">
-            <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <span className="text-3xl">⚠️</span>
-            </div>
-            <h2 className="text-2xl font-bold text-gray-800 mb-2" aria-label="Error desconocido">Error desconocido</h2>
-            <p className="text-gray-600 mb-4">Ocurrió un error inesperado.</p>
-            <button
-              onClick={() => navigate('/login')}
-              className="w-full bg-indigo-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-indigo-700 transition-colors"
-              aria-label="Iniciar sesión"
-            >
-              Ir al login
-            </button>
-          </div>
-        );
+        return null;
     }
   };
 

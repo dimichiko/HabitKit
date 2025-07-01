@@ -12,13 +12,22 @@ interface FormErrors {
   submit?: string;
 }
 
+interface FormData {
+  name: string;
+  email: string;
+  phone: string;
+  password: string;
+  confirmPassword: string;
+}
+
 const RegisterPage = () => {
   const navigate = useNavigate();
+  const [currentStep, setCurrentStep] = useState(1);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [passwordStrength, setPasswordStrength] = useState('');
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
     phone: '',
@@ -28,17 +37,15 @@ const RegisterPage = () => {
   const [errors, setErrors] = useState<FormErrors>({});
   const [isLoading, setIsLoading] = useState(false);
 
-  const validateForm = () => {
+  const validateStep1 = () => {
     const newErrors: FormErrors = {};
     
-    // Validar nombre
     if (!formData.name.trim()) {
       newErrors.name = 'El nombre es requerido';
     } else if (formData.name.length < 3) {
       newErrors.name = 'El nombre debe tener al menos 3 caracteres';
     }
 
-    // Validar email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!formData.email) {
       newErrors.email = 'El email es requerido';
@@ -46,7 +53,13 @@ const RegisterPage = () => {
       newErrors.email = 'Email inválido';
     }
 
-    // Validar contraseña
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const validateStep2 = () => {
+    const newErrors: FormErrors = {};
+    
     if (!formData.password) {
       newErrors.password = 'La contraseña es requerida';
     } else if (formData.password.length < 8) {
@@ -55,18 +68,33 @@ const RegisterPage = () => {
       newErrors.password = 'La contraseña debe contener mayúsculas, minúsculas y números';
     }
 
-    // Validar confirmación de contraseña
     if (formData.password !== formData.confirmPassword) {
       newErrors.confirmPassword = 'Las contraseñas no coinciden';
+    }
+
+    if (!acceptTerms) {
+      newErrors.submit = 'Debes aceptar los términos y condiciones';
     }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
+  const handleNext = () => {
+    if (validateStep1()) {
+      setCurrentStep(2);
+      setErrors({});
+    }
+  };
+
+  const handleBack = () => {
+    setCurrentStep(1);
+    setErrors({});
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validateForm()) return;
+    if (!validateStep2()) return;
 
     setIsLoading(true);
     try {
@@ -76,13 +104,16 @@ const RegisterPage = () => {
         password: formData.password,
         phone: formData.phone
       });
+      
       localStorage.setItem('token', data.token);
       if (data.user && data.user.role) localStorage.setItem('userRole', data.user.role);
+      
+      // TODO: Enviar correo de bienvenida
+      // await sendWelcomeEmail(data.user.email, data.user.name);
+      
       navigate('/');
     } catch (error: any) {
-      // Manejo mejorado de errores
       if (error.response?.data?.errors) {
-        // Errores de validación de express-validator
         const newErrors: FormErrors = {};
         error.response.data.errors.forEach((err: any) => {
           if (err.param) {
@@ -100,7 +131,6 @@ const RegisterPage = () => {
     }
   };
 
-  // Password strength checker
   const checkStrength = (pwd: string) => {
     if (!pwd) return '';
     if (pwd.length < 8) return 'Débil';
@@ -110,180 +140,231 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 to-white px-2">
-      <div className="bg-white rounded-xl shadow-lg p-8 max-w-md w-full flex flex-col items-center">
-        {/* Branding/logo */}
-        <div className="mb-4 flex flex-col items-center">
-          <div className="text-4xl mb-2">🟣</div>
-          <h2 className="text-3xl font-extrabold text-gray-900 text-center">Crear cuenta</h2>
-          <p className="text-gray-500 text-center mt-2 text-base">Comienza con HabitKit. Apps que simplifican tu rutina.</p>
+    <div className="h-screen flex items-center justify-center bg-gradient-to-br from-indigo-100 via-white to-pink-100 px-4 overflow-hidden">
+      <div className="bg-white rounded-2xl shadow-lg p-8 max-w-lg w-full max-h-[calc(100vh-4rem)] overflow-y-auto md:overflow-y-visible">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <div className="text-4xl mb-4">🟣</div>
+          <h1 className="text-3xl font-extrabold text-gray-900 mb-2">Crear cuenta</h1>
+          <p className="text-gray-600">Comienza con HabitKit. Apps que simplifican tu rutina.</p>
         </div>
-        <form className="w-full mt-6 space-y-5" onSubmit={handleSubmit}>
-          {errors.submit && (
-            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-2 text-center text-sm" role="alert">
-              <span>{errors.submit}</span>
-            </div>
-          )}
-          {/* Nombre */}
-          <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Nombre</label>
-            <div className="relative">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-300">👤</span>
-              <input
-                id="name"
-                name="name"
-                type="text"
-                required
-                autoComplete="name"
-                className={`rounded-lg border ${errors.name ? 'border-red-500' : 'border-gray-300'} focus:outline-none focus:ring-2 focus:ring-indigo-500 w-full py-3 pl-10 pr-3 text-sm transition`}
-                placeholder="Tu nombre completo"
-                value={formData.name}
-                onChange={e => setFormData({ ...formData, name: e.target.value })}
-              />
-            </div>
-            {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
+
+        {/* Progress indicator */}
+        <div className="flex items-center justify-center mb-8">
+          <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold ${
+            currentStep >= 1 ? 'bg-indigo-600 text-white' : 'bg-gray-200 text-gray-500'
+          }`}>
+            1
           </div>
-          {/* Email */}
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-            <div className="relative">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-300">✉️</span>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                required
-                autoComplete="email"
-                className={`rounded-lg border ${errors.email ? 'border-red-500' : 'border-gray-300'} focus:outline-none focus:ring-2 focus:ring-indigo-500 w-full py-3 pl-10 pr-3 text-sm transition`}
-                placeholder="tu@email.com"
-                value={formData.email}
-                onChange={e => setFormData({ ...formData, email: e.target.value })}
-              />
-            </div>
-            {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
+          <div className={`w-16 h-1 mx-2 ${currentStep >= 2 ? 'bg-indigo-600' : 'bg-gray-200'}`}></div>
+          <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold ${
+            currentStep >= 2 ? 'bg-indigo-600 text-white' : 'bg-gray-200 text-gray-500'
+          }`}>
+            2
           </div>
-          {/* Teléfono */}
-          <div>
-            <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">Teléfono</label>
-            <div className="relative">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-300">📱</span>
-              <input
-                id="phone"
-                name="phone"
-                type="tel"
-                autoComplete="tel"
-                pattern="^\+?\d{0,3}\s?\d{1,3}\s?\d{4,}$"
-                className={`rounded-lg border ${errors.phone ? 'border-red-500' : 'border-gray-300'} focus:outline-none focus:ring-2 focus:ring-indigo-500 w-full py-3 pl-10 pr-3 text-sm transition`}
-                placeholder="+56 9 1234 5678"
-                value={formData.phone}
-                onChange={e => setFormData({ ...formData, phone: e.target.value })}
-              />
-            </div>
-            {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
+        </div>
+
+        {errors.submit && (
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg mb-6 text-center text-sm" role="alert">
+            <span>{errors.submit}</span>
           </div>
-          {/* Contraseña */}
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
-            <div className="relative">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-300">🔒</span>
-              <input
-                id="password"
-                name="password"
-                type={showPassword ? 'text' : 'password'}
-                required
-                autoComplete="new-password"
-                className={`rounded-lg border ${errors.password ? 'border-red-500' : 'border-gray-300'} focus:outline-none focus:ring-2 focus:ring-indigo-500 w-full py-3 pl-10 pr-10 text-sm transition`}
-                placeholder="Contraseña"
-                value={formData.password}
-                onChange={e => {
-                  setFormData({ ...formData, password: e.target.value });
-                  setPasswordStrength(checkStrength(e.target.value));
-                }}
-              />
-              <button type="button" tabIndex={-1} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-indigo-600" onClick={() => setShowPassword(v => !v)} aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}>
-                {showPassword ? '🙈' : '👁️'}
-              </button>
-            </div>
-            {/* Indicador de seguridad */}
-            {formData.password && (
-              <div className="flex items-center gap-2 mt-1 text-xs">
-                {passwordStrength === 'Débil' && '🛡️'} 
-                {passwordStrength === 'Media' && '🛡️'} 
-                {passwordStrength === 'Fuerte' && '✅'} 
-                <span className={
-                  passwordStrength === 'Débil' ? 'text-red-500' :
-                  passwordStrength === 'Media' ? 'text-yellow-600' :
-                  passwordStrength === 'Fuerte' ? 'text-green-600' : 'text-gray-400'
-                }>
-                  {passwordStrength ? `Seguridad: ${passwordStrength}` : ''}
-                </span>
+        )}
+
+        {/* Step 1: Personal Information */}
+        {currentStep === 1 && (
+          <div className="space-y-6">
+            <div>
+              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">Nombre completo</label>
+              <div className="relative">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">👤</span>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  required
+                  autoComplete="name"
+                  className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition ${
+                    errors.name ? 'border-red-500' : 'border-gray-300'
+                  }`}
+                  placeholder="Tu nombre completo"
+                  value={formData.name}
+                  onChange={e => setFormData({ ...formData, name: e.target.value })}
+                />
               </div>
-            )}
-            {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password}</p>}
+              {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
+            </div>
+
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">Email</label>
+              <div className="relative">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">✉️</span>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  required
+                  autoComplete="email"
+                  className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition ${
+                    errors.email ? 'border-red-500' : 'border-gray-300'
+                  }`}
+                  placeholder="tu@email.com"
+                  value={formData.email}
+                  onChange={e => setFormData({ ...formData, email: e.target.value })}
+                />
+              </div>
+              {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
+            </div>
+
+            <div>
+              <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">Teléfono (opcional)</label>
+              <div className="relative">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">📱</span>
+                <input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  autoComplete="tel"
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+                  placeholder="+56 9 1234 5678"
+                  value={formData.phone}
+                  onChange={e => setFormData({ ...formData, phone: e.target.value })}
+                />
+              </div>
+            </div>
+
+            <button
+              onClick={handleNext}
+              className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 px-6 rounded-lg font-semibold hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl"
+            >
+              Siguiente
+            </button>
+
+            <div className="text-center">
+              <p className="text-gray-600 text-sm">
+                ¿Ya tienes cuenta?{' '}
+                <Link to="/login" className="text-indigo-600 hover:text-indigo-700 font-medium">
+                  Inicia sesión
+                </Link>
+              </p>
+            </div>
           </div>
-          {/* Confirmar contraseña */}
-          <div>
-            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">Confirmar contraseña</label>
-            <div className="relative">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-300">🔒</span>
+        )}
+
+        {/* Step 2: Password & Terms */}
+        {currentStep === 2 && (
+          <div className="space-y-6">
+            <div>
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">Contraseña</label>
+              <div className="relative">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">🔒</span>
+                <input
+                  id="password"
+                  name="password"
+                  type={showPassword ? 'text' : 'password'}
+                  required
+                  autoComplete="new-password"
+                  className={`w-full pl-10 pr-10 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition ${
+                    errors.password ? 'border-red-500' : 'border-gray-300'
+                  }`}
+                  placeholder="Contraseña"
+                  value={formData.password}
+                  onChange={e => {
+                    setFormData({ ...formData, password: e.target.value });
+                    setPasswordStrength(checkStrength(e.target.value));
+                  }}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                >
+                  {showPassword ? '🙈' : '👁️'}
+                </button>
+              </div>
+              {passwordStrength && (
+                <div className="mt-2 flex items-center gap-2">
+                  <div className={`h-2 rounded-full flex-1 ${
+                    passwordStrength === 'Fuerte' ? 'bg-green-500' :
+                    passwordStrength === 'Media' ? 'bg-yellow-500' : 'bg-red-500'
+                  }`}></div>
+                  <span className="text-xs text-gray-500">{passwordStrength}</span>
+                </div>
+              )}
+              {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password}</p>}
+            </div>
+
+            <div>
+              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-2">Confirmar contraseña</label>
+              <div className="relative">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">🔒</span>
+                <input
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type={showConfirm ? 'text' : 'password'}
+                  required
+                  autoComplete="new-password"
+                  className={`w-full pl-10 pr-10 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition ${
+                    errors.confirmPassword ? 'border-red-500' : 'border-gray-300'
+                  }`}
+                  placeholder="Confirmar contraseña"
+                  value={formData.confirmPassword}
+                  onChange={e => setFormData({ ...formData, confirmPassword: e.target.value })}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowConfirm(!showConfirm)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                >
+                  {showConfirm ? '🙈' : '👁️'}
+                </button>
+              </div>
+              {errors.confirmPassword && <p className="text-red-500 text-xs mt-1">{errors.confirmPassword}</p>}
+            </div>
+
+            <div className="flex items-start gap-3">
               <input
-                id="confirmPassword"
-                name="confirmPassword"
-                type={showConfirm ? 'text' : 'password'}
-                required
-                autoComplete="new-password"
-                className={`rounded-lg border ${errors.confirmPassword ? 'border-red-500' : 'border-gray-300'} focus:outline-none focus:ring-2 focus:ring-indigo-500 w-full py-3 pl-10 pr-10 text-sm transition`}
-                placeholder="Repite tu contraseña"
-                value={formData.confirmPassword}
-                onChange={e => setFormData({ ...formData, confirmPassword: e.target.value })}
+                id="terms"
+                type="checkbox"
+                checked={acceptTerms}
+                onChange={e => setAcceptTerms(e.target.checked)}
+                className="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
               />
-              <button type="button" tabIndex={-1} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-indigo-600" onClick={() => setShowConfirm(v => !v)} aria-label={showConfirm ? 'Ocultar contraseña' : 'Mostrar contraseña'}>
-                {showConfirm ? '🙈' : '👁️'}
+              <label htmlFor="terms" className="text-sm text-gray-700">
+                Acepto los{' '}
+                <Link to="/terms" className="text-indigo-600 hover:text-indigo-700">
+                  términos y condiciones
+                </Link>
+                {' '}y la{' '}
+                <Link to="/privacy" className="text-indigo-600 hover:text-indigo-700">
+                  política de privacidad
+                </Link>
+              </label>
+            </div>
+
+            <div className="flex gap-3">
+              <button
+                onClick={handleBack}
+                className="flex-1 bg-gray-100 text-gray-700 py-3 px-6 rounded-lg font-semibold hover:bg-gray-200 transition-colors"
+              >
+                Atrás
+              </button>
+              <button
+                onClick={handleSubmit}
+                disabled={isLoading}
+                className="flex-1 bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 px-6 rounded-lg font-semibold hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isLoading ? (
+                  <div className="flex items-center justify-center gap-2">
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                    Creando cuenta...
+                  </div>
+                ) : (
+                  'Crear cuenta'
+                )}
               </button>
             </div>
-            {errors.confirmPassword && <p className="text-red-500 text-xs mt-1">{errors.confirmPassword}</p>}
           </div>
-          {/* Checkbox términos */}
-          <div className="flex items-center gap-2 mt-2">
-            <input
-              id="acceptTerms"
-              name="acceptTerms"
-              type="checkbox"
-              checked={acceptTerms}
-              onChange={e => setAcceptTerms(e.target.checked)}
-              className="h-5 w-5 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-              required
-            />
-            <label htmlFor="acceptTerms" className="text-sm text-gray-700 select-none">
-              Acepto los <a href="/terms" className="text-indigo-600 hover:underline" target="_blank" rel="noopener noreferrer">Términos de uso</a> y la <a href="/privacy" className="text-indigo-600 hover:underline" target="_blank" rel="noopener noreferrer">Política de privacidad</a>
-            </label>
-          </div>
-          {/* Botón */}
-          <button
-            type="submit"
-            disabled={isLoading || !acceptTerms}
-            className="w-full bg-indigo-600 text-white rounded-lg py-3 font-semibold text-base mt-2 hover:bg-indigo-700 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-          >
-            {isLoading && <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path></svg>}
-            {isLoading ? 'Creando cuenta...' : 'Crear cuenta'}
-          </button>
-          {/* Link login */}
-          <div className="text-center mt-4">
-            <Link to="/login" className="text-sm text-indigo-600 hover:underline font-medium">
-              ¿Ya tienes una cuenta? Inicia sesión
-            </Link>
-          </div>
-        </form>
-        {/* Mensaje de confianza */}
-        <div className="text-xs text-gray-400 text-center mt-6 mb-2">Tu información está segura con nosotros. No compartimos tus datos.</div>
-        {/* Mensaje de verificación */}
-        <div className="text-xs text-indigo-500 text-center mb-2">Te enviaremos un correo para verificar tu cuenta.</div>
-        {/* Beneficios */}
-        <ul className="w-full mt-4 text-xs text-gray-600 space-y-1 border-t pt-4">
-          <li className="flex items-center gap-2">✅ Apps esenciales sin anuncios</li>
-          <li className="flex items-center gap-2">✅ Una sola cuenta para todo</li>
-          <li className="flex items-center gap-2">✅ Siempre puedes cancelar</li>
-        </ul>
+        )}
       </div>
     </div>
   );

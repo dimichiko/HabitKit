@@ -9,20 +9,6 @@ const apiClient = axios.create({
   }
 });
 
-// Usamos un "interceptor" para modificar todas las peticiones ANTES de que se envíen.
-apiClient.interceptors.request.use(config => {
-  // 1. Obtenemos el token del localStorage
-  const token = localStorage.getItem('token');
-
-  // 2. Si el token existe, lo añadimos a las cabeceras (headers)
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-}, error => {
-  return Promise.reject(error);
-});
-
 // Interceptor de respuesta para manejar errores 401 automáticamente
 apiClient.interceptors.response.use(
   (response) => {

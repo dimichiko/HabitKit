@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../shared/components/Header';
-import { FaEye, FaEyeSlash, FaGlobeEurope, FaEnvelope, FaLock, FaGoogle, FaGithub, FaApple, FaShieldAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../shared/context/UserContext';
-import apiClient from '../apps/habitkit/utils/api';
 
 interface FormErrors {
   email?: string;
@@ -27,8 +25,22 @@ const LoginPage = () => {
   const [forgotEmail, setForgotEmail] = useState('');
   const [forgotSent, setForgotSent] = useState(false);
   const [forgotError, setForgotError] = useState('');
+  const [showResend, setShowResend] = useState(false);
+  const [resendEmail, setResendEmail] = useState('');
+  const [resendStatus, setResendStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [resendMsg, setResendMsg] = useState('');
   const navigate = useNavigate();
-  const { login } = useUser();
+  const { login, user, hasAppAccess, getAvailableApps } = useUser();
+
+  useEffect(() => {
+    if (user) {
+      if (getAvailableApps().length > 0) {
+        navigate('/apps');
+      } else {
+        navigate('/');
+      }
+    }
+  }, [user]);
 
   const validateField = (name: string, value: string) => {
     let error = '';
@@ -73,47 +85,24 @@ const LoginPage = () => {
     setErrors({});
     
     try {
-      // Llamada real al backend
-      const loginData: {
-        email: string;
-        password: string;
-        twoFactorToken?: string;
-      } = {
-        email: formData.email,
-        password: formData.password
-      };
-
-      if (requiresTwoFactor) {
-        loginData.twoFactorToken = twoFactorToken;
-      }
-
-      const response = await apiClient.post('/auth/login', loginData);
-
-      if (response.data && response.data.success) {
-        // Login usando el contexto
-        await login(formData.email, formData.password);
-        
-        // Recordar email si está marcado
-        if (remember) {
-          localStorage.setItem('rememberedEmail', formData.email);
-        } else {
-          localStorage.removeItem('rememberedEmail');
-        }
-        
-        // Limpiar formulario
-        setFormData({ email: remember ? formData.email : '', password: '' });
-        setTwoFactorToken('');
-        setRequiresTwoFactor(false);
-        
-        // Redirigir
-        navigate('/');
-        
+      // Login usando el contexto
+      await login(formData.email, formData.password);
+      
+      // Recordar email si está marcado
+      if (remember) {
+        localStorage.setItem('rememberedEmail', formData.email);
       } else {
-        setErrors({ submit: 'Error en el servidor. Inténtalo de nuevo.' });
+        localStorage.removeItem('rememberedEmail');
       }
       
-    } catch {
-      setErrors({ submit: 'Error de conexión. Verifica tu internet.' });
+      // Limpiar formulario
+      setFormData({ email: remember ? formData.email : '', password: '' });
+      setTwoFactorToken('');
+      setRequiresTwoFactor(false);
+      
+    } catch (error: any) {
+      const errorMessage = error.response?.data?.message || 'Error de conexión. Verifica tu internet.';
+      setErrors({ submit: errorMessage });
     } finally {
       setIsLoading(false);
     }
@@ -135,10 +124,45 @@ const LoginPage = () => {
     setForgotError('');
     setForgotSent(false);
     try {
-      await apiClient.post('/auth/forgot-password', { email: forgotEmail });
-      setForgotSent(true);
+      const response = await fetch('/api/auth/reset-password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: forgotEmail }),
+      });
+      
+      if (response.ok) {
+        setForgotSent(true);
+      } else {
+        setForgotError('No se pudo enviar el correo. Intenta de nuevo.');
+      }
     } catch {
       setForgotError('No se pudo enviar el correo. Intenta de nuevo.');
+    }
+  };
+
+  const handleResendVerification = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setResendStatus('loading');
+    setResendMsg('');
+    try {
+      const response = await fetch('/api/auth/resend-verification', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: resendEmail })
+      });
+      if (response.ok) {
+        setResendStatus('success');
+        setResendMsg('Correo de verificación reenviado. Revisa tu bandeja de entrada.');
+      } else {
+        const data = await response.json();
+        setResendStatus('error');
+        setResendMsg(data.message || 'No se pudo reenviar el correo.');
+      }
+    } catch {
+      setResendStatus('error');
+      setResendMsg('No se pudo reenviar el correo.');
     }
   };
 
@@ -360,6 +384,17 @@ const LoginPage = () => {
               </div>
             </>
           )}
+
+          {/* Botón para mostrar el modal de reenviar verificación */}
+          <div className="mt-4 w-full text-center">
+            <button
+              type="button"
+              className="text-indigo-600 underline text-sm hover:text-indigo-800"
+              onClick={() => setShowResend(true)}
+            >
+              ¿No recibiste el correo? Reenviar verificación
+            </button>
+          </div>
         </div>
         
         {/* Footer mejorado */}
@@ -391,6 +426,36 @@ const LoginPage = () => {
                 <button type="submit" className="w-full bg-indigo-600 text-white py-2 rounded-lg font-semibold hover:bg-indigo-700">Enviar enlace</button>
               </form>
             )}
+          </div>
+        </div>
+      )}
+
+      {/* Modal simple para reenviar verificación */}
+      {showResend && (
+        <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
+          <div className="bg-white rounded-2xl shadow-lg p-8 max-w-sm w-full relative">
+            <button className="absolute top-2 right-2 text-gray-400 hover:text-gray-700" onClick={() => setShowResend(false)}>&times;</button>
+            <h3 className="text-lg font-bold mb-2 text-indigo-700">Reenviar verificación</h3>
+            <form onSubmit={handleResendVerification} className="space-y-4">
+              <input
+                type="email"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500"
+                placeholder="Tu email"
+                value={resendEmail}
+                onChange={e => setResendEmail(e.target.value)}
+                required
+              />
+              <button
+                type="submit"
+                className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-4 py-2 rounded-xl font-medium hover:from-indigo-700 hover:to-purple-700 transition-colors disabled:opacity-50"
+                disabled={resendStatus === 'loading'}
+              >
+                {resendStatus === 'loading' ? 'Enviando...' : 'Reenviar correo'}
+              </button>
+              {resendMsg && (
+                <div className={`text-sm ${resendStatus === 'success' ? 'text-green-600' : 'text-red-600'}`}>{resendMsg}</div>
+              )}
+            </form>
           </div>
         </div>
       )}

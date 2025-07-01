@@ -23,24 +23,56 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('register')
-  async register(@Body() body: RegisterDtoType) {
-    return this.authService.register(body);
+  async register(@Body() data: RegisterDtoType) {
+    return this.authService.register(data);
   }
 
   @Post('login')
-  async login(@Body() body: LoginDtoType) {
-    return this.authService.login(body);
+  async login(@Body() data: LoginDtoType) {
+    return this.authService.login(data);
   }
 
   @Post('refresh')
-  @UseGuards(JwtAuthGuard)
-  async refresh(@Request() req: RequestWithUser) {
-    return this.authService.refresh(req.user);
+  async refresh(@Body() data: { refreshToken: string }) {
+    // Aquí deberías validar el refresh token y generar nuevos tokens
+    return { message: 'Refresh token endpoint' };
   }
 
-  @Get('profile')
   @UseGuards(JwtAuthGuard)
+  @Get('profile')
   async getProfile(@Request() req: RequestWithUser) {
     return this.authService.getProfile(req.user);
+  }
+
+  @Post('verify-email')
+  async verifyEmail(@Body() data: { token: string }) {
+    return this.authService.verifyEmail(data.token);
+  }
+
+  @Post('resend-verification')
+  async resendVerification(@Body() data: { email: string }) {
+    return this.authService.resendVerification(data.email);
+  }
+
+  @Post('reset-password')
+  async resetPassword(@Body() data: { email: string }) {
+    return this.authService.resetPassword(data.email);
+  }
+
+  @Post('confirm-password-reset')
+  async confirmPasswordReset(@Body() data: { token: string; newPassword: string }) {
+    return this.authService.confirmPasswordReset(data.token, data.newPassword);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('enable-2fa')
+  async enableTwoFactor(@Request() req: RequestWithUser) {
+    return this.authService.enableTwoFactor(req.user.sub);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('verify-2fa')
+  async verifyTwoFactor(@Request() req: RequestWithUser, @Body() data: { code: string }) {
+    return this.authService.verifyTwoFactor(req.user.sub, data.code);
   }
 }

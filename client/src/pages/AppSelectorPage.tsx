@@ -16,8 +16,7 @@ interface App {
 
 const AppSelectorPage: React.FC = () => {
   const navigate = useNavigate();
-  const { user, hasAppAccess, canUpgradePlan, getAvailableApps } = useUserContext();
-  const [loading, setLoading] = useState(true);
+  const { user, hasAppAccess, canUpgradePlan, getAvailableApps, loading } = useUserContext();
   const [selectedApp, setSelectedApp] = useState<string | null>(null);
 
   const apps: App[] = [
@@ -77,7 +76,7 @@ const AppSelectorPage: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-white to-pink-100 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">Cargando...</p>
@@ -87,10 +86,10 @@ const AppSelectorPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Header appName="Lifehub" />
-
+    <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-white to-pink-100">
+      <Header appName="LifeHub" />
+      
+      <div className="pt-28 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
@@ -103,7 +102,7 @@ const AppSelectorPage: React.FC = () => {
 
         {/* Plan Status */}
         {user && (
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
+          <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-6 mb-8">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-semibold text-gray-900">Tu Plan Actual</h2>
               <PlanStatusBadge plan={user.plan} />
@@ -129,7 +128,7 @@ const AppSelectorPage: React.FC = () => {
             <div
               key={app.id}
               onClick={() => handleAppSelect(app)}
-              className={`bg-white rounded-lg shadow-sm p-6 cursor-pointer transition-all duration-200 hover:shadow-md hover:scale-105 ${
+              className={`bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-6 cursor-pointer transition-all duration-200 hover:shadow-xl hover:scale-105 ${
                 !app.available || !hasAppAccess(app.id) ? 'opacity-50 cursor-not-allowed' : ''
               }`}
             >
@@ -157,7 +156,7 @@ const AppSelectorPage: React.FC = () => {
         {/* Upgrade CTA */}
         {canUpgradePlan() && (
           <div className="mt-12 text-center">
-            <div className="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg p-8 text-white">
+            <div className="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-8 text-white shadow-xl">
               <h3 className="text-2xl font-bold mb-4">
                 ¿Necesitas más aplicaciones?
               </h3>
@@ -166,7 +165,7 @@ const AppSelectorPage: React.FC = () => {
               </p>
               <button
                 onClick={() => window.location.href = '/pricing'}
-                className="bg-white text-indigo-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition"
+                className="bg-white text-indigo-600 px-8 py-3 rounded-xl font-semibold hover:bg-gray-100 transition-all duration-200 shadow-lg hover:shadow-xl"
               >
                 Ver Planes
               </button>

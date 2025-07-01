@@ -85,85 +85,122 @@ const ResetPasswordPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 to-white px-2">
-      <div className="bg-white rounded-xl shadow-lg p-8 max-w-md w-full flex flex-col items-center" style={{paddingTop: 40, paddingBottom: 40}}>
+    <div className="h-screen flex items-center justify-center bg-gradient-to-br from-indigo-100 via-white to-pink-100 px-4 pt-28 overflow-hidden">
+      <div className="bg-white rounded-2xl shadow-lg p-8 max-w-lg w-full max-h-[calc(100vh-8rem)] overflow-y-auto md:overflow-y-visible">
         {/* Logo y branding */}
-        <div className="flex flex-col items-center mb-6">
-          <span className="text-4xl mb-2" aria-label="Lifehub logo">🌐</span>
-          <h1 className="text-2xl font-bold text-indigo-700 mb-1">Lifehub</h1>
-          <p className="text-gray-500 text-sm text-center">Crea una nueva contraseña segura para tu cuenta de Lifehub</p>
+        <div className="flex flex-col items-center mb-8">
+          <span className="text-4xl mb-4" aria-label="Lifehub logo">🌐</span>
+          <h1 className="text-3xl font-extrabold text-gray-900 mb-2">Cambiar contraseña</h1>
+          <p className="text-gray-600 text-center">Crea una nueva contraseña segura para tu cuenta de Lifehub</p>
         </div>
+
         {success ? (
-          <div className="text-green-600 text-center">Contraseña actualizada. Redirigiendo...</div>
+          <div className="text-center">
+            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span className="text-3xl">✅</span>
+            </div>
+            <h2 className="text-2xl font-bold text-gray-800 mb-2">¡Contraseña actualizada!</h2>
+            <p className="text-gray-600">Serás redirigido al login en unos segundos...</p>
+          </div>
         ) : (
-          <form className="w-full space-y-5" onSubmit={handleSubmit} autoComplete="off">
+          <form className="space-y-6" onSubmit={handleSubmit} autoComplete="off">
             {/* Input contraseña */}
-            <div className="relative">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">🔒</span>
-              <input
-                type={showPassword ? 'text' : 'password'}
-                className="w-full border rounded-lg pl-10 pr-10 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 transition-colors"
-                placeholder="Nueva contraseña"
-                value={formData.password}
-                onChange={handleInputChange('password')}
-                required
-                aria-label="Nueva contraseña"
-                minLength={8}
-              />
-              <button 
-                type="button" 
-                aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-indigo-600"
-                tabIndex={-1}
-                onClick={() => setShowPassword(v => !v)}
-              >
-                {showPassword ? '🙈' : '👁️'}
-              </button>
+            <div>
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">Nueva contraseña</label>
+              <div className="relative">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">🔒</span>
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  className="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
+                  placeholder="Nueva contraseña"
+                  value={formData.password}
+                  onChange={handleInputChange('password')}
+                  required
+                  aria-label="Nueva contraseña"
+                  minLength={8}
+                />
+                <button 
+                  type="button" 
+                  aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-indigo-600"
+                  tabIndex={-1}
+                  onClick={() => setShowPassword(v => !v)}
+                >
+                  {showPassword ? '🙈' : '👁️'}
+                </button>
+              </div>
             </div>
+
             {/* Indicador de fuerza */}
-            <div className="flex items-center gap-2 mb-1">
-              <div className={`h-2 rounded-full transition-all duration-300 ${strength.color}`} style={{width: 60}}></div>
-              <span className={`text-xs font-semibold ${strength.color}`}>{strength.label}</span>
-            </div>
-            {/* Validaciones en vivo */}
-            <ul className="text-xs text-gray-500 mb-2 space-y-1">
-              <li className={isLengthValid ? 'text-green-600' : ''}>• Mínimo 8 caracteres</li>
-              <li className={hasUpperCase ? 'text-green-600' : ''}>• Al menos una mayúscula</li>
-              <li className={hasLowerCase ? 'text-green-600' : ''}>• Al menos una minúscula</li>
-              <li className={hasNumbers ? 'text-green-600' : ''}>• Al menos un número</li>
-              <li className={hasSpecialChar ? 'text-green-600' : ''}>• Al menos un símbolo</li>
-            </ul>
+            {formData.password && (
+              <div className="space-y-3">
+                <div className="flex items-center gap-2">
+                  <div className={`h-2 rounded-full transition-all duration-300 ${strength.color}`} style={{width: 60}}></div>
+                  <span className={`text-xs font-semibold ${strength.color.replace('bg-', 'text-')}`}>{strength.label}</span>
+                </div>
+                
+                {/* Validaciones en vivo */}
+                <ul className="text-xs text-gray-500 space-y-1">
+                  <li className={isLengthValid ? 'text-green-600' : ''}>• Mínimo 8 caracteres</li>
+                  <li className={hasUpperCase ? 'text-green-600' : ''}>• Al menos una mayúscula</li>
+                  <li className={hasLowerCase ? 'text-green-600' : ''}>• Al menos una minúscula</li>
+                  <li className={hasNumbers ? 'text-green-600' : ''}>• Al menos un número</li>
+                  <li className={hasSpecialChar ? 'text-green-600' : ''}>• Al menos un símbolo</li>
+                </ul>
+              </div>
+            )}
+
             {/* Input confirmar */}
-            <div className="relative">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">🔒</span>
-              <input
-                type={showConfirm ? 'text' : 'password'}
-                className="w-full border rounded-lg pl-10 pr-10 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 transition-colors"
-                placeholder="Confirmar contraseña"
-                value={formData.confirm}
-                onChange={handleInputChange('confirm')}
-                required
-                aria-label="Confirmar contraseña"
-                minLength={8}
-              />
-              <button 
-                type="button" 
-                aria-label={showConfirm ? 'Ocultar contraseña' : 'Mostrar contraseña'}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-indigo-600"
-                tabIndex={-1}
-                onClick={() => setShowConfirm(v => !v)}
-              >
-                {showConfirm ? '🙈' : '👁️'}
-              </button>
+            <div>
+              <label htmlFor="confirm" className="block text-sm font-medium text-gray-700 mb-2">Confirmar contraseña</label>
+              <div className="relative">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">🔒</span>
+                <input
+                  type={showConfirm ? 'text' : 'password'}
+                  className="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
+                  placeholder="Confirmar contraseña"
+                  value={formData.confirm}
+                  onChange={handleInputChange('confirm')}
+                  required
+                  aria-label="Confirmar contraseña"
+                  minLength={8}
+                />
+                <button 
+                  type="button" 
+                  aria-label={showConfirm ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-indigo-600"
+                  tabIndex={-1}
+                  onClick={() => setShowConfirm(v => !v)}
+                >
+                  {showConfirm ? '🙈' : '👁️'}
+                </button>
+              </div>
             </div>
+
             {/* Coincidencia */}
-            <div className="text-xs mb-2" aria-live="polite">
-              {formData.confirm.length > 0 && (passwordsMatch ? <span className="text-green-600">Las contraseñas coinciden</span> : <span className="text-red-500">Las contraseñas no coinciden</span>)}
-            </div>
-            {error && <div className="text-red-500 text-sm" aria-live="assertive">{error}</div>}
+            {formData.confirm.length > 0 && (
+              <div className="text-sm" aria-live="polite">
+                {passwordsMatch ? (
+                  <span className="text-green-600 flex items-center gap-1">
+                    <span>✅</span> Las contraseñas coinciden
+                  </span>
+                ) : (
+                  <span className="text-red-500 flex items-center gap-1">
+                    <span>❌</span> Las contraseñas no coinciden
+                  </span>
+                )}
+              </div>
+            )}
+
+            {error && (
+              <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg text-sm" aria-live="assertive">
+                {error}
+              </div>
+            )}
+
             <button
               type="submit"
-              className={`w-full bg-indigo-600 text-white py-3 rounded-lg font-semibold shadow-lg hover:bg-indigo-700 hover:shadow-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 ${isLoading ? 'animate-pulse' : ''}`}
+              className={`w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 rounded-lg font-semibold shadow-lg hover:from-indigo-700 hover:to-purple-700 hover:shadow-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 ${isLoading ? 'animate-pulse' : ''}`}
               disabled={isLoading || !isLengthValid || !hasUpperCase || !hasLowerCase || !hasNumbers || !hasSpecialChar || !passwordsMatch}
               aria-label="Cambiar contraseña"
             >
@@ -176,11 +213,15 @@ const ResetPasswordPage: React.FC = () => {
                 'Cambiar contraseña'
               )}
             </button>
-            <div className="text-xs text-gray-400 mt-2 text-center">
-              ℹ️ Este enlace es válido por una hora. Si no solicitaste este cambio, ignora este mensaje.
-            </div>
-            <div className="text-center mt-4">
-              <a href="mailto:soporte@lifehub.app" className="text-indigo-600 hover:underline text-sm" tabIndex={0}>¿Tienes problemas? Contáctanos</a>
+
+            <div className="text-xs text-gray-500 text-center space-y-2">
+              <p>ℹ️ Este enlace es válido por una hora. Si no solicitaste este cambio, ignora este mensaje.</p>
+              <p>
+                ¿Tienes problemas?{' '}
+                <a href="mailto:soporte@lifehub.app" className="text-indigo-600 hover:underline">
+                  Contáctanos
+                </a>
+              </p>
             </div>
           </form>
         )}

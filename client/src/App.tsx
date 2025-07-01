@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { UserProvider } from './shared/context/UserContext';
 import { MealProvider } from './apps/caloriekit/context/MealContext';
 
@@ -21,6 +21,8 @@ import CheckoutPage from './pages/CheckoutPage';
 import FullAccessPage from './pages/FullAccessPage';
 import IdeasPage from './pages/IdeasPage';
 import TrainingKitProductPage from './pages/TrainingKitProductPage';
+import NotFoundPage from './pages/NotFoundPage';
+import ServerErrorPage from './pages/ServerErrorPage';
 
 // Apps
 import AppSelectorPage from './pages/AppSelectorPage';
@@ -30,6 +32,7 @@ import InvoiceKitApp from './apps/invoicekit/screens/InvoiceKitApp';
 
 // Componentes
 import PrivateRoute from './shared/components/PrivateRoute';
+import ProtectedAppRoute from './shared/components/ProtectedAppRoute';
 import ErrorBoundary from './shared/components/ErrorBoundary';
 
 // Estilos
@@ -59,6 +62,8 @@ const App: React.FC = () => {
                 <Route path="/full-access" element={<FullAccessPage />} />
                 <Route path="/ideas" element={<IdeasPage />} />
                 <Route path="/training-kit" element={<TrainingKitProductPage />} />
+                <Route path="/404" element={<NotFoundPage />} />
+                <Route path="/500" element={<ServerErrorPage />} />
 
                 {/* Rutas protegidas */}
                 <Route 
@@ -90,30 +95,30 @@ const App: React.FC = () => {
                 <Route 
                   path="/apps/caloriekit/*" 
                   element={
-                    <PrivateRoute>
+                    <ProtectedAppRoute appName="caloriekit">
                       <CalorieKitApp />
-                    </PrivateRoute>
+                    </ProtectedAppRoute>
                   } 
                 />
                 <Route 
                   path="/apps/habitkit/*" 
                   element={
-                    <PrivateRoute>
+                    <ProtectedAppRoute appName="habitkit">
                       <HabitKitApp />
-                    </PrivateRoute>
+                    </ProtectedAppRoute>
                   } 
                 />
                 <Route 
                   path="/apps/invoicekit/*" 
                   element={
-                    <PrivateRoute>
+                    <ProtectedAppRoute appName="invoicekit">
                       <InvoiceKitApp />
-                    </PrivateRoute>
+                    </ProtectedAppRoute>
                   } 
                 />
 
                 {/* Ruta por defecto */}
-                <Route path="*" element={<Navigate to="/" replace />} />
+                <Route path="*" element={<NotFoundPage />} />
               </Routes>
             </div>
           </Router>

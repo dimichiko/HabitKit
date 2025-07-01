@@ -50,6 +50,33 @@ export class User extends Document {
 
   @Prop({ default: 'limited' })
   supportLevel: string;
+
+  // Campos para verificación de email
+  @Prop({ default: false })
+  isEmailVerified: boolean;
+
+  @Prop()
+  emailVerificationToken?: string;
+
+  @Prop()
+  emailVerificationExpires?: Date;
+
+  // Campos para reset de contraseña
+  @Prop()
+  passwordResetToken?: string;
+
+  @Prop()
+  passwordResetExpires?: Date;
+
+  // Campos para 2FA
+  @Prop({ default: false })
+  twoFactorEnabled: boolean;
+
+  @Prop()
+  twoFactorCode?: string;
+
+  @Prop()
+  twoFactorCodeExpires?: Date;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
