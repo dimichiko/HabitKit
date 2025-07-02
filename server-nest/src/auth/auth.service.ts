@@ -15,6 +15,7 @@ import * as crypto from 'crypto';
 
 interface JwtPayload {
   sub: string;
+  userId?: string;
   email: string;
 }
 
@@ -307,7 +308,8 @@ export class AuthService {
       throw new UnauthorizedException('Usuario no autenticado');
     }
 
-    const payload = { sub: user.sub, email: user.email };
+    const userId = user.userId || user.sub;
+    const payload = { sub: userId, email: user.email };
     const token = this.jwtService.sign(payload);
     const refreshToken = this.jwtService.sign(payload, { expiresIn: '7d' });
 
@@ -319,13 +321,14 @@ export class AuthService {
 
   async getProfile(user: JwtPayload) {
     console.log('AuthService - getProfile llamado con user:', user);
-    console.log('AuthService - user.sub (userId):', user.sub);
+    console.log('AuthService - user.userId (userId):', user.userId || user.sub);
 
     if (!user) {
       throw new UnauthorizedException('Usuario no autenticado');
     }
 
-    const userDoc = await this.userModel.findById(user.sub);
+    const userId = user.userId || user.sub;
+    const userDoc = await this.userModel.findById(userId);
     console.log('AuthService - userDoc encontrado:', userDoc);
 
     if (!userDoc) {

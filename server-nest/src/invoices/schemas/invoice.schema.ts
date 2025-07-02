@@ -1,32 +1,51 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 
+export type InvoiceDocument = Invoice & Document;
+
 @Schema({ timestamps: true })
-export class Invoice extends Document {
+export class Invoice {
   @Prop({ type: Types.ObjectId, ref: 'User', required: true })
-  user: Types.ObjectId;
+  userId: Types.ObjectId;
 
-  @Prop({ required: true })
-  clientName: string;
+  @Prop({ type: Types.ObjectId, ref: 'Empresa', required: true })
+  empresaId: Types.ObjectId;
 
-  @Prop()
-  clientEmail?: string;
+  @Prop({ type: Types.ObjectId, ref: 'Cliente', required: true })
+  clienteId: Types.ObjectId;
 
   @Prop({ type: [Object], default: [] })
   items: Array<{
-    description: string;
-    quantity: number;
-    price: number;
+    nombre: string;
+    cantidad: number;
+    precio: number;
+    subtotal?: number;
+    impuestos?: string;
   }>;
+
+  @Prop({ required: true, default: 0 })
+  subtotal: number;
 
   @Prop({ required: true, default: 0 })
   total: number;
 
-  @Prop({ default: 'pending' })
-  status: 'pending' | 'paid' | 'cancelled';
+  @Prop({ default: 'factura' })
+  tipo: 'factura' | 'presupuesto';
+
+  @Prop({ default: 'pendiente' })
+  status: 'pendiente' | 'pagada' | 'cancelada';
 
   @Prop()
-  invoiceNumber?: string;
+  fechaEmision?: Date;
+
+  @Prop()
+  fechaVencimiento?: Date;
+
+  @Prop()
+  numero?: string;
+
+  @Prop()
+  notas?: string;
 }
 
 export const InvoiceSchema = SchemaFactory.createForClass(Invoice);
