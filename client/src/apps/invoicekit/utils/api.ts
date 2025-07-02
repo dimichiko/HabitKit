@@ -1,7 +1,7 @@
 import axios, { InternalAxiosRequestConfig } from 'axios';
 import { config } from '../../../config';
 
-const API_URL = config.API_URL || 'http://localhost:5051/api';
+const API_URL = config.API_URL || '/api';
 
 const apiClient = axios.create({
   baseURL: API_URL,
@@ -65,7 +65,7 @@ export const toggleFacturaPayment = async (id: string) => {
     throw new Error('No hay token de autenticación');
   }
 
-  const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5051/api'}/invoices/${id}/toggle-payment`, {
+  const response = await fetch(`${process.env.REACT_APP_API_URL || '/api'}/invoices/${id}/toggle-payment`, {
     method: 'PATCH',
     headers: {
       'Authorization': `Bearer ${token}`,

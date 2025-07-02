@@ -26,13 +26,15 @@ interface InvoiceItem {
 
 interface Cliente {
   _id: string;
-  nombre: string;
+  name: string;
+  email?: string;
 }
 
 interface Producto {
   _id: string;
-  nombre: string;
-  precio: number;
+  name: string;
+  price: number;
+  description?: string;
 }
 
 interface Company {
@@ -80,10 +82,19 @@ const FacturasPage = ({ invoices, setInvoices, clientes, productos, currentCompa
   const handleShowForm = (factura: Invoice | null = null) => {
     if (factura) {
       setEditingFactura(factura);
+      // Formatear fecha para input type="date"
+      const fechaVencimiento = factura.fechaVencimiento 
+        ? new Date(factura.fechaVencimiento).toISOString().split('T')[0]
+        : '';
+      
       setForm({ 
         clienteId: factura.clienteId || '', 
-        items: factura.items,
-        fechaVencimiento: factura.fechaVencimiento || ''
+        items: factura.items.map(item => ({
+          ...item,
+          precio: Number(item.precio) || 0,
+          cantidad: Number(item.cantidad) || 0
+        })),
+        fechaVencimiento
       });
     } else {
       setEditingFactura(null);
@@ -95,40 +106,104 @@ const FacturasPage = ({ invoices, setInvoices, clientes, productos, currentCompa
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    // Validaciones
+    if (!form.clienteId) {
+      alert('Debes seleccionar un cliente');
+      return;
+    }
+    
+    if (form.items.length === 0) {
+      alert('Debes agregar al menos un producto');
+      return;
+    }
+    
+    // Validar que hay una empresa seleccionada
+    if (!currentCompany || !currentCompany._id) {
+      console.error('No hay empresa seleccionada');
+      return;
+    }
+    
     try {
+      const facturaData = {
+        empresaId: currentCompany._id,
+        clienteId: form.clienteId,
+        items: form.items.map(item => ({
+          ...item,
+          precio: Number(item.precio),
+          cantidad: Number(item.cantidad),
+          subtotal: Number(item.precio) * Number(item.cantidad)
+        })),
+        fechaVencimiento: form.fechaVencimiento || undefined,
+        subtotal: form.subtotal || 0,
+        total: form.total || 0,
+        tipo: 'factura' as const,
+      };
+      
+      console.log('🔄 Enviando datos de factura:', facturaData);
+      
       if (editingFactura) {
         // Actualizar factura existente
-        await updateFactura(editingFactura._id, form as any);
+        const updatedFactura = await updateFactura(editingFactura._id, facturaData);
+        console.log('✅ Factura actualizada:', updatedFactura);
+        setInvoices(invoices.map(inv => inv._id === editingFactura._id ? updatedFactura : inv));
       } else {
         // Crear nueva factura
-        await createFactura(form as any);
+        const newFactura = await createFactura(facturaData);
+        console.log('✅ Factura creada:', newFactura);
+        setInvoices([...invoices, newFactura]);
       }
       
       setShowForm(false);
       setEditingFactura(null);
-      // Recargar facturas
-      window.location.reload();
     } catch (error) {
       console.error('Error saving factura:', error);
+      alert('Error al guardar la factura: ' + (error instanceof Error ? error.message : 'Error desconocido'));
     }
   };
 
   const handleDelete = async (facturaId: string) => {
-    if (!window.confirm('¿Estás seguro?')) return;
+    const factura = invoices.find(f => f._id === facturaId);
+    const clienteName = factura ? getClienteName(factura.clienteId) : 'esta factura';
+    
+    const confirmed = window.confirm(
+      `¿Estás seguro de que quieres eliminar la factura de "${clienteName}"?\n\n` +
+      'Esta acción no se puede deshacer.'
+    );
+    
+    if (!confirmed) return;
+    
     try {
+      console.log('🗑️ Eliminando factura:', facturaId);
       await deleteFactura(facturaId);
+      console.log('✅ Factura eliminada correctamente');
       setInvoices(invoices.filter((inv: Invoice) => inv._id !== facturaId));
+      alert(`Factura de "${clienteName}" eliminada correctamente.`);
     } catch (error) {
       console.error("Error eliminando factura:", error);
+      alert('Error al eliminar la factura: ' + (error instanceof Error ? error.message : 'Error desconocido'));
     }
   };
 
   const handleTogglePayment = async (facturaId: string) => {
+    const factura = invoices.find(f => f._id === facturaId);
+    const clienteName = factura ? getClienteName(factura.clienteId) : 'esta factura';
+    const newStatus = factura?.pagada ? 'pendiente' : 'pagada';
+    
+    const confirmed = window.confirm(
+      `¿Estás seguro de que quieres marcar la factura de "${clienteName}" como ${newStatus}?`
+    );
+    
+    if (!confirmed) return;
+    
     try {
-        const updatedFactura = await toggleFacturaPayment(facturaId);
-        setInvoices(invoices.map((inv: Invoice) => inv._id === facturaId ? updatedFactura : inv));
+      console.log('🔄 Cambiando estado de pago:', facturaId, newStatus);
+      const updatedFactura = await toggleFacturaPayment(facturaId);
+      console.log('✅ Estado de pago actualizado:', updatedFactura);
+      setInvoices(invoices.map((inv: Invoice) => inv._id === facturaId ? updatedFactura : inv));
+      alert(`Factura de "${clienteName}" marcada como ${newStatus}.`);
     } catch (error) {
-        console.error("Error cambiando estado de pago:", error);
+      console.error("Error cambiando estado de pago:", error);
+      alert('Error al cambiar el estado de pago: ' + (error instanceof Error ? error.message : 'Error desconocido'));
     }
   };
 
@@ -144,7 +219,7 @@ const FacturasPage = ({ invoices, setInvoices, clientes, productos, currentCompa
   // Función para obtener el nombre del cliente
   const getClienteName = (clienteId: string): string => {
     const cliente = clientes.find((c: Cliente) => c._id === clienteId);
-    return cliente ? cliente.nombre : 'Cliente no encontrado';
+    return cliente ? cliente.name : 'Cliente no encontrado';
   };
 
   // Métrica mensual
@@ -254,7 +329,7 @@ const FacturasPage = ({ invoices, setInvoices, clientes, productos, currentCompa
             <label htmlFor="clienteId">Cliente:</label>
             <select id="clienteId" value={form.clienteId} onChange={(e: React.ChangeEvent<HTMLSelectElement>)=>setForm(f=>({...f, clienteId:e.target.value}))} className="border rounded p-2 ml-2">
               <option value="">Selecciona</option>
-              {clientes.map((c: Cliente, i: number)=>(<option key={i} value={c._id}>{c.nombre}</option>))}
+              {clientes.map((c: Cliente, i: number)=>(<option key={i} value={c._id}>{c.name}</option>))}
             </select>
           </div>
           <div className="mb-2">
@@ -265,11 +340,15 @@ const FacturasPage = ({ invoices, setInvoices, clientes, productos, currentCompa
             <label htmlFor="productos">Productos:</label>
             <div className="flex gap-2 mt-2">
               <select id="productos" value={item.nombre} onChange={(e: React.ChangeEvent<HTMLSelectElement>)=>{
-                const producto = productos.find((p: Producto) => p.nombre === e.target.value);
-                setItem({ nombre: e.target.value, cantidad: 1, precio: producto ? producto.precio : 0 });
+                const producto = productos.find((p: Producto) => p.name === e.target.value);
+                setItem({ 
+                  nombre: e.target.value, 
+                  cantidad: 1, 
+                  precio: producto ? Number(producto.price) : 0 
+                });
               }} className="border rounded p-2 flex-1">
                 <option value="">Selecciona producto</option>
-                {productos.map((p: Producto)=>(<option key={p._id} value={p.nombre}>{p.nombre} - ${p.precio}</option>))}
+                {productos.map((p: Producto)=>(<option key={p._id} value={p.name}>{p.name} - ${Number(p.price).toFixed(2)}</option>))}
               </select>
               <input type="number" placeholder="Cant." value={item.cantidad} onChange={(e: React.ChangeEvent<HTMLInputElement>)=>setItem({...item, cantidad: parseInt(e.target.value) || 0})} className="border rounded p-2 w-20" />
               <input type="number" placeholder="Precio" value={item.precio} onChange={(e: React.ChangeEvent<HTMLInputElement>)=>setItem({...item, precio: parseFloat(e.target.value) || 0})} className="border rounded p-2 w-24" />
@@ -286,9 +365,9 @@ const FacturasPage = ({ invoices, setInvoices, clientes, productos, currentCompa
             <div className="max-h-32 overflow-y-auto">
               {form.items.map((it: InvoiceItem, i: number) => (
                 <div key={it.id || i} className="flex justify-between items-center p-2 bg-gray-50 rounded mb-1">
-                  <span>{it.nombre} x {it.cantidad}</span>
+                  <span>{it.nombre} x {Number(it.cantidad)}</span>
                   <div className="flex items-center gap-2">
-                    <span>${(it.cantidad * it.precio).toFixed(2)}</span>
+                    <span>${(Number(it.cantidad) * Number(it.precio)).toFixed(2)}</span>
                     <button type="button" onClick={()=>setForm(f=>({...f, items: f.items.filter((_, index: number) => index !== i)}))} className="text-red-500">×</button>
                   </div>
                 </div>
@@ -296,7 +375,7 @@ const FacturasPage = ({ invoices, setInvoices, clientes, productos, currentCompa
             </div>
           </div>
           <div className="mb-4 text-right">
-            <strong>Total: ${form.total?.toFixed(2) || '0.00'}</strong>
+            <strong>Total: ${(form.total || 0).toFixed(2)}</strong>
           </div>
           <div className="flex gap-2">
             <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded flex-1">Guardar</button>

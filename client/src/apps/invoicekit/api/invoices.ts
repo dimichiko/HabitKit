@@ -9,30 +9,36 @@ interface EmpresaData {
 }
 
 interface ClienteData {
-  name: string;
+  nombre: string;
   email: string;
-  phone: string;
-  address: string;
-  taxId: string;
+  telefono?: string;
+  direccion?: string;
+  taxId?: string;
   empresaId: string;
 }
 
 interface ProductoData {
-  name: string;
-  description: string;
-  price: number;
+  nombre: string;
+  descripcion?: string;
+  precio: number;
   empresaId: string;
 }
 
 interface FacturaData {
-  clienteId: string;
   empresaId: string;
+  clienteId: string;
   items: Array<{
-    productoId: string;
-    quantity: number;
-    price: number;
+    nombre: string;
+    cantidad: number;
+    precio: number;
+    subtotal?: number;
+    impuestos?: string;
   }>;
-  tipo: 'factura' | 'presupuesto';
+  fechaVencimiento?: string;
+  subtotal: number;
+  total: number;
+  tipo?: 'factura' | 'presupuesto';
+  notas?: string;
 }
 
 interface RequestOptions {
@@ -49,7 +55,7 @@ interface InvoiceStats {
   clientesTop: any[];
 }
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5051/api';
+const API_BASE_URL = process.env.REACT_APP_API_URL || '/api';
 
 // Función helper para hacer requests autenticados
 const authenticatedRequest = async (endpoint: string, options: RequestOptions = {}) => {
@@ -168,7 +174,7 @@ export const deleteProducto = async (id: string): Promise<any> => {
 // Facturas
 export const getFacturas = async (empresaId: string): Promise<any[]> => {
   try {
-    return await authenticatedRequest(`/invoices?empresaId=${empresaId}`);
+    return await authenticatedRequest(`/invoices/facturas?empresaId=${empresaId}`);
   } catch (error) {
     console.error('Error obteniendo facturas:', error);
     return [];
@@ -199,6 +205,12 @@ export const updateFacturaType = async (id: string, tipo: 'factura' | 'presupues
   return await authenticatedRequest(`/invoices/facturas/${id}/tipo`, {
     method: 'PATCH',
     body: JSON.stringify({ tipo }),
+  });
+};
+
+export const toggleFacturaPayment = async (id: string): Promise<any> => {
+  return await authenticatedRequest(`/invoices/facturas/${id}/toggle-payment`, {
+    method: 'PATCH',
   });
 };
 

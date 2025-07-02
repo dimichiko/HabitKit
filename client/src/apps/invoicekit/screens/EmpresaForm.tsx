@@ -27,6 +27,7 @@ const EmpresaForm: React.FC<EmpresaFormProps> = ({ onSave, onBack, empresaToEdit
     notes: ''
   });
   const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (empresaToEdit) {
@@ -49,6 +50,7 @@ const EmpresaForm: React.FC<EmpresaFormProps> = ({ onSave, onBack, empresaToEdit
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
+    setError(null);
     try {
       let savedEmpresa: Empresa;
       if (empresaToEdit && empresaToEdit._id) {
@@ -58,7 +60,8 @@ const EmpresaForm: React.FC<EmpresaFormProps> = ({ onSave, onBack, empresaToEdit
       }
       onSave(savedEmpresa);
     } catch (err: unknown) {
-      const errorMessage = err instanceof Error ? err.message : 'Error al guardar la empresa';
+      const errorMessage = err instanceof Error ? err.message : 'No se pudo guardar la empresa. Revisa tu conexión o vuelve a intentarlo.';
+      setError(errorMessage);
       console.error(errorMessage);
     } finally {
       setLoading(false);
@@ -84,6 +87,9 @@ const EmpresaForm: React.FC<EmpresaFormProps> = ({ onSave, onBack, empresaToEdit
         </button>
         <button type="button" onClick={onBack} className="bg-gray-300 px-4 py-2 rounded">Cancelar</button>
       </div>
+      {error && (
+        <div className="bg-red-100 text-red-700 p-2 rounded text-center mb-2">{error}</div>
+      )}
     </form>
   );
 };

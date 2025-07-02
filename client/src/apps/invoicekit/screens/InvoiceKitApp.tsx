@@ -22,11 +22,18 @@ interface Empresa {
 interface Cliente {
   _id: string;
   name: string;
+  email?: string;
+  phone?: string;
+  address?: string;
 }
 
 interface Producto {
   _id: string;
   name: string;
+  price: number;
+  description?: string;
+  categoria?: string;
+  impuestos?: string;
 }
 
 interface Factura {
@@ -76,18 +83,23 @@ const InvoiceKitApp = () => {
       setLoading(true);
       setError(null);
       try {
+        console.log('🔄 Cargando datos iniciales de InvoiceKit...');
         const data = await getEmpresas();
+        console.log('✅ Empresas cargadas:', data.length);
         setEmpresas(data);
+        
         if (data.length === 0) {
+          console.log('📝 No hay empresas, mostrando selector');
           setShowCompanySelector(true);
         } else {
           const lastCompanyId = localStorage.getItem(getUserKey('currentCompanyId'));
           const companyToSelect = data.find((e: Empresa) => e._id === lastCompanyId) || data[0];
+          console.log('🏢 Empresa seleccionada:', companyToSelect.name);
           setCurrentCompany(companyToSelect);
         }
       } catch (err) {
+        console.error('❌ Error cargando datos iniciales:', err);
         setError('No se pudieron cargar los datos de la empresa. Inténtalo de nuevo.');
-        console.error(err);
       } finally {
         setLoading(false);
       }
@@ -99,6 +111,7 @@ const InvoiceKitApp = () => {
   }, [userId, getUserKey]);
 
   const loadCompanyData = async (companyId: string) => {
+    console.log('🔄 Cargando datos de empresa:', companyId);
     setIsCompanyDataLoading(true);
     try {
       const [clientesData, productosData, invoicesData] = await Promise.all([
@@ -106,6 +119,11 @@ const InvoiceKitApp = () => {
         getProductos(companyId),
         getFacturas(companyId),
       ]);
+      console.log('✅ Datos cargados:', { 
+        clientes: clientesData.length, 
+        productos: productosData.length, 
+        facturas: invoicesData.length 
+      });
       setClientes(clientesData);
       setProductos(productosData);
       setInvoices(invoicesData);
