@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import apiClient from '../apps/habitkit/utils/api';
+// import apiClient from '../apps/habitkit/utils/api';
 
 const EditHabitModal = ({ habit, onClose, onHabitUpdated, folders }: { habit: any; onClose: any; onHabitUpdated: any; folders: any }) => {
   const [formData, setFormData] = useState({
@@ -15,9 +15,11 @@ const EditHabitModal = ({ habit, onClose, onHabitUpdated, folders }: { habit: an
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
-      await apiClient.put(`/habits/${habit._id}`, { name: formData.name, color: formData.color, timesPerDay: formData.frequency, folder: formData.folderId });
-      onHabitUpdated(); 
-      onClose(); 
+      // Simular actualización exitosa
+      setTimeout(() => {
+        onHabitUpdated(); 
+        onClose(); 
+      }, 500);
     } catch (error) {
       console.error("Error al actualizar el hábito", error);
     }

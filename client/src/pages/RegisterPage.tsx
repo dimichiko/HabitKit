@@ -1,7 +1,7 @@
 // src/pages/RegisterPage.js
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import apiClient from '../apps/habitkit/utils/api';
+// import apiClient from '../apps/habitkit/utils/api';
 
 interface FormErrors {
   name?: string;
@@ -98,20 +98,12 @@ const RegisterPage = () => {
 
     setIsLoading(true);
     try {
-      const { data } = await apiClient.post('/auth/register', {
-        name: formData.name,
-        email: formData.email,
-        password: formData.password,
-        phone: formData.phone
-      });
-      
-      localStorage.setItem('token', data.token);
-      if (data.user && data.user.role) localStorage.setItem('userRole', data.user.role);
-      
-      // TODO: Enviar correo de bienvenida
-      // await sendWelcomeEmail(data.user.email, data.user.name);
-      
-      navigate('/');
+      // Simular registro exitoso
+      setTimeout(() => {
+        localStorage.setItem('token', 'mock-token');
+        localStorage.setItem('userRole', 'user');
+        navigate('/');
+      }, 1000);
     } catch (error: any) {
       if (error.response?.data?.errors) {
         const newErrors: FormErrors = {};

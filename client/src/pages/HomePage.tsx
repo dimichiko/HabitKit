@@ -131,10 +131,10 @@ const HomePage = () => {
                   Ir a mi cuenta
                 </button>
                 <button
-                  onClick={() => navigate('/apps')}
+                  onClick={() => document.getElementById('apps-section')?.scrollIntoView({ behavior: 'smooth' })}
                   className="bg-white border-2 border-indigo-400 text-indigo-700 px-8 py-4 rounded-xl text-lg font-bold shadow hover:bg-indigo-50 hover:scale-105 transition-all duration-200"
                 >
-                  Explorar apps
+                  Ver apps disponibles
                 </button>
               </>
             ) : (
@@ -176,13 +176,7 @@ const HomePage = () => {
         {/* Sección de apps (lazy) */}
         <Suspense fallback={null}>
           <div id="apps-section">
-            <AppsSection onAppClick={(appPath: string) => {
-              if (!isLogged) {
-                navigate('/register');
-              } else {
-                navigate(appPath);
-              }
-            }} />
+            <AppsSection />
           </div>
         </Suspense>
         {/* Comparativa Free vs Full (lazy) */}

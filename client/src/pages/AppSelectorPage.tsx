@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUserContext } from '../shared/context/UserContext';
 import PlanStatusBadge from '../components/PlanStatusBadge';
@@ -10,14 +10,12 @@ interface App {
   description: string;
   icon: string;
   color: string;
-  path: string;
-  available: boolean;
+  comingSoon: string;
 }
 
 const AppSelectorPage: React.FC = () => {
   const navigate = useNavigate();
-  const { user, hasAppAccess, canUpgradePlan, getAvailableApps, loading } = useUserContext();
-  const [selectedApp, setSelectedApp] = useState<string | null>(null);
+  const { user, loading } = useUserContext();
 
   const apps: App[] = [
     {
@@ -26,8 +24,7 @@ const AppSelectorPage: React.FC = () => {
       description: 'Construye hábitos positivos y rastrea tu progreso diario',
       icon: '✅',
       color: 'bg-blue-500',
-      path: '/apps/habitkit',
-      available: true
+      comingSoon: 'Próximamente en móvil'
     },
     {
       id: 'invoicekit',
@@ -35,8 +32,7 @@ const AppSelectorPage: React.FC = () => {
       description: 'Gestiona facturas y clientes de forma profesional',
       icon: '📄',
       color: 'bg-yellow-500',
-      path: '/apps/invoicekit',
-      available: true
+      comingSoon: 'Próximamente en móvil'
     },
     {
       id: 'trainingkit',
@@ -44,8 +40,7 @@ const AppSelectorPage: React.FC = () => {
       description: 'Planifica y registra tus entrenamientos físicos',
       icon: '💪',
       color: 'bg-green-500',
-      path: '/apps/trainingkit',
-      available: true
+      comingSoon: 'Próximamente en móvil'
     },
     {
       id: 'caloriekit',
@@ -53,26 +48,9 @@ const AppSelectorPage: React.FC = () => {
       name: 'CalorieKit',
       icon: '🍎',
       color: 'bg-red-500',
-      path: '/apps/caloriekit',
-      available: true
+      comingSoon: 'Próximamente en móvil'
     }
   ];
-
-  const handleAppSelect = (app: App): void => {
-    if (app.available && hasAppAccess(app.id)) {
-      setSelectedApp(app.id);
-      navigate(app.path);
-    }
-  };
-
-  const handleAppClick = (appName: string) => {
-    if (hasAppAccess(appName)) {
-      window.location.href = `/apps/${appName}`;
-    } else {
-      // Redirigir a página de upgrade
-      window.location.href = `/pricing?apps=${appName}`;
-    }
-  };
 
   if (loading) {
     return (
@@ -96,7 +74,7 @@ const AppSelectorPage: React.FC = () => {
             Tus Aplicaciones
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Accede a todas las herramientas que necesitas para organizar tu vida
+            Próximamente disponibles en dispositivos móviles
           </p>
         </div>
 
@@ -108,16 +86,10 @@ const AppSelectorPage: React.FC = () => {
               <PlanStatusBadge plan={user.plan} />
             </div>
             
-            {/* Apps activas */}
-            <div className="flex flex-wrap gap-2">
-              {user.activeApps?.map((app: string) => (
-                <span
-                  key={app}
-                  className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium"
-                >
-                  {app}
-                </span>
-              ))}
+            <div className="text-center">
+              <p className="text-gray-600">
+                Estamos trabajando en las versiones móviles de todas las apps
+              </p>
             </div>
           </div>
         )}
@@ -127,51 +99,48 @@ const AppSelectorPage: React.FC = () => {
           {apps.map((app) => (
             <div
               key={app.id}
-              onClick={() => handleAppSelect(app)}
-              className={`bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-6 cursor-pointer transition-all duration-200 hover:shadow-xl hover:scale-105 ${
-                !app.available || !hasAppAccess(app.id) ? 'opacity-50 cursor-not-allowed' : ''
-              }`}
+              className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-6"
             >
               <div className={`w-16 h-16 ${app.color} rounded-lg flex items-center justify-center text-2xl text-white mb-4 mx-auto`}>
                 {app.icon}
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2 text-center">{app.name}</h3>
-              <p className="text-gray-600 text-center text-sm">{app.description}</p>
+              <p className="text-gray-600 text-center text-sm mb-4">{app.description}</p>
               
-              {!app.available && (
-                <div className="mt-4 text-center">
-                  <span className="text-sm text-gray-500">Próximamente</span>
-                </div>
-              )}
-              
-              {app.available && !hasAppAccess(app.id) && (
-                <div className="mt-4 text-center">
-                  <span className="text-sm text-red-500">Actualiza tu plan</span>
-                </div>
-              )}
+              <div className="text-center">
+                <span className="text-xs text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full font-medium">
+                  {app.comingSoon}
+                </span>
+              </div>
             </div>
           ))}
         </div>
 
-        {/* Upgrade CTA */}
-        {canUpgradePlan() && (
-          <div className="mt-12 text-center">
-            <div className="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-8 text-white shadow-xl">
-              <h3 className="text-2xl font-bold mb-4">
-                ¿Necesitas más aplicaciones?
-              </h3>
-              <p className="text-indigo-100 mb-6 max-w-2xl mx-auto">
-                Actualiza tu plan para acceder a todas las aplicaciones y funcionalidades premium
-              </p>
+        {/* Info CTA */}
+        <div className="mt-12 text-center">
+          <div className="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-8 text-white shadow-xl">
+            <h3 className="text-2xl font-bold mb-4">
+              ¿Quieres estar al día?
+            </h3>
+            <p className="text-indigo-100 mb-6 max-w-2xl mx-auto">
+              Suscríbete para recibir notificaciones cuando las apps móviles estén disponibles
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button
-                onClick={() => window.location.href = '/pricing'}
+                onClick={() => navigate('/contact')}
                 className="bg-white text-indigo-600 px-8 py-3 rounded-xl font-semibold hover:bg-gray-100 transition-all duration-200 shadow-lg hover:shadow-xl"
+              >
+                Contactar
+              </button>
+              <button
+                onClick={() => navigate('/pricing')}
+                className="border-2 border-white text-white px-8 py-3 rounded-xl font-semibold hover:bg-white hover:text-indigo-600 transition-all duration-200"
               >
                 Ver Planes
               </button>
             </div>
           </div>
-        )}
+        </div>
       </div>
     </div>
   );

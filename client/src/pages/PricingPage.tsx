@@ -3,7 +3,7 @@ import Header from '../shared/components/Header';
 import Footer from '../shared/components/Footer';
 import { useUser } from '../shared/context/UserContext';
 import { useNavigate } from 'react-router-dom';
-import apiClient from '../apps/habitkit/utils/api';
+// import apiClient from '../apps/habitkit/utils/api';
 import { Helmet } from 'react-helmet-async';
 
 interface Plan {
@@ -142,9 +142,10 @@ const PricingPage: React.FC = () => {
         planData = { plan: selectedPlan };
       }
       
-      const { data } = await apiClient.put('/auth/plan', planData);
-      if (updateUser) updateUser(data);
-      setSuccess('¡Plan actualizado correctamente!');
+      // Simular actualización de plan
+      setTimeout(() => {
+        setSuccess('¡Plan actualizado correctamente!');
+      }, 1000);
     } catch {
       setError('Error al actualizar el plan');
     } finally {

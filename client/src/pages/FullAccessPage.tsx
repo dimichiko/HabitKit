@@ -6,10 +6,10 @@ import { useUser } from '../shared/context/UserContext';
 import { Helmet } from 'react-helmet-async';
 
 const APPS = [
-  { id: 'habitkit', name: 'HabitKit', icon: <span className="text-green-500 text-4xl">✅</span>, desc: 'Hábitos diarios', path: '/apps/habitkit' },
-  { id: 'invoicekit', name: 'InvoiceKit', icon: <span className="text-yellow-500 text-4xl">📄</span>, desc: 'Facturación simple', path: '/apps/invoicekit' },
-  { id: 'trainingkit', name: 'TrainingKit', icon: <span className="text-indigo-500 text-4xl">🏋️</span>, desc: 'Entrenamiento', path: '/apps/trainingkit' },
-  { id: 'caloriekit', name: 'CalorieKit', icon: <span className="text-red-500 text-4xl">🍎</span>, desc: 'Nutrición', path: '/apps/caloriekit' },
+  { id: 'habitkit', name: 'HabitKit', icon: <span className="text-green-500 text-4xl">✅</span>, desc: 'Hábitos diarios', comingSoon: 'Próximamente en móvil' },
+  { id: 'invoicekit', name: 'InvoiceKit', icon: <span className="text-yellow-500 text-4xl">📄</span>, desc: 'Facturación simple', comingSoon: 'Próximamente en móvil' },
+  { id: 'trainingkit', name: 'TrainingKit', icon: <span className="text-indigo-500 text-4xl">🏋️</span>, desc: 'Entrenamiento', comingSoon: 'Próximamente en móvil' },
+  { id: 'caloriekit', name: 'CalorieKit', icon: <span className="text-red-500 text-4xl">🍎</span>, desc: 'Nutrición', comingSoon: 'Próximamente en móvil' },
 ];
 
 const FullAccessPage = () => {
@@ -85,12 +85,9 @@ const FullAccessPage = () => {
                   </div>
                   <h3 className="font-semibold text-gray-800 mb-2">{app.name}</h3>
                   <p className="text-sm text-gray-600 mb-3">{app.desc}</p>
-                  <button
-                    onClick={() => navigate(app.path)}
-                    className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-4 py-2 rounded-lg hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 text-sm font-medium"
-                  >
-                    Abrir App
-                  </button>
+                  <span className="text-xs text-indigo-600 bg-indigo-50 px-3 py-2 rounded-lg font-medium">
+                    {app.comingSoon}
+                  </span>
                 </div>
               ))}
             </div>
