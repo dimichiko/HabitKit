@@ -3,14 +3,7 @@ import Header from '../shared/components/Header';
 import Footer from '../shared/components/Footer';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { useUser } from '../shared/context/UserContext';
-// import { FaRocket, FaLock, FaBolt, FaCrown, FaArrowRight } from 'react-icons/fa';
 import { Helmet } from 'react-helmet-async';
-// import demoGif from '../assets/demo-kit.gif';
-// const demoGif = '/20250623_1149_Favicon Red Kit_simple_compose_01jyeqm8vye66tz4td0a2bc23x.png';
-// const [isScrolled, setIsScrolled] = useState(false);
-// const apps = [...];
-// const testimonials = [...];
 
 // Lazy load de secciones pesadas
 const Testimonios = lazy(() => import('../components/HomeTestimonios'));
@@ -19,24 +12,11 @@ const AppsSection = lazy(() => import('../components/HomeAppsSection'));
 
 const HomePage = () => {
   const navigate = useNavigate();
-  const { user } = useUser();
-
-  const isLogged = !!user;
-
-  // Detectar scroll para sticky header
-  useEffect(() => {
-    const handleScroll = () => {
-      // setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const publicNav = [
     { id: 'home', label: '🏠 Inicio', path: '/' },
     { id: 'pricing', label: '💰 Precios', path: '/pricing' },
     { id: 'about', label: 'Nosotros', path: '/about' },
-    { id: 'account', label: isLogged ? '👤 Cuenta' : '👤 Login', path: isLogged ? '/account' : '/login' },
   ];
 
   // Beneficios visuales
@@ -57,43 +37,9 @@ const HomePage = () => {
         appLogo="🌐"
         navigationItems={publicNav}
         currentPage="home"
-        centerNav={true}
-        onNavigate={id => {
-          const nav = publicNav.find(n => n.id === id);
-          if (nav) {
-            navigate(nav.path);
-          }
-        }}
       />
       
-      {/* Banner para usuarios Free */}
-      {isLogged && user.plan === 'free' && (
-        <div className="fixed top-16 left-0 right-0 z-40 bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-4 py-3 shadow-lg">
-          <div className="max-w-5xl mx-auto flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <span className="text-yellow-300">👑</span>
-              <span className="text-sm font-medium">Estás en el plan gratuito</span>
-            </div>
-            <button 
-              onClick={() => navigate('/pricing')}
-              className="text-sm bg-white text-purple-600 px-4 py-1 rounded-full font-medium hover:bg-gray-100 transition-colors flex items-center gap-2"
-            >
-              Descubre Lifehub Full
-              <span className="ml-2">➡️</span>
-            </button>
-          </div>
-        </div>
-      )}
-      {/* Banner para usuarios Full */}
-      {isLogged && user.plan === 'premium' && (
-        <div className="fixed top-16 left-0 right-0 z-40 bg-gradient-to-r from-yellow-400 via-pink-400 to-indigo-500 text-white px-4 py-3 shadow-lg">
-          <div className="max-w-5xl mx-auto flex items-center justify-center gap-3">
-            <span className="text-yellow-200 text-xl">👑</span>
-            <span className="text-base font-semibold">¡Bienvenido a Lifehub Full! Disfruta todas las apps sin límites 🚀</span>
-          </div>
-        </div>
-      )}
-      <main className={`pt-24 max-w-5xl mx-auto px-4 flex flex-col items-center ${isLogged && (user.plan === 'free' || user.plan === 'premium') ? 'mt-16' : ''}`}>
+      <main className="pt-24 max-w-5xl mx-auto px-4 flex flex-col items-center">
         {/* HERO VISUAL */}
         <section className="w-full flex-1 flex flex-col items-center justify-center text-center mb-12">
           <div className="flex items-center justify-center mb-8">
@@ -122,40 +68,21 @@ const HomePage = () => {
             transition={{ delay: 0.6, duration: 0.5 }}
             className="flex flex-col sm:flex-row gap-4 justify-center mb-8"
           >
-            {isLogged ? (
-              <>
-                <button
-                  onClick={() => navigate('/account')}
-                  className="bg-gradient-to-r from-indigo-500 to-pink-500 text-white px-8 py-4 rounded-xl text-lg font-bold shadow-xl hover:scale-105 hover:shadow-2xl transition-all duration-200"
-                >
-                  Ir a mi cuenta
-                </button>
-                <button
-                  onClick={() => document.getElementById('apps-section')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="bg-white border-2 border-indigo-400 text-indigo-700 px-8 py-4 rounded-xl text-lg font-bold shadow hover:bg-indigo-50 hover:scale-105 transition-all duration-200"
-                >
-                  Ver apps disponibles
-                </button>
-              </>
-            ) : (
-              <>
-                <button
-                  onClick={() => navigate('/register')}
-                  className="bg-gradient-to-r from-indigo-500 to-pink-500 text-white px-8 py-4 rounded-xl text-lg font-bold shadow-xl hover:scale-105 hover:shadow-2xl transition-all duration-200"
-                >
-                  Empieza gratis
-                </button>
-                <button
-                  onClick={() => document.getElementById('apps-section')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="bg-white border-2 border-indigo-400 text-indigo-700 px-8 py-4 rounded-xl text-lg font-bold shadow hover:bg-indigo-50 hover:scale-105 transition-all duration-200"
-                >
-                  Descubre las apps
-                </button>
-              </>
-            )}
+            <button
+              onClick={() => navigate('/pricing')}
+              className="bg-gradient-to-r from-indigo-500 to-pink-500 text-white px-8 py-4 rounded-xl text-lg font-bold shadow-xl hover:scale-105 hover:shadow-2xl transition-all duration-200"
+            >
+              Empieza gratis
+            </button>
+            <button
+              onClick={() => document.getElementById('apps-section')?.scrollIntoView({ behavior: 'smooth' })}
+              className="bg-white border-2 border-indigo-400 text-indigo-700 px-8 py-4 rounded-xl text-lg font-bold shadow hover:bg-indigo-50 hover:scale-105 transition-all duration-200"
+            >
+              Descubre las apps
+            </button>
           </motion.div>
-          {/* Imagen/ilustración hero eliminada */}
         </section>
+        
         {/* BENEFICIOS VISUALES */}
         <section className="w-full max-w-3xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-6 mb-14">
           {whyKit.map(b => (
@@ -173,21 +100,23 @@ const HomePage = () => {
             </motion.div>
           ))}
         </section>
+        
         {/* Sección de apps (lazy) */}
         <Suspense fallback={null}>
           <div id="apps-section">
             <AppsSection />
           </div>
         </Suspense>
+        
         {/* Comparativa Free vs Full (lazy) */}
         <Suspense fallback={null}>
           <Comparativa />
         </Suspense>
+        
         {/* Testimonios (lazy) */}
         <Suspense fallback={null}>
           <Testimonios />
         </Suspense>
-        {/* ...resto de la landing... */}
       </main>
       <Footer />
     </div>

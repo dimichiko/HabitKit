@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import Header from '../shared/components/Header';
 import Footer from '../shared/components/Footer';
-import { useUser } from '../shared/context/UserContext';
-// import { FaTwitter, FaInstagram, FaDiscord, FaEnvelope } from 'react-icons/fa'; // Comentado temporalmente
 import { Helmet } from 'react-helmet-async';
 
 interface ContactForm {
@@ -13,58 +11,58 @@ interface ContactForm {
 }
 
 const ContactPage: React.FC = () => {
-  const { user } = useUser();
   const [formData, setFormData] = useState<ContactForm>({
-    name: user?.name || '',
-    email: user?.email || '',
+    name: '',
+    email: '',
     subject: '',
-    message: '',
+    message: ''
   });
-  const [loading, setLoading] = useState<boolean>(false);
-  const [success, setSuccess] = useState<boolean>(false);
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const publicNav = [
     { id: 'home', label: '🏠 Inicio', path: '/' },
     { id: 'pricing', label: '💰 Precios', path: '/pricing' },
     { id: 'about', label: 'Nosotros', path: '/about' },
-    { id: 'account', label: user ? '👤 Cuenta' : '👤 Login', path: user ? '/account' : '/login' },
+  ];
+
+  const sugerencias = [
+    "Una app para gestionar proyectos personales",
+    "Herramienta para tracking de gastos",
+    "App para meditación y mindfulness",
+    "Organizador de eventos y recordatorios",
+    "Gestor de recetas y planificación de comidas",
+    "App para tracking de lectura y libros"
   ];
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>): void => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
     setLoading(true);
     
-    try {
-      // Simular envío de formulario
-      await new Promise(resolve => setTimeout(resolve, 2000));
+    // Simular envío
+    setTimeout(() => {
       setSuccess(true);
-      setFormData({ name: '', email: '', subject: '', message: '' });
-    } catch (error) {
-      console.error('Error enviando formulario:', error);
-    } finally {
       setLoading(false);
-    }
+      setFormData({ name: '', email: '', subject: '', message: '' });
+    }, 1000);
   };
-
-  const sugerencias = [
-    '"Me encantaría una app para organizar recetas."',
-    '"¿Podrían hacer una microapp para gastos compartidos?"',
-    '"La comunidad de Discord es genial para sugerir ideas."',
-  ];
 
   if (success) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-white to-pink-100 flex items-center justify-center py-12">
-        <div className="max-w-md mx-auto px-4">
-          <div className="bg-white rounded-2xl shadow-lg p-8 text-center border border-indigo-100">
+      <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-white to-pink-100 flex flex-col">
+        <Header
+          appName="Lifehub"
+          appLogo="🌐"
+          navigationItems={publicNav}
+          currentPage="contact"
+        />
+        <div className="flex-1 flex items-center justify-center">
+          <div className="bg-white rounded-2xl shadow-lg p-8 max-w-md mx-auto text-center">
             <div className="text-6xl mb-4">✅</div>
             <h2 className="text-2xl font-bold text-gray-800 mb-4">¡Mensaje Enviado!</h2>
             <p className="text-gray-600 mb-6">
@@ -93,13 +91,6 @@ const ContactPage: React.FC = () => {
         appLogo="🌐"
         navigationItems={publicNav}
         currentPage="contact"
-        centerNav={true}
-        onNavigate={id => {
-          const nav = publicNav.find(n => n.id === id);
-          if (nav) {
-            window.location.href = nav.path;
-          }
-        }}
       />
       <main className="pt-28 max-w-5xl mx-auto px-4 flex flex-col items-center">
         {/* HERO SECTION */}

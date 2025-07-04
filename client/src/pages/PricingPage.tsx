@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Header from '../shared/components/Header';
 import Footer from '../shared/components/Footer';
-import { useUser } from '../shared/context/UserContext';
 import { useNavigate } from 'react-router-dom';
-// import apiClient from '../apps/habitkit/utils/api';
 import { Helmet } from 'react-helmet-async';
 
 interface Plan {
@@ -40,9 +38,7 @@ const PERSONALIZED_PRICING = {
 };
 
 const PricingPage: React.FC = () => {
-  const { user, updateUser } = useUser();
   const navigate = useNavigate();
-  const [profile, setProfile] = useState({ name: '', email: '', photo: '' });
   const [selectedPlan, setSelectedPlan] = useState<string>('free');
   const [selectedApps, setSelectedApps] = useState<string[]>(['habitkit']);
   const [billing, setBilling] = useState<'monthly' | 'annual'>('monthly');
@@ -98,12 +94,6 @@ const PricingPage: React.FC = () => {
     }
   ];
 
-  useEffect(() => {
-    if (user) {
-      setProfile({ name: user.name, email: user.email, photo: user.avatar || '' });
-    }
-  }, [user]);
-
   const handleToggleApp = (appId: string) => {
     if (selectedApps.includes(appId)) {
       if (selectedApps.length > 1) {
@@ -121,13 +111,6 @@ const PricingPage: React.FC = () => {
     const plan = pricing.find(p => p.apps === selectedApps.length) || pricing[0];
     return plan.price;
   };
-
-  // const handlePlanSelect = (planId: string): void => {
-  //   setSelectedPlan(planId);
-  //   if (planId === 'free') {
-  //     setSelectedApps(['habitkit']);
-  //   }
-  // };
 
   const handlePlanChange = async () => {
     setLoading(true);
@@ -157,7 +140,6 @@ const PricingPage: React.FC = () => {
     { id: 'home', label: '🏠 Inicio', path: '/' },
     { id: 'pricing', label: '💰 Precios', path: '/pricing' },
     { id: 'about', label: 'Nosotros', path: '/about' },
-    { id: 'account', label: user ? '👤 Cuenta' : '👤 Login', path: user ? '/account' : '/login' },
   ];
 
   const getPlanPrice = (plan: Plan) => {
@@ -178,13 +160,6 @@ const PricingPage: React.FC = () => {
         appLogo="🌐"
         navigationItems={publicNav}
         currentPage="pricing"
-        centerNav={true}
-        onNavigate={id => {
-          const nav = publicNav.find(n => n.id === id);
-          if (nav) {
-            window.location.href = nav.path;
-          }
-        }}
       />
       <main className="pt-28 max-w-6xl mx-auto px-4">
         <h1 className="text-4xl font-extrabold text-gray-800 mb-4 text-center">Precios</h1>
@@ -192,38 +167,33 @@ const PricingPage: React.FC = () => {
           Elige el plan que mejor se adapte a ti
         </p>
         
-        {user && (
-          <div className="bg-white rounded-2xl shadow p-4 mb-8 flex items-center gap-4 max-w-md mx-auto">
-            <img
-              src={profile.photo || `https://ui-avatars.com/api/?name=${profile.name || 'U'}&background=indigo&color=fff`}
-              alt="Avatar"
-              className="w-12 h-12 rounded-full shadow"
-            />
-            <div>
-              <div className="font-bold text-gray-800">{profile.name || 'Sin nombre'}</div>
-              <div className="text-gray-500 text-sm">{profile.email || 'Sin email'}</div>
-            </div>
+        {/* Toggle de facturación */}
+        <div className="flex justify-center mb-8">
+          <div className="bg-white rounded-lg p-1 shadow-md">
+            <button
+              onClick={() => setBilling('monthly')}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                billing === 'monthly' 
+                  ? 'bg-indigo-600 text-white' 
+                  : 'text-gray-600 hover:text-gray-800'
+              }`}
+            >
+              Mensual
+            </button>
+            <button
+              onClick={() => setBilling('annual')}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                billing === 'annual' 
+                  ? 'bg-indigo-600 text-white' 
+                  : 'text-gray-600 hover:text-gray-800'
+              }`}
+            >
+              Anual
+              <span className="ml-1 text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">
+                -20%
+              </span>
+            </button>
           </div>
-        )}
-
-        {/* Toggle Mensual/Anual */}
-        <div className="flex justify-center items-center gap-4 mb-12">
-          <span className={`font-bold ${billing === 'monthly' ? 'text-gray-800' : 'text-gray-400'}`}>
-            Mensual
-          </span>
-          <label className="relative inline-flex items-center cursor-pointer">
-            <input 
-              type="checkbox" 
-              checked={billing === 'annual'} 
-              onChange={() => setBilling(billing === 'monthly' ? 'annual' : 'monthly')} 
-              className="sr-only peer" 
-            />
-            <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:bg-indigo-600 transition-all"></div>
-            <div className={`absolute left-1 top-1 bg-white w-4 h-4 rounded-full shadow transition-all ${billing === 'annual' ? 'translate-x-5' : 'translate-x-0'}`}></div>
-          </label>
-          <span className={`font-bold ${billing === 'annual' ? 'text-gray-800' : 'text-gray-400'}`}>
-            Anual <span className="text-xs text-green-600">(ahorra 2 meses)</span>
-          </span>
         </div>
 
         {/* Planes */}
@@ -231,13 +201,13 @@ const PricingPage: React.FC = () => {
           {plans.map((plan) => (
             <div
               key={plan.id}
-              className={`bg-white rounded-2xl shadow-lg p-8 border-2 transition-all duration-200 hover:shadow-xl ${
-                selectedPlan === plan.id ? 'border-indigo-500 shadow-indigo-100' : 'border-gray-100'
-              } ${plan.popular ? 'ring-2 ring-indigo-200' : ''}`}
+              className={`bg-white rounded-2xl shadow-lg p-8 relative ${
+                plan.popular ? 'ring-2 ring-indigo-500' : ''
+              }`}
             >
               {plan.popular && (
-                <div className="text-center mb-4">
-                  <span className="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm font-medium">
+                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                  <span className="bg-indigo-600 text-white px-4 py-1 rounded-full text-sm font-medium">
                     Más Popular
                   </span>
                 </div>
@@ -245,100 +215,55 @@ const PricingPage: React.FC = () => {
               
               <div className="text-center mb-6">
                 <h3 className="text-2xl font-bold text-gray-800 mb-2">{plan.name}</h3>
-                <p className="text-gray-600 text-sm mb-4">{plan.description}</p>
-                
-                <div className="text-4xl font-bold text-gray-800 mb-1">
-                  ${getPlanPrice(plan)}
-                  <span className="text-base font-normal text-gray-500">/{billing === 'monthly' ? 'mes' : 'año'}</span>
+                <p className="text-gray-600 mb-4">{plan.description}</p>
+                <div className="mb-4">
+                  <span className="text-4xl font-bold text-indigo-600">
+                    ${getPlanPrice(plan)}
+                  </span>
+                  <span className="text-gray-500">/{billing === 'monthly' ? 'mes' : 'año'}</span>
                 </div>
-                
-                                 {billing === 'annual' && plan.id !== 'free' && (
-                   <p className="text-sm text-green-600 font-medium">
-                     Ahorras ${plan.price * 12 - plan.annualPrice}
-                   </p>
-                 )}
               </div>
-
-              {/* Selector de apps para plan personalizado */}
-              {plan.id === 'personalized' && (
-                <div className="mb-6">
-                  <h4 className="font-semibold text-gray-800 mb-3">Selecciona tus apps:</h4>
-                  <div className="grid grid-cols-2 gap-2">
-                    {APPS.map(app => (
-                      <button
-                        key={app.id}
-                        onClick={() => handleToggleApp(app.id)}
-                        className={`p-3 rounded-lg border-2 transition-all ${
-                          selectedApps.includes(app.id)
-                            ? 'border-indigo-500 bg-indigo-50'
-                            : 'border-gray-200 bg-gray-50'
-                        }`}
-                      >
-                        <div className="flex items-center gap-2">
-                          <span className="text-lg">{app.icon}</span>
-                          <span className="text-sm font-medium text-gray-700">{app.name}</span>
-                        </div>
-                      </button>
-                    ))}
-                  </div>
-                  <p className="text-xs text-gray-500 mt-2">
-                    {selectedApps.length} de 4 apps seleccionadas
-                  </p>
-                </div>
-              )}
 
               <ul className="space-y-3 mb-8">
                 {plan.features.map((feature, index) => (
-                  <li key={index} className="flex items-start">
-                    <span className="text-green-500 mr-3 mt-0.5">✓</span>
-                    <span className="text-gray-700 text-sm">{feature}</span>
+                  <li key={index} className="flex items-center text-gray-700">
+                    <span className="text-green-500 mr-3">✓</span>
+                    {feature}
                   </li>
                 ))}
               </ul>
 
               <button
-                onClick={() => {
-                  if (plan.id === 'free') {
-                    navigate('/checkout?plan=free');
-                  } else if (plan.id === 'personalized') {
-                    const appsParam = selectedApps.join(',');
-                    navigate(`/checkout?plan=custom&apps=${appsParam}`);
-                  } else if (plan.id === 'full') {
-                    navigate('/checkout?plan=full');
-                  }
-                }}
-                className={`w-full py-3 px-6 rounded-xl font-semibold transition-all ${
-                  selectedPlan === plan.id
-                    ? 'bg-indigo-600 text-white'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                onClick={() => navigate('/pricing')}
+                className={`w-full py-3 px-6 rounded-lg font-medium transition-colors ${
+                  plan.popular
+                    ? 'bg-indigo-600 text-white hover:bg-indigo-700'
+                    : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
                 }`}
               >
-                {selectedPlan === plan.id ? 'Seleccionado' : 'Seleccionar'}
+                {plan.id === 'free' ? 'Comenzar gratis' : 'Elegir plan'}
               </button>
             </div>
           ))}
         </div>
 
-        {/* Botón de actualizar plan */}
-        {user && (
-          <div className="text-center mb-8">
-            <button
-              onClick={handlePlanChange}
-              disabled={loading}
-              className="bg-indigo-600 text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-indigo-700 transition-colors disabled:opacity-50"
-            >
-              {loading ? 'Actualizando...' : 'Actualizar Plan'}
-            </button>
-            {success && <p className="text-green-600 mt-2">{success}</p>}
-            {error && <p className="text-red-600 mt-2">{error}</p>}
+        {/* Apps disponibles */}
+        <div className="bg-white rounded-2xl shadow-lg p-8 mb-12">
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
+            Apps disponibles
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {APPS.map((app) => (
+              <div
+                key={app.id}
+                className="text-center p-4 rounded-lg border border-gray-200"
+              >
+                <span className="text-3xl mb-3 block">{app.icon}</span>
+                <h3 className="font-semibold text-gray-800 mb-1">{app.name}</h3>
+                <p className="text-sm text-gray-600">{app.desc}</p>
+              </div>
+            ))}
           </div>
-        )}
-
-        {/* Texto inferior */}
-        <div className="text-center text-gray-600 max-w-2xl mx-auto">
-          <p className="text-lg font-medium">
-            Prueba gratis una app. En pocos días, vas a querer desbloquearlas todas.
-          </p>
         </div>
       </main>
       <Footer />

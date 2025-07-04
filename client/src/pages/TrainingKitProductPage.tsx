@@ -1,51 +1,108 @@
 import React from 'react';
 import Header from '../shared/components/Header';
+import Footer from '../shared/components/Footer';
+import { Helmet } from 'react-helmet-async';
 
-const publicNav = [
-  { id: 'home', label: 'Inicio', path: '/' },
-  { id: 'trainingkit', label: 'TrainingKit', path: '/trainingkit' },
-  { id: 'pricing', label: 'Precios', path: '/pricing' },
-  { id: 'about', label: 'Sobre', path: '/about' },
-  { id: 'contact', label: 'Contacto', path: '/contact' },
-];
+const TrainingKitProductPage: React.FC = () => {
+  const publicNav = [
+    { id: 'home', label: '🏠 Inicio', path: '/' },
+    { id: 'pricing', label: '💰 Precios', path: '/pricing' },
+    { id: 'about', label: 'Nosotros', path: '/about' },
+  ];
 
-const TrainingKitProductPage = () => (
-  <div className="min-h-screen bg-gradient-to-br from-white to-indigo-50 flex flex-col items-center px-4 py-12">
-    <Header
-      appName="Kit"
-      appLogo="🟣"
-      navigationItems={publicNav}
-      currentPage="trainingkit"
-      onNavigate={id => {
-        const nav = publicNav.find(n => n.id === id);
-        if (nav) window.location.href = nav.path;
-      }}
-    />
-    <div className="max-w-2xl w-full text-center mt-12">
-      <h1 className="text-3xl md:text-4xl font-extrabold text-indigo-700 mb-2">TrainingKit</h1>
-      <p className="text-lg text-gray-600 mb-4">Registra, visualiza y mejora tus entrenamientos día a día.</p>
-      <img src="/img/trainingkit-demo.png" alt="Demo TrainingKit" className="mx-auto rounded-xl shadow mb-6 max-w-full" />
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
-        <div className="bg-white rounded-xl shadow-md p-6">
-          <h2 className="text-xl font-bold text-indigo-600 mb-2">Beneficios</h2>
-          <ul className="text-gray-600 list-disc list-inside text-left">
-            <li>Historial y calendario de entrenamientos</li>
-            <li>Mapa de ubicaciones y progreso</li>
-            <li>Rachas, estadísticas y motivación</li>
-            <li>Social: entrena solo o con amigos</li>
-          </ul>
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-white to-pink-100 flex flex-col">
+      <Helmet>
+        <title>TrainingKit - Lifehub</title>
+        <meta name="description" content="Descubre TrainingKit, la app para gestionar tus entrenamientos y alcanzar tus metas fitness." />
+      </Helmet>
+      <Header
+        appName="Lifehub"
+        appLogo="🌐"
+        navigationItems={publicNav}
+        currentPage="training-kit"
+      />
+      <main className="pt-28 max-w-4xl mx-auto px-4 flex-1">
+        <div className="text-center mb-12">
+          <div className="text-6xl mb-6">🏋️</div>
+          <h1 className="text-4xl font-bold text-gray-800 mb-4">TrainingKit</h1>
+          <p className="text-xl text-gray-600">
+            Gestiona tus entrenamientos, rastrea tu progreso y alcanza tus metas fitness
+          </p>
         </div>
-        <div className="bg-white rounded-xl shadow-md p-6">
-          <h2 className="text-xl font-bold text-indigo-600 mb-2">Free vs Kit+</h2>
-          <ul className="text-gray-600 text-left">
-            <li>✅ Free: Registro básico, historial, calendario</li>
-            <li>⭐ Kit+: Estadísticas avanzadas, mapas, retos, exportar datos, soporte prioritario</li>
-          </ul>
+
+        <div className="grid md:grid-cols-2 gap-8 mb-12">
+          <div className="bg-white rounded-2xl shadow-lg p-8">
+            <h2 className="text-2xl font-bold text-gray-800 mb-4">Características principales</h2>
+            <ul className="space-y-3 text-gray-600">
+              <li className="flex items-center gap-2">
+                <span className="text-green-500">✓</span>
+                Planificación de entrenamientos
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-green-500">✓</span>
+                Seguimiento de progreso
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-green-500">✓</span>
+                Estadísticas detalladas
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-green-500">✓</span>
+                Recordatorios personalizados
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-green-500">✓</span>
+                Ejercicios predefinidos
+              </li>
+            </ul>
+          </div>
+
+          <div className="bg-white rounded-2xl shadow-lg p-8">
+            <h2 className="text-2xl font-bold text-gray-800 mb-4">Próximamente</h2>
+            <p className="text-gray-600 mb-4">
+              TrainingKit estará disponible pronto como parte del ecosistema Lifehub. 
+              Mientras tanto, puedes explorar nuestras otras aplicaciones.
+            </p>
+            <a
+              href="/pricing"
+              className="inline-block bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition-colors"
+            >
+              Ver planes disponibles
+            </a>
+          </div>
         </div>
-      </div>
-      <button className="bg-indigo-600 text-white px-6 py-3 rounded-lg text-lg font-semibold shadow hover:bg-indigo-700 transition">Usar TrainingKit</button>
+
+        <div className="bg-white rounded-2xl shadow-lg p-8 mb-8">
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">¿Por qué TrainingKit?</h2>
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="text-center">
+              <div className="text-4xl mb-3">📊</div>
+              <h3 className="font-bold text-gray-800 mb-2">Progreso visual</h3>
+              <p className="text-gray-600 text-sm">
+                Ve tu evolución con gráficos y estadísticas detalladas
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl mb-3">🎯</div>
+              <h3 className="font-bold text-gray-800 mb-2">Metas claras</h3>
+              <p className="text-gray-600 text-sm">
+                Define objetivos específicos y rastrea tu camino hacia ellos
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl mb-3">⏰</div>
+              <h3 className="font-bold text-gray-800 mb-2">Recordatorios</h3>
+              <p className="text-gray-600 text-sm">
+                Nunca más te olvides de entrenar con notificaciones inteligentes
+              </p>
+            </div>
+          </div>
+        </div>
+      </main>
+      <Footer />
     </div>
-  </div>
-);
+  );
+};
 
 export default TrainingKitProductPage; 

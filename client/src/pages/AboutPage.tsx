@@ -2,18 +2,17 @@ import React from 'react';
 import Header from '../shared/components/Header';
 import Footer from '../shared/components/Footer';
 // import { useNavigate } from 'react-router-dom'; // Comentado temporalmente
-import { useUser } from '../shared/context/UserContext';
+
 import { Helmet } from 'react-helmet-async';
 
 const AboutPage: React.FC = () => {
   // const navigate = useNavigate(); // Comentado temporalmente
-  const { user } = useUser();
   
   const publicNav = [
     { id: 'home', label: '🏠 Inicio', path: '/' },
     { id: 'pricing', label: '💰 Precios', path: '/pricing' },
     { id: 'about', label: 'Nosotros', path: '/about' },
-    { id: 'account', label: user ? '👤 Cuenta' : '👤 Login', path: user ? '/account' : '/login' },
+
   ];
 
   const apps = [
@@ -60,13 +59,6 @@ const AboutPage: React.FC = () => {
         appLogo="🌐"
         navigationItems={publicNav}
         currentPage="about"
-        centerNav={true}
-        onNavigate={id => {
-          const nav = publicNav.find(n => n.id === id);
-          if (nav) {
-            window.location.href = nav.path;
-          }
-        }}
       />
       <main className="pt-28 max-w-5xl mx-auto px-4 flex flex-col items-center">
         {/* HERO SECTION */}

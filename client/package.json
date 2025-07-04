@@ -6,6 +6,8 @@
   "proxy": "http://localhost:3001",
   "dependencies": {
     "@heroicons/react": "^2.1.1",
+    "ajv": "^6.12.6",
+    "ajv-keywords": "^3.5.2",
     "axios": "^1.6.7",
     "chart.js": "^4.5.0",
     "classnames": "^2.5.1",
