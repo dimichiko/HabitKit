@@ -4,7 +4,7 @@ import Footer from '../shared/components/Footer';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../shared/context/UserContext';
-import { FaRocket, FaLock, FaBolt, FaCrown, FaArrowRight } from 'react-icons/fa';
+// import { FaRocket, FaLock, FaBolt, FaCrown, FaArrowRight } from 'react-icons/fa';
 import { Helmet } from 'react-helmet-async';
 // import demoGif from '../assets/demo-kit.gif';
 // const demoGif = '/20250623_1149_Favicon Red Kit_simple_compose_01jyeqm8vye66tz4td0a2bc23x.png';
